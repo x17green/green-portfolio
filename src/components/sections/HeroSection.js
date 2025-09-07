@@ -19,19 +19,13 @@ import {
   Rocket,
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
+import personalData from "../../data/personal";
 
 const HeroSection = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const skills = [
-    "Prompt Engineering",
-    "Machine Learning",
-    "Large Language Models",
-    "AI Development",
-    "Deep Learning",
-    "Neural Networks",
-  ];
+  const skills = personalData.expertise;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -140,7 +134,7 @@ const HeroSection = () => {
 
       <Container maxWidth="lg">
         <Grid container spacing={4} alignItems="center">
-          <Grid size={{ xs:12, md:8 }}>
+          <Grid size={{ xs: 12, md: 8 }}>
             <motion.div
               variants={containerVariants}
               initial="hidden"
@@ -161,7 +155,7 @@ const HeroSection = () => {
                       fontSize: "0.9rem",
                     }}
                   >
-                    AI Engineer & Prompt Specialist
+                    {personalData.title}
                   </Typography>
                 </Box>
               </motion.div>
@@ -199,10 +193,7 @@ const HeroSection = () => {
                     fontSize: "1.125rem",
                   }}
                 >
-                  Experienced AI Engineer specializing in prompt engineering,
-                  large language models, and cutting-edge machine learning
-                  solutions. Passionate about transforming complex problems into
-                  intelligent, scalable AI systems.
+                  {personalData.bio.medium}
                 </Typography>
               </motion.div>
 
@@ -257,6 +248,7 @@ const HeroSection = () => {
                   <Button
                     variant="contained"
                     size="large"
+                    href="#contact"
                     startIcon={<Email />}
                     sx={{
                       px: 4,
@@ -272,6 +264,10 @@ const HeroSection = () => {
                   <Button
                     variant="outlined"
                     size="large"
+                    href={personalData.resume.downloadUrl}
+                    download={personalData.resume.filename}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     startIcon={<Download />}
                     sx={{
                       px: 4,
@@ -288,7 +284,7 @@ const HeroSection = () => {
             </motion.div>
           </Grid>
 
-          <Grid item xs={12} md={5}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -326,7 +322,7 @@ const HeroSection = () => {
                     }}
                   >
                     <Avatar
-                      src="/images/profile.png"
+                      src={personalData.heroImage}
                       alt="AI Engineer"
                       sx={{
                         width: { xs: 250, md: 300 },
@@ -349,8 +345,8 @@ const HeroSection = () => {
                 <motion.div
                   style={{
                     position: "absolute",
-                    top: "10%",
-                    right: "20%",
+                    top: "5%",
+                    right: "5%",
                   }}
                   animate={{
                     y: [0, -15, 0],
@@ -385,8 +381,8 @@ const HeroSection = () => {
                 <motion.div
                   style={{
                     position: "absolute",
-                    bottom: "15%",
-                    left: "10%",
+                    bottom: "10%",
+                    left: "5%",
                   }}
                   animate={{
                     y: [0, -10, 0],

@@ -33,8 +33,8 @@ export const personalData = {
   // Professional Summary
   bio: {
     short: "Software Engineer specializing in AI Prompt Engineering and machine learning",
-    medium: "Precious E. Okoyen is a passionate Software Engineer with over 3+ years of experience in AI and prompt engineer,  machine learning, and full-stack software development. He leads innovative AI initiatives that bridge cutting-edge research with practical business applications.",
-    long: "Precious E. Okoyen is a highly skilled AI Engineer and Software Developer with over 4 years of experience transforming complex data into intelligent solutions. Currently serving as Senior AI Engineer & Prompt Engineering Lead at AstroMANIA Enterprise, he specializes in developing next-generation AI systems, optimizing large language models, and architecting scalable machine learning infrastructures. His expertise spans from foundational software engineering to cutting-edge AI research, with a proven track record of leading teams, publishing research, and delivering AI solutions that serve millions of users. Precious is passionate about advancing AI technology while ensuring ethical and practical implementations that benefit businesses and society."
+    medium: "Precious is a passionate Software Engineer with 3+ years of experience in AI and Prompt Engineer,  machine learning, and full-stack software development. He leads innovative AI initiatives that bridge cutting-edge research with practical business applications.",
+    long: "Precious E. Okoyen is a highly skilled AI Engineer and Software Developer with over 4 years of experience transforming complex data into intelligent solutions. Currently serving as Senior AI Engineer & Prompt Engineering Lead at AstroMANIA Enterprise, he specializes in developing next-generation AI systems, optimizing large language models, and architecting scalable infrastructures. My expertise spans from foundational Software Engineering to cutting-edge AI research, with a proven track record of leading development teams, publishing articles, and delivering AI solutions to serve millions of users. I am is passionate about advancing AI technology while ensuring ethical and practical implementations that benefit businesses and society."
   },
 
   // Professional Taglines
@@ -51,13 +51,13 @@ export const personalData = {
   expertise: [
     "Software Engineering",
     "Prompt Engineering",
-    "Machine Learning",
-    "Large Language Models",
-    "AI System Architecture",
-    "Deep Learning",
+    // "Machine Learning",
+    "Large Language Models (LLM)",
+    // "AI System Architecture",
+    // "Deep Learning",
     "Natural Language Processing",
     "Full-Stack Development",
-    "MLOps & Model Deployment",
+    "DevOps & Model Deployment",
     "AI Ethics & Safety",
     "Team Leadership"
   ],
