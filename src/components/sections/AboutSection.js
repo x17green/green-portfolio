@@ -20,25 +20,32 @@ import {
   WorkspacePremium,
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
+import personalData from "../../data/personal";
 
 const AboutSection = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const stats = [
-    { label: "Years of Experience", value: "5+", icon: <Timeline /> },
-    { label: "AI Projects Completed", value: "50+", icon: <AutoAwesome /> },
-    { label: "Models Trained", value: "100+", icon: <Psychology /> },
-    { label: "Lines of Code", value: "100K+", icon: <Code /> },
+    {
+      label: "Years of Experience",
+      value: `${personalData.stats.yearsExperience}+`,
+      icon: <Timeline />,
+    },
+    {
+      label: "Projects Completed",
+      value: `${personalData.stats.projectsCompleted}+`,
+      icon: <AutoAwesome />,
+    },
+    {
+      label: "AI Models Deployed",
+      value: `${personalData.stats.modelsDeployed}`,
+      icon: <Psychology />,
+    },
+    // { label: "Lines of Code", value: "100K+", icon: <Code /> },
   ];
 
-  const certifications = [
-    "AWS Certified Machine Learning",
-    "Google Cloud AI Engineer",
-    "Microsoft Azure AI Fundamentals",
-    "TensorFlow Developer Certificate",
-    "OpenAI GPT Specialist",
-  ];
+  const certifications = personalData.about.certifications;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -99,7 +106,7 @@ const AboutSection = () => {
                   mb: 2,
                 }}
               >
-                About Me
+              {personalData.about.heading}
               </Typography>
               <Typography
                 variant={isMobile ? "h4" : "h3"}
@@ -112,7 +119,7 @@ const AboutSection = () => {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                Passionate AI Engineer
+                {personalData.about.subheading}
               </Typography>
               <Typography
                 variant="h6"
@@ -123,16 +130,14 @@ const AboutSection = () => {
                   lineHeight: 1.6,
                 }}
               >
-                Bridging the gap between cutting-edge AI research and practical
-                applications, I specialize in building intelligent systems that
-                solve real-world problems.
+                {personalData.about.tagline}
               </Typography>
             </Box>
           </motion.div>
 
           <Grid container spacing={4}>
             {/* Main About Content */}
-            <Grid size={{ xs:12, md:8 }}>
+            <Grid size={{ xs: 12, md: 8 }}>
               <motion.div variants={itemVariants}>
                 <Card
                   sx={{
@@ -168,59 +173,27 @@ const AboutSection = () => {
                           variant="h5"
                           sx={{ fontWeight: 600, mb: 1 }}
                         >
-                          AI Engineer & Researcher
+                          {personalData.fullName}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                          Specializing in Prompt Engineering & LLMs
+                          {personalData.title}
                         </Typography>
                       </Box>
                     </Box>
 
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        color: "text.secondary",
-                        lineHeight: 1.8,
-                        mb: 3,
-                      }}
-                    >
-                      With over 5 years of experience in artificial intelligence
-                      and machine learning, I've dedicated my career to pushing
-                      the boundaries of what's possible with AI. My expertise
-                      spans from traditional machine learning algorithms to the
-                      latest developments in large language models and prompt
-                      engineering.
-                    </Typography>
-
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        color: "text.secondary",
-                        lineHeight: 1.8,
-                        mb: 3,
-                      }}
-                    >
-                      I'm particularly passionate about prompt engineering - the
-                      art and science of crafting inputs that unlock the full
-                      potential of AI models. Having worked with GPT, Claude,
-                      and other cutting-edge models, I understand how to
-                      leverage their capabilities to create innovative solutions
-                      for complex business challenges.
-                    </Typography>
-
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        color: "text.secondary",
-                        lineHeight: 1.8,
-                        mb: 4,
-                      }}
-                    >
-                      When I'm not training models or optimizing prompts, you'll
-                      find me contributing to open-source AI projects, writing
-                      technical articles, and mentoring the next generation of
-                      AI engineers.
-                    </Typography>
+                    {personalData.about.content.map((paragraph, index) => (
+                      <Typography
+                        key={index}
+                        variant="body1"
+                        sx={{
+                          color: "text.secondary",
+                          lineHeight: 1.8,
+                          mb: 3,
+                        }}
+                      >
+                        {paragraph}
+                      </Typography>
+                    ))}
 
                     {/* Certifications */}
                     <Box>
@@ -269,7 +242,7 @@ const AboutSection = () => {
             </Grid>
 
             {/* Stats Cards */}
-            <Grid size={{ xs:12, md:4 }}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 {stats.map((stat, index) => (
                   <motion.div
@@ -360,30 +333,30 @@ const AboutSection = () => {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                Core Values & Approach
+                Professional Values
               </Typography>
               <Grid container spacing={3}>
                 {[
                   {
-                    title: "Innovation First",
+                    title: "Innovation & Continuous Learning",
                     description:
                       "Always exploring cutting-edge technologies and methodologies to solve complex problems.",
                     icon: <AutoAwesome />,
                   },
                   {
-                    title: "Ethical AI",
+                    title: "Ethical AI Development",
                     description:
                       "Committed to developing responsible AI systems that benefit humanity and respect privacy.",
                     icon: <Psychology />,
                   },
                   {
-                    title: "Continuous Learning",
+                    title: "Collaborative Problem Solving",
                     description:
-                      "Staying at the forefront of AI advancements through constant learning and experimentation.",
+                      "Working together with diverse teams to create innovative solutions that make a real impact.",
                     icon: <School />,
                   },
                 ].map((value, index) => (
-                  <Grid size={{ xs:12, md:4 }} key={value.title}>
+                  <Grid size={{ xs: 12, md: 4 }} key={value.title}>
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}

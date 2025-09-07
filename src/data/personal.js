@@ -26,7 +26,7 @@ export const personalData = {
     twitter: "https://twitter.com/0x17green",
     medium: "https://medium.com/@x17-green",
     portfolio: "https://x17green.vercel.app/",
-    calendly: "https://calendly.com/precious-okoyen",
+    calendly: "https://calendly.com/x17green/30min",
     googleScholar: "https://scholar.google.com/citations?user=precious-okoyen"
   },
 
@@ -34,7 +34,7 @@ export const personalData = {
   bio: {
     short: "Software Engineer specializing in AI Prompt Engineering and machine learning",
     medium: "Precious is a passionate Software Engineer with 3+ years of experience in AI and Prompt Engineer,  machine learning, and full-stack software development. He leads innovative AI initiatives that bridge cutting-edge research with practical business applications.",
-    long: "Precious E. Okoyen is a highly skilled AI Engineer and Software Developer with over 4 years of experience transforming complex data into intelligent solutions. Currently serving as Senior AI Engineer & Prompt Engineering Lead at AstroMANIA Enterprise, he specializes in developing next-generation AI systems, optimizing large language models, and architecting scalable infrastructures. My expertise spans from foundational Software Engineering to cutting-edge AI research, with a proven track record of leading development teams, publishing articles, and delivering AI solutions to serve millions of users. I am is passionate about advancing AI technology while ensuring ethical and practical implementations that benefit businesses and society."
+    long: "Precious E. Okoyen is a highly skilled AI Engineer and Software Developer with over 4 years of experience transforming complex data into intelligent solutions. Currently serving as Senior AI Engineer & Prompt Engineering Lead at AstroMANIA Enterprise, he specializes in developing next-generation AI systems, optimizing large language models, and architecting scalable infrastructures. My expertise spans from foundational Software Engineering to cutting-edge AI research, with a proven track record of leading development teams, publishing articles, and delivering AI solutions to serve millions of users. I am passionate about advancing AI technology while ensuring ethical and practical implementations that benefit businesses and society.",
   },
 
   // Professional Taglines
@@ -59,7 +59,8 @@ export const personalData = {
     "Full-Stack Development",
     "DevOps & Model Deployment",
     "AI Ethics & Safety",
-    "Team Leadership"
+    "Team Leadership",
+    "TypeScript Profient"
   ],
 
   // Interests & Hobbies
@@ -81,7 +82,7 @@ export const personalData = {
     { name: "English", proficiency: "Conversational" },
     { name: "Python", proficiency: "Expert", type: "programming" },
     { name: "JavaScript", proficiency: "Advanced", type: "programming" },
-    { name: "Typescript", proficiency: "Expert", type: "programming"},
+    { name: "TypeScript", proficiency: "Expert", type: "programming"},
     { name: "French", proficiency: "Basic" },
     { name: "Spanish", proficiency: "Basic" }
   ],
@@ -222,18 +223,42 @@ export const personalData = {
 
   // Professional Stats
   stats: {
-    yearsExperience: 6,
-    projectsCompleted: 50,
+    yearsExperience: 3,
+    projectsCompleted: 6,
     teamsLed: 3,
     papersPublished: 5,
-    certificationsEarned: 12,
+    certificationsEarned: 7,
     companiesWorked: 4,
-    modelsDeployed: 25,
+    modelsDeployed: 3,
     apiRequestsHandled: "10M+",
     githubContributions: 1200,
     menteesDeveloped: 15
   },
-
+  
+  // About Section Details
+  about: {
+    heading: "About Me",
+    subheading: "Passionate AI Software Engineer",
+    tagline: "Building Intelligent Solutions for a Smarter Tomorrow using Prompt Engineering & LLMs",
+    content: [
+      "With over 3 years of experience in artificial intelligence and machine learning, I've dedicated my career to pushing the boundaries of what's possible with AI. My expertise spans from traditional machine learning algorithms to the latest developments in large language models and prompt engineering.",
+      "I'm particularly passionate about prompt engineering - the art and science of crafting inputs that unlock the full potential of AI models. Having worked with GPT, Claude, and other cutting-edge models, I understand how to leverage their capabilities to create innovative solutions for complex business challenges.",
+      "When I'm not training models or optimizing prompts, you'll find me contributing to open-source AI projects, writing technical articles, and mentoring the next generation of AI engineers."
+    ],
+    certifications: [
+      "Software Engineering (SWE) - ALX Africa",
+      "AI Career Essentials (AiCE) - ALX Africa",
+      "AI For Developers (AIFD) - ALX Africa",
+      "Ethics in the Age of Generative AI - LinkedIn",
+      "Generative AI: The Evolution of Thoughtful Online Research - LinkedIn",
+      "Level Up: Advanced Python - LinkedIn",
+      "Learning Microsoft 365 Copilot - LinkedIn",
+    ],
+    
+    // Professional Mission Statement
+    mission: "Leveraging cutting-edge AI technologies and Software Engineering excellence to create intelligent solutions that solve real-world problems, while fostering innovation, ethical development, and inclusive technology that benefits everyone.",
+  },
+  
   // Personal Brand Colors (for theming)
   brandColors: {
     primary: "#1e3a8a",    // Deep blue
@@ -254,9 +279,6 @@ export const personalData = {
     collaborate: "Collaborate with Precious",
     hire: "Hire Precious"
   },
-
-  // Professional Mission Statement
-  mission: "To leverage cutting-edge AI technologies and software engineering excellence to create intelligent solutions that solve real-world problems, while fostering innovation, ethical development, and inclusive technology that benefits everyone.",
 
   // Current Focus Areas
   currentFocus: [
