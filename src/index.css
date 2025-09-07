@@ -14,6 +14,7 @@ html {
 body {
     margin: 0;
     font-family:
+        "Inter",
         "Roboto",
         -apple-system,
         BlinkMacSystemFont,
@@ -27,9 +28,10 @@ body {
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #0a0a0a;
-    color: #ffffff;
+    background-color: #0f0f23;
+    color: #f8fafc;
     overflow-x: hidden;
+    letter-spacing: -0.01em;
 }
 
 code {
@@ -45,36 +47,36 @@ code {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(148, 163, 184, 0.1);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(45deg, #00e676, #1976d2);
-    border-radius: 4px;
+    background: #64ffda;
+    border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(45deg, #1976d2, #00e676);
+    background: #4fd1c7;
 }
 
 /* Selection styling */
 ::selection {
-    background: rgba(0, 230, 118, 0.3);
-    color: #ffffff;
+    background: rgba(100, 255, 218, 0.2);
+    color: #f8fafc;
 }
 
 ::-moz-selection {
-    background: rgba(0, 230, 118, 0.3);
-    color: #ffffff;
+    background: rgba(100, 255, 218, 0.2);
+    color: #f8fafc;
 }
 
 /* Focus outline for accessibility */
 *:focus {
-    outline: 2px solid #00e676;
+    outline: 2px solid #64ffda;
     outline-offset: 2px;
 }
 
@@ -94,13 +96,13 @@ select {
 
 /* Link styles */
 a {
-    color: #00e676;
+    color: #64ffda;
     text-decoration: none;
-    transition: color 0.3s ease-in-out;
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 a:hover {
-    color: #1976d2;
+    color: #4fd1c7;
 }
 
 /* Button focus and hover states */
@@ -270,8 +272,10 @@ img {
 }
 
 /* Ensure proper font loading */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
 @font-face {
-    font-family: "Roboto";
+    font-family: "Inter";
     font-display: swap;
 }
 
