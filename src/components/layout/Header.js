@@ -75,7 +75,10 @@ const Header = () => {
             onClick={() => handleNavClick(item.href)}
             sx={{
               "&:hover": {
-                backgroundColor: "rgba(0, 230, 118, 0.1)",
+                backgroundColor:
+                  theme.palette.mode === "dark"
+                    ? "rgba(100, 255, 218, 0.08)"
+                    : "rgba(0, 105, 92, 0.08)",
               },
             }}
           >
@@ -123,10 +126,7 @@ const Header = () => {
                   component="div"
                   sx={{
                     fontWeight: 700,
-                    background: "linear-gradient(45deg, #00e676, #1976d2)",
-                    backgroundClip: "text",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
+                    color: "primary.main",
                     fontSize: "1.25rem",
                   }}
                 >
@@ -167,12 +167,15 @@ const Header = () => {
                             left: 0,
                             width: "0%",
                             height: "2px",
-                            background:
-                              "linear-gradient(45deg, #00e676, #1976d2)",
-                            transition: "width 0.3s ease-in-out",
+                            backgroundColor: "primary.main",
+                            transition:
+                              "width 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
                           },
                           "&:hover": {
-                            backgroundColor: "rgba(0, 230, 118, 0.1)",
+                            backgroundColor:
+                              theme.palette.mode === "dark"
+                                ? "rgba(100, 255, 218, 0.08)"
+                                : "rgba(0, 105, 92, 0.08)",
                             "&::before": {
                               width: "100%",
                             },
@@ -193,8 +196,22 @@ const Header = () => {
                 onClick={handleDrawerToggle}
                 sx={{
                   color: "primary.main",
-                  border: "1px solid rgba(0, 230, 118, 0.3)",
+                  border: `1px solid ${
+                    theme.palette.mode === "dark"
+                      ? "rgba(100, 255, 218, 0.2)"
+                      : "rgba(0, 105, 92, 0.2)"
+                  }`,
                   borderRadius: 2,
+                  backgroundColor:
+                    theme.palette.mode === "dark"
+                      ? "rgba(100, 255, 218, 0.05)"
+                      : "rgba(0, 105, 92, 0.05)",
+                  "&:hover": {
+                    backgroundColor:
+                      theme.palette.mode === "dark"
+                        ? "rgba(100, 255, 218, 0.1)"
+                        : "rgba(0, 105, 92, 0.1)",
+                  },
                 }}
               >
                 <MenuIcon />

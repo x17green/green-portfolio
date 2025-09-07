@@ -74,25 +74,21 @@ const ThemeToggle = () => {
           sx={{
             width: isMobile ? 48 : 56,
             height: isMobile ? 48 : 56,
-            background: isDark
-              ? "linear-gradient(45deg, #1976d2 30%, #00e676 90%)"
-              : "linear-gradient(45deg, #00e676 30%, #1976d2 90%)",
-            color: "white",
+            backgroundColor: isDark ? "#64ffda" : "#00695c",
+            color: isDark ? "#000000" : "#ffffff",
             boxShadow: isDark
-              ? "0px 8px 24px rgba(25, 118, 210, 0.3)"
-              : "0px 8px 24px rgba(0, 230, 118, 0.3)",
-            border: isDark
-              ? "2px solid rgba(25, 118, 210, 0.2)"
-              : "2px solid rgba(0, 230, 118, 0.2)",
-            backdropFilter: "blur(10px)",
-            transition: "all 0.3s ease-in-out",
+              ? "0px 6px 20px rgba(0, 0, 0, 0.15)"
+              : "0px 6px 20px rgba(0, 0, 0, 0.1)",
+            border: `2px solid ${
+              isDark ? "rgba(100, 255, 218, 0.2)" : "rgba(0, 105, 92, 0.2)"
+            }`,
+            backdropFilter: "blur(12px)",
+            transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
             "&:hover": {
-              background: isDark
-                ? "linear-gradient(45deg, #00e676 30%, #1976d2 90%)"
-                : "linear-gradient(45deg, #1976d2 30%, #00e676 90%)",
+              backgroundColor: isDark ? "#4fd1c7" : "#004d40",
               boxShadow: isDark
-                ? "0px 12px 32px rgba(0, 230, 118, 0.4)"
-                : "0px 12px 32px rgba(25, 118, 210, 0.4)",
+                ? "0px 8px 25px rgba(0, 0, 0, 0.2)"
+                : "0px 8px 25px rgba(0, 0, 0, 0.15)",
               transform: "translateY(-2px)",
             },
             "&:active": {

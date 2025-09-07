@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Container,
@@ -9,7 +9,7 @@ import {
   Chip,
   useTheme,
   useMediaQuery,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Download,
   Email,
@@ -17,20 +17,20 @@ import {
   Psychology,
   AutoAwesome,
   Rocket,
-} from '@mui/icons-material';
-import { motion } from 'framer-motion';
+} from "@mui/icons-material";
+import { motion } from "framer-motion";
 
 const HeroSection = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const skills = [
-    'Prompt Engineering',
-    'Machine Learning',
-    'Large Language Models',
-    'AI Development',
-    'Deep Learning',
-    'Neural Networks',
+    "Prompt Engineering",
+    "Machine Learning",
+    "Large Language Models",
+    "AI Development",
+    "Deep Learning",
+    "Neural Networks",
   ];
 
   const containerVariants = {
@@ -49,7 +49,7 @@ const HeroSection = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
+      transition: { duration: 0.6, ease: "easeOut" },
     },
   };
 
@@ -58,7 +58,7 @@ const HeroSection = () => {
     transition: {
       duration: 3,
       repeat: Infinity,
-      ease: 'easeInOut',
+      ease: "easeInOut",
     },
   };
 
@@ -66,30 +66,38 @@ const HeroSection = () => {
     <Box
       id="hero"
       sx={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        background: `
-          radial-gradient(circle at 20% 50%, rgba(0, 230, 118, 0.1) 0%, transparent 50%),
-          radial-gradient(circle at 80% 20%, rgba(25, 118, 210, 0.1) 0%, transparent 50%),
-          radial-gradient(circle at 40% 80%, rgba(0, 230, 118, 0.05) 0%, transparent 50%)
-        `,
-        position: 'relative',
-        overflow: 'hidden',
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        background:
+          theme.palette.mode === "dark"
+            ? `
+            radial-gradient(circle at 20% 50%, rgba(100, 255, 218, 0.03) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(129, 140, 248, 0.03) 0%, transparent 50%)
+          `
+            : `
+            radial-gradient(circle at 20% 50%, rgba(0, 105, 92, 0.02) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(63, 81, 181, 0.02) 0%, transparent 50%)
+          `,
+        position: "relative",
+        overflow: "hidden",
         pt: { xs: 8, md: 0 },
       }}
     >
       {/* Animated Background Elements */}
       <Box
         sx={{
-          position: 'absolute',
-          top: '10%',
-          right: '10%',
+          position: "absolute",
+          top: "10%",
+          right: "10%",
           width: 100,
           height: 100,
-          borderRadius: '50%',
-          background: 'linear-gradient(45deg, rgba(0, 230, 118, 0.1), rgba(25, 118, 210, 0.1))',
-          filter: 'blur(40px)',
+          borderRadius: "50%",
+          background:
+            theme.palette.mode === "dark"
+              ? "radial-gradient(circle, rgba(100, 255, 218, 0.04) 0%, transparent 70%)"
+              : "radial-gradient(circle, rgba(0, 105, 92, 0.03) 0%, transparent 70%)",
+          filter: "blur(60px)",
         }}
         component={motion.div}
         animate={{
@@ -99,20 +107,23 @@ const HeroSection = () => {
         transition={{
           duration: 4,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: "easeInOut",
         }}
       />
 
       <Box
         sx={{
-          position: 'absolute',
-          bottom: '20%',
-          left: '5%',
+          position: "absolute",
+          bottom: "20%",
+          left: "5%",
           width: 80,
           height: 80,
-          borderRadius: '50%',
-          background: 'linear-gradient(45deg, rgba(25, 118, 210, 0.1), rgba(0, 230, 118, 0.1))',
-          filter: 'blur(30px)',
+          borderRadius: "50%",
+          background:
+            theme.palette.mode === "dark"
+              ? "radial-gradient(circle, rgba(129, 140, 248, 0.04) 0%, transparent 70%)"
+              : "radial-gradient(circle, rgba(63, 81, 181, 0.03) 0%, transparent 70%)",
+          filter: "blur(50px)",
         }}
         component={motion.div}
         animate={{
@@ -122,30 +133,32 @@ const HeroSection = () => {
         transition={{
           duration: 5,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: "easeInOut",
           delay: 1,
         }}
       />
 
       <Container maxWidth="lg">
         <Grid container spacing={4} alignItems="center">
-          <Grid size={{ xs:12, md:7 }}>
+          <Grid size={{ xs:12, md:8 }}>
             <motion.div
               variants={containerVariants}
               initial="hidden"
               animate="visible"
             >
               <motion.div variants={itemVariants}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-                  <Psychology sx={{ color: 'primary.main', fontSize: 28 }} />
+                <Box
+                  sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}
+                >
+                  <Psychology sx={{ color: "primary.main", fontSize: 28 }} />
                   <Typography
                     variant="body1"
                     sx={{
-                      color: 'primary.main',
+                      color: "primary.main",
                       fontWeight: 500,
-                      textTransform: 'uppercase',
+                      textTransform: "uppercase",
                       letterSpacing: 1.2,
-                      fontSize: '0.9rem',
+                      fontSize: "0.9rem",
                     }}
                   >
                     AI Engineer & Prompt Specialist
@@ -155,27 +168,20 @@ const HeroSection = () => {
 
               <motion.div variants={itemVariants}>
                 <Typography
-                  variant={isMobile ? 'h3' : 'h1'}
+                  variant={isMobile ? "h3" : "h1"}
                   sx={{
                     fontWeight: 700,
                     mb: 2,
-                    background: 'linear-gradient(45deg, #ffffff 30%, #00e676 60%, #1976d2 90%)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    lineHeight: 1.2,
+                    color: "text.primary",
+                    lineHeight: 1.1,
+                    "& .highlight": {
+                      color: "primary.main",
+                      fontWeight: 800,
+                    },
                   }}
                 >
-                  Building the Future with{' '}
-                  <Box
-                    component="span"
-                    sx={{
-                      background: 'linear-gradient(45deg, #00e676, #1976d2)',
-                      backgroundClip: 'text',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                    }}
-                  >
+                  Building the Future with{" "}
+                  <Box component="span" className="highlight">
                     Artificial Intelligence
                   </Box>
                 </Typography>
@@ -185,21 +191,23 @@ const HeroSection = () => {
                 <Typography
                   variant="h6"
                   sx={{
-                    color: 'text.secondary',
+                    color: "text.secondary",
                     fontWeight: 400,
                     mb: 4,
-                    lineHeight: 1.6,
-                    maxWidth: '600px',
+                    lineHeight: 1.7,
+                    maxWidth: "600px",
+                    fontSize: "1.125rem",
                   }}
                 >
-                  Experienced AI Engineer specializing in prompt engineering, large language models,
-                  and cutting-edge machine learning solutions. Passionate about transforming
-                  complex problems into intelligent, scalable AI systems.
+                  Experienced AI Engineer specializing in prompt engineering,
+                  large language models, and cutting-edge machine learning
+                  solutions. Passionate about transforming complex problems into
+                  intelligent, scalable AI systems.
                 </Typography>
               </motion.div>
 
               <motion.div variants={itemVariants}>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 4 }}>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 4 }}>
                   {skills.map((skill, index) => (
                     <motion.div
                       key={skill}
@@ -210,15 +218,26 @@ const HeroSection = () => {
                       <Chip
                         label={skill}
                         sx={{
-                          backgroundColor: 'rgba(0, 230, 118, 0.1)',
-                          color: 'primary.main',
-                          border: '1px solid rgba(0, 230, 118, 0.3)',
+                          backgroundColor:
+                            theme.palette.mode === "dark"
+                              ? "rgba(100, 255, 218, 0.1)"
+                              : "rgba(0, 105, 92, 0.1)",
+                          color: "primary.main",
+                          border: `1px solid ${
+                            theme.palette.mode === "dark"
+                              ? "rgba(100, 255, 218, 0.2)"
+                              : "rgba(0, 105, 92, 0.2)"
+                          }`,
                           fontWeight: 500,
-                          '&:hover': {
-                            backgroundColor: 'rgba(0, 230, 118, 0.2)',
-                            transform: 'translateY(-2px)',
+                          fontSize: "0.875rem",
+                          "&:hover": {
+                            backgroundColor:
+                              theme.palette.mode === "dark"
+                                ? "rgba(100, 255, 218, 0.15)"
+                                : "rgba(0, 105, 92, 0.15)",
+                            transform: "translateY(-1px)",
                           },
-                          transition: 'all 0.3s ease-in-out',
+                          transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
                         }}
                       />
                     </motion.div>
@@ -229,10 +248,10 @@ const HeroSection = () => {
               <motion.div variants={itemVariants}>
                 <Box
                   sx={{
-                    display: 'flex',
-                    flexDirection: { xs: 'column', sm: 'row' },
+                    display: "flex",
+                    flexDirection: { xs: "column", sm: "row" },
                     gap: 2,
-                    alignItems: { xs: 'stretch', sm: 'center' },
+                    alignItems: { xs: "stretch", sm: "center" },
                   }}
                 >
                   <Button
@@ -240,18 +259,11 @@ const HeroSection = () => {
                     size="large"
                     startIcon={<Email />}
                     sx={{
-                      background: 'linear-gradient(45deg, #00e676 30%, #00b248 90%)',
                       px: 4,
                       py: 1.5,
-                      fontSize: '1rem',
+                      fontSize: "1rem",
                       fontWeight: 600,
-                      boxShadow: '0px 8px 24px rgba(0, 230, 118, 0.3)',
-                      '&:hover': {
-                        background: 'linear-gradient(45deg, #00b248 30%, #00e676 90%)',
-                        transform: 'translateY(-2px)',
-                        boxShadow: '0px 12px 32px rgba(0, 230, 118, 0.4)',
-                      },
-                      transition: 'all 0.3s ease-in-out',
+                      borderRadius: 2,
                     }}
                   >
                     Get In Touch
@@ -262,20 +274,11 @@ const HeroSection = () => {
                     size="large"
                     startIcon={<Download />}
                     sx={{
-                      borderColor: 'primary.main',
-                      color: 'primary.main',
                       px: 4,
                       py: 1.5,
-                      fontSize: '1rem',
+                      fontSize: "1rem",
                       fontWeight: 600,
-                      borderWidth: 2,
-                      '&:hover': {
-                        borderColor: 'primary.main',
-                        backgroundColor: 'rgba(0, 230, 118, 0.1)',
-                        transform: 'translateY(-2px)',
-                        borderWidth: 2,
-                      },
-                      transition: 'all 0.3s ease-in-out',
+                      borderRadius: 2,
                     }}
                   >
                     Download Resume
@@ -285,36 +288,39 @@ const HeroSection = () => {
             </motion.div>
           </Grid>
 
-          <Grid size={{ xs:12, md:5 }}>
+          <Grid item xs={12} md={5}>
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              style={{ display: 'flex', justifyContent: 'center' }}
+              style={{ display: "flex", justifyContent: "center" }}
             >
               <Box
                 sx={{
-                  position: 'relative',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  position: "relative",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 {/* Animated Avatar Container */}
                 <motion.div animate={floatingAnimation}>
                   <Box
                     sx={{
-                      position: 'relative',
-                      '&::before': {
+                      position: "relative",
+                      "&::before": {
                         content: '""',
-                        position: 'absolute',
+                        position: "absolute",
                         top: -20,
                         left: -20,
                         right: -20,
                         bottom: -20,
-                        borderRadius: '50%',
-                        background: 'linear-gradient(45deg, rgba(0, 230, 118, 0.2), rgba(25, 118, 210, 0.2))',
-                        filter: 'blur(20px)',
+                        borderRadius: "50%",
+                        background:
+                          theme.palette.mode === "dark"
+                            ? "radial-gradient(circle, rgba(100, 255, 218, 0.08) 0%, transparent 70%)"
+                            : "radial-gradient(circle, rgba(0, 105, 92, 0.06) 0%, transparent 70%)",
+                        filter: "blur(25px)",
                         zIndex: -1,
                       },
                     }}
@@ -325,8 +331,15 @@ const HeroSection = () => {
                       sx={{
                         width: { xs: 250, md: 300 },
                         height: { xs: 250, md: 300 },
-                        border: '4px solid rgba(0, 230, 118, 0.3)',
-                        boxShadow: '0px 20px 40px rgba(0, 230, 118, 0.2)',
+                        border: `3px solid ${
+                          theme.palette.mode === "dark"
+                            ? "rgba(100, 255, 218, 0.2)"
+                            : "rgba(0, 105, 92, 0.2)"
+                        }`,
+                        boxShadow:
+                          theme.palette.mode === "dark"
+                            ? "0px 20px 40px rgba(0, 0, 0, 0.3)"
+                            : "0px 20px 40px rgba(0, 0, 0, 0.1)",
                       }}
                     />
                   </Box>
@@ -335,9 +348,9 @@ const HeroSection = () => {
                 {/* Floating Icons */}
                 <motion.div
                   style={{
-                    position: 'absolute',
-                    top: '10%',
-                    right: '20%',
+                    position: "absolute",
+                    top: "10%",
+                    right: "20%",
                   }}
                   animate={{
                     y: [0, -15, 0],
@@ -346,27 +359,34 @@ const HeroSection = () => {
                   transition={{
                     duration: 4,
                     repeat: Infinity,
-                    ease: 'easeInOut',
+                    ease: "easeInOut",
                   }}
                 >
                   <Box
                     sx={{
-                      backgroundColor: 'rgba(0, 230, 118, 0.1)',
-                      border: '2px solid rgba(0, 230, 118, 0.3)',
-                      borderRadius: '50%',
+                      backgroundColor:
+                        theme.palette.mode === "dark"
+                          ? "rgba(100, 255, 218, 0.1)"
+                          : "rgba(0, 105, 92, 0.1)",
+                      border: `2px solid ${
+                        theme.palette.mode === "dark"
+                          ? "rgba(100, 255, 218, 0.2)"
+                          : "rgba(0, 105, 92, 0.2)"
+                      }`,
+                      borderRadius: "50%",
                       p: 2,
-                      backdropFilter: 'blur(10px)',
+                      backdropFilter: "blur(10px)",
                     }}
                   >
-                    <AutoAwesome sx={{ color: 'primary.main', fontSize: 32 }} />
+                    <AutoAwesome sx={{ color: "primary.main", fontSize: 32 }} />
                   </Box>
                 </motion.div>
 
                 <motion.div
                   style={{
-                    position: 'absolute',
-                    bottom: '15%',
-                    left: '10%',
+                    position: "absolute",
+                    bottom: "15%",
+                    left: "10%",
                   }}
                   animate={{
                     y: [0, -10, 0],
@@ -375,20 +395,27 @@ const HeroSection = () => {
                   transition={{
                     duration: 3.5,
                     repeat: Infinity,
-                    ease: 'easeInOut',
+                    ease: "easeInOut",
                     delay: 1,
                   }}
                 >
                   <Box
                     sx={{
-                      backgroundColor: 'rgba(25, 118, 210, 0.1)',
-                      border: '2px solid rgba(25, 118, 210, 0.3)',
-                      borderRadius: '50%',
+                      backgroundColor:
+                        theme.palette.mode === "dark"
+                          ? "rgba(129, 140, 248, 0.1)"
+                          : "rgba(63, 81, 181, 0.1)",
+                      border: `2px solid ${
+                        theme.palette.mode === "dark"
+                          ? "rgba(129, 140, 248, 0.2)"
+                          : "rgba(63, 81, 181, 0.2)"
+                      }`,
+                      borderRadius: "50%",
                       p: 2,
-                      backdropFilter: 'blur(10px)',
+                      backdropFilter: "blur(10px)",
                     }}
                   >
-                    <Rocket sx={{ color: 'secondary.main', fontSize: 28 }} />
+                    <Rocket sx={{ color: "secondary.main", fontSize: 28 }} />
                   </Box>
                 </motion.div>
               </Box>
@@ -402,33 +429,35 @@ const HeroSection = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 2 }}
           style={{
-            position: 'absolute',
+            position: "absolute",
             bottom: 30,
-            left: '50%',
-            transform: 'translateX(-50%)',
+            left: "50%",
+            transform: "translateX(-50%)",
           }}
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
             <Box
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
                 gap: 1,
-                cursor: 'pointer',
+                cursor: "pointer",
               }}
               onClick={() => {
-                document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
+                document
+                  .querySelector("#about")
+                  ?.scrollIntoView({ behavior: "smooth" });
               }}
             >
               <Typography
                 variant="caption"
                 sx={{
-                  color: 'text.secondary',
-                  textTransform: 'uppercase',
+                  color: "text.secondary",
+                  textTransform: "uppercase",
                   letterSpacing: 1,
                 }}
               >
@@ -436,9 +465,9 @@ const HeroSection = () => {
               </Typography>
               <PlayArrow
                 sx={{
-                  color: 'primary.main',
+                  color: "primary.main",
                   fontSize: 24,
-                  transform: 'rotate(90deg)',
+                  transform: "rotate(90deg)",
                 }}
               />
             </Box>
