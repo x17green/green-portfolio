@@ -23,22 +23,22 @@ const Footer = () => {
   const socialLinks = [
     {
       icon: <GitHub />,
-      href: "https://github.com/yourusername",
+      href: "https://github.com/x17green",
       label: "GitHub",
     },
     {
       icon: <LinkedIn />,
-      href: "https://linkedin.com/in/yourusername",
+      href: "https://linkedin.com/in/x17-green",
       label: "LinkedIn",
     },
     {
       icon: <Twitter />,
-      href: "https://twitter.com/yourusername",
+      href: "https://twitter.com/0x17green",
       label: "Twitter",
     },
     {
       icon: <Email />,
-      href: "mailto:your.email@example.com",
+      href: "mailto:pokosine@protonmail.com",
       label: "Email",
     },
   ];
@@ -96,28 +96,28 @@ const Footer = () => {
                   mb: 2,
                 }}
               >
-                AI Engineer Portfolio
+                AI+Software Engineer Portfolio
               </Typography>
               <Typography
                 variant="body2"
                 color="text.secondary"
                 sx={{ mb: 3, lineHeight: 1.6 }}
               >
-                Passionate AI Engineer specializing in prompt engineering,
-                machine learning, and cutting-edge artificial intelligence
+                Passionate Software Engineer specializing in AI prompt engineering,
+                and cutting-edge artificial intelligence
                 solutions. Building the future, one algorithm at a time.
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <LocationOn sx={{ color: "primary.main", fontSize: 18 }} />
                   <Typography variant="body2" color="text.secondary">
-                    San Francisco, CA
+                    Bayelsa, NG
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <Phone sx={{ color: "primary.main", fontSize: 18 }} />
                   <Typography variant="body2" color="text.secondary">
-                    +1 (555) 123-4567
+                    +234 (706) 153-9439
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
