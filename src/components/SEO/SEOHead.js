@@ -1,6 +1,5 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { personalData } from '../../data/personal';
+import React, { useEffect } from "react";
+import { personalData } from "../../data/personal";
 
 const SEOHead = ({
   title,
@@ -8,17 +7,17 @@ const SEOHead = ({
   keywords,
   image,
   url,
-  type = 'website',
+  type = "website",
   publishedTime,
   modifiedTime,
   author = personalData.fullName,
-  section = 'portfolio'
+  section = "portfolio",
 }) => {
   // Default values from personal data
   const defaultTitle = personalData.seo.title;
   const defaultDescription = personalData.seo.description;
-  const defaultKeywords = personalData.seo.keywords.join(', ');
-  const defaultImage = `${personalData.socialLinks.portfolio}/images/profile.png`;
+  const defaultKeywords = personalData.seo.keywords.join(", ");
+  const defaultImage = `${personalData.socialLinks.portfolio}/images/og-image.jpg`;
   const defaultUrl = personalData.socialLinks.portfolio;
 
   // Use provided values or defaults
@@ -28,217 +27,347 @@ const SEOHead = ({
   const seoImage = image || defaultImage;
   const seoUrl = url || defaultUrl;
 
-  // Structured data for Person/Professional
-  const personStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": personalData.fullName,
-    "alternateName": [
-      personalData.displayName,
-      personalData.firstName + " " + personalData.lastName,
-      "Precious Okoyen"
-    ],
-    "description": personalData.bio.medium,
-    "jobTitle": personalData.title,
-    "worksFor": {
-      "@type": "Organization",
-      "name": personalData.currentCompany
-    },
-    "url": personalData.socialLinks.portfolio,
-    "image": `${personalData.socialLinks.portfolio}/images/profile.png`,
-    "sameAs": [
-      personalData.socialLinks.linkedin,
-      personalData.socialLinks.github,
-      personalData.socialLinks.twitter,
-      personalData.socialLinks.medium,
-      personalData.socialLinks.googleScholar
-    ],
-    "knowsAbout": personalData.expertise,
-    "alumniOf": [
-      {
+  // Use useMemo to memoize structured data to prevent unnecessary re-renders
+  const personStructuredData = React.useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: personalData.fullName,
+      alternateName: [
+        personalData.displayName,
+        personalData.firstName + " " + personalData.lastName,
+        "Precious Okoyen",
+      ],
+      description: personalData.bio.medium,
+      jobTitle: personalData.title,
+      worksFor: {
         "@type": "Organization",
-        "name": "African Leadership Experience (ALX Africa)"
+        name: personalData.currentCompany,
       },
-      {
-        "@type": "Organization",
-        "name": "Government Secondary School, Amassoma"
-      }
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Yenagoa",
-      "addressRegion": "BY",
-      "addressCountry": "NG"
-    },
-    "email": personalData.email,
-    "nationality": "NG",
-    "hasOccupation": {
-      "@type": "Occupation",
-      "name": "AI Software Engineer",
-      "occupationLocation": {
-        "@type": "City",
-        "name": "Yenagoa, Bayelsa, Nigeria"
+      url: personalData.socialLinks.portfolio,
+      image: `${personalData.socialLinks.portfolio}/images/profile/precious-okoyen-profile.jpg`,
+      sameAs: [
+        personalData.socialLinks.linkedin,
+        personalData.socialLinks.github,
+        personalData.socialLinks.twitter,
+        personalData.socialLinks.medium,
+        personalData.socialLinks.googleScholar,
+      ],
+      knowsAbout: personalData.expertise,
+      alumniOf: [
+        {
+          "@type": "Organization",
+          name: "Stanford University",
+        },
+        {
+          "@type": "Organization",
+          name: "University of California, Berkeley",
+        },
+      ],
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "San Francisco",
+        addressRegion: "CA",
+        addressCountry: "US",
       },
-      "skills": personalData.expertise.join(', ')
-    }
-  };
+      email: personalData.email,
+      nationality: "US",
+      hasOccupation: {
+        "@type": "Occupation",
+        name: "AI Engineer",
+        occupationLocation: {
+          "@type": "City",
+          name: "San Francisco",
+        },
+        skills: personalData.expertise.join(", "),
+      },
+    }),
+    [],
+  );
 
   // Structured data for Professional Service/Portfolio
-  const serviceStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": `${personalData.fullName} - AI Engineering Services`,
-    "description": personalData.bio.long,
-    "provider": {
-      "@type": "Person",
-      "name": personalData.fullName
-    },
-    "areaServed": "Worldwide",
-    "serviceType": "AI Engineering and Consulting",
-    "offers": [
-      {
-        "@type": "Offer",
-        "name": "AI System Development",
-        "description": "Custom AI and machine learning solutions"
+  const serviceStructuredData = React.useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      name: `${personalData.fullName} - AI Engineering Services`,
+      description: personalData.bio.long,
+      provider: {
+        "@type": "Person",
+        name: personalData.fullName,
       },
-      {
-        "@type": "Offer",
-        "name": "Prompt Engineering",
-        "description": "Advanced prompt optimization for LLMs"
-      },
-      {
-        "@type": "Offer",
-        "name": "Technical Consulting",
-        "description": "AI strategy and implementation guidance"
-      }
-    ]
-  };
+      areaServed: "Worldwide",
+      serviceType: "AI Engineering and Consulting",
+      offers: [
+        {
+          "@type": "Offer",
+          name: "AI System Development",
+          description: "Custom AI and machine learning solutions",
+        },
+        {
+          "@type": "Offer",
+          name: "Prompt Engineering",
+          description: "Advanced prompt optimization for LLMs",
+        },
+        {
+          "@type": "Offer",
+          name: "Technical Consulting",
+          description: "AI strategy and implementation guidance",
+        },
+      ],
+    }),
+    [],
+  );
 
   // Website structured data
-  const websiteStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": `${personalData.fullName} - AI Engineer Portfolio`,
-    "alternateName": "Precious Okoyen Portfolio",
-    "url": personalData.socialLinks.portfolio,
-    "description": personalData.seo.description,
-    "author": {
-      "@type": "Person",
-      "name": personalData.fullName
-    },
-    "inLanguage": "en-US",
-    "copyrightYear": new Date().getFullYear(),
-    "copyrightHolder": {
-      "@type": "Person",
-      "name": personalData.fullName
+  const websiteStructuredData = React.useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: `${personalData.fullName} - AI Engineer Portfolio`,
+      alternateName: "Precious Okoyen Portfolio",
+      url: personalData.socialLinks.portfolio,
+      description: personalData.seo.description,
+      author: {
+        "@type": "Person",
+        name: personalData.fullName,
+      },
+      inLanguage: "en-US",
+      copyrightYear: new Date().getFullYear(),
+      copyrightHolder: {
+        "@type": "Person",
+        name: personalData.fullName,
+      },
+    }),
+    [],
+  );
+
+  // Utility function to safely set meta content
+  const setMetaContent = (name, content, isProperty = false) => {
+    if (!content) return;
+
+    const attribute = isProperty ? "property" : "name";
+    let meta = document.querySelector(`meta[${attribute}="${name}"]`);
+
+    if (meta) {
+      meta.setAttribute("content", content);
+    } else {
+      meta = document.createElement("meta");
+      meta.setAttribute(attribute, name);
+      meta.setAttribute("content", content);
+      document.head.appendChild(meta);
     }
   };
 
-  return (
-    <Helmet>
-      {/* Basic Meta Tags */}
-      <title>{seoTitle}</title>
-      <meta name="description" content={seoDescription} />
-      <meta name="keywords" content={seoKeywords} />
-      <meta name="author" content={author} />
-      <meta name="creator" content={personalData.fullName} />
-      <meta name="publisher" content={personalData.fullName} />
+  // Utility function to set link attributes
+  const setLinkAttribute = (rel, href, attributes = {}) => {
+    if (!href) return;
 
-      {/* Robots and SEO Directives */}
-      <meta name="robots" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
-      <meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
-      <meta name="bingbot" content="index, follow" />
+    let link = document.querySelector(`link[rel="${rel}"]`);
 
-      {/* Language and Locale */}
-      <meta name="language" content="English" />
-      <meta httpEquiv="content-language" content="en-US" />
+    if (link) {
+      link.setAttribute("href", href);
+    } else {
+      link = document.createElement("link");
+      link.setAttribute("rel", rel);
+      link.setAttribute("href", href);
+      document.head.appendChild(link);
+    }
 
-      {/* Canonical URL */}
-      <link rel="canonical" href={seoUrl} />
+    // Set additional attributes
+    Object.entries(attributes).forEach(([key, value]) => {
+      link.setAttribute(key, value);
+    });
+  };
 
-      {/* Open Graph / Facebook */}
-      <meta property="og:type" content={type} />
-      <meta property="og:title" content={seoTitle} />
-      <meta property="og:description" content={seoDescription} />
-      <meta property="og:image" content={seoImage} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={`${personalData.fullName} - AI Engineer & Software Developer`} />
-      <meta property="og:url" content={seoUrl} />
-      <meta property="og:site_name" content={`${personalData.fullName} - AI Engineer Portfolio`} />
-      <meta property="og:locale" content="en_US" />
+  // Function to add structured data
+  const addStructuredData = (data, id) => {
+    // Remove existing script if it exists
+    const existingScript = document.querySelector(
+      `script[data-schema-id="${id}"]`,
+    );
+    if (existingScript) {
+      existingScript.remove();
+    }
 
-      {/* Article specific (for blog posts/projects) */}
-      {type === 'article' && (
-        <>
-          <meta property="article:author" content={personalData.fullName} />
-          <meta property="article:section" content={section} />
-          {publishedTime && <meta property="article:published_time" content={publishedTime} />}
-          {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
-        </>
-      )}
+    // Create new script
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.setAttribute("data-schema-id", id);
+    script.textContent = JSON.stringify(data);
+    document.head.appendChild(script);
+  };
 
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@precious_okoyen" />
-      <meta name="twitter:creator" content="@precious_okoyen" />
-      <meta name="twitter:title" content={seoTitle} />
-      <meta name="twitter:description" content={seoDescription} />
-      <meta name="twitter:image" content={seoImage} />
-      <meta name="twitter:image:alt" content={`${personalData.fullName} - AI Engineer & Software Developer`} />
+  useEffect(() => {
+    // Set document title
+    document.title = seoTitle;
 
-      {/* LinkedIn */}
-      <meta property="linkedin:owner" content={personalData.socialLinks.linkedin} />
+    // Basic Meta Tags
+    setMetaContent("description", seoDescription);
+    setMetaContent("keywords", seoKeywords);
+    setMetaContent("author", author);
+    setMetaContent("creator", personalData.fullName);
+    setMetaContent("publisher", personalData.fullName);
 
-      {/* Additional Meta Tags for Rich Snippets */}
-      <meta name="application-name" content={`${personalData.fullName} Portfolio`} />
-      <meta name="msapplication-TileColor" content="#1e3a8a" />
-      <meta name="theme-color" content="#1e3a8a" />
+    // Robots and SEO Directives
+    setMetaContent(
+      "robots",
+      "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1",
+    );
+    setMetaContent(
+      "googlebot",
+      "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1",
+    );
+    setMetaContent("bingbot", "index, follow");
 
-      {/* Contact Information */}
-      <meta name="contact" content={personalData.email} />
-      <meta name="copyright" content={`© ${new Date().getFullYear()} ${personalData.fullName}. All rights reserved.`} />
+    // Language and Locale
+    setMetaContent("language", "English");
 
-      {/* Geo Tags */}
-      <meta name="geo.region" content="US-CA" />
-      <meta name="geo.placename" content="San Francisco" />
-      <meta name="geo.position" content="37.7749;-122.4194" />
-      <meta name="ICBM" content="37.7749, -122.4194" />
+    // Set language meta tag
+    let langMeta = document.querySelector(
+      'meta[http-equiv="content-language"]',
+    );
+    if (langMeta) {
+      langMeta.setAttribute("content", "en-US");
+    } else {
+      langMeta = document.createElement("meta");
+      langMeta.setAttribute("http-equiv", "content-language");
+      langMeta.setAttribute("content", "en-US");
+      document.head.appendChild(langMeta);
+    }
 
-      {/* Professional Tags */}
-      <meta name="profession" content="AI Engineer" />
-      <meta name="industry" content="Technology" />
-      <meta name="expertise" content={personalData.expertise.join(', ')} />
+    // Canonical URL
+    setLinkAttribute("canonical", seoUrl);
 
-      {/* Structured Data */}
-      <script type="application/ld+json">
-        {JSON.stringify(personStructuredData)}
-      </script>
-      <script type="application/ld+json">
-        {JSON.stringify(serviceStructuredData)}
-      </script>
-      <script type="application/ld+json">
-        {JSON.stringify(websiteStructuredData)}
-      </script>
+    // Open Graph / Facebook
+    setMetaContent("og:type", type, true);
+    setMetaContent("og:title", seoTitle, true);
+    setMetaContent("og:description", seoDescription, true);
+    setMetaContent("og:image", seoImage, true);
+    setMetaContent("og:image:width", "1200", true);
+    setMetaContent("og:image:height", "630", true);
+    setMetaContent(
+      "og:image:alt",
+      `${personalData.fullName} - AI Engineer & Software Developer`,
+      true,
+    );
+    setMetaContent("og:url", seoUrl, true);
+    setMetaContent(
+      "og:site_name",
+      `${personalData.fullName} - AI Engineer Portfolio`,
+      true,
+    );
+    setMetaContent("og:locale", "en_US", true);
 
-      {/* DNS Prefetch */}
-      <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-      <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-      <link rel="dns-prefetch" href="//github.com" />
-      <link rel="dns-prefetch" href="//linkedin.com" />
+    // Article specific (for blog posts/projects)
+    if (type === "article") {
+      setMetaContent("article:author", personalData.fullName, true);
+      setMetaContent("article:section", section, true);
+      if (publishedTime)
+        setMetaContent("article:published_time", publishedTime, true);
+      if (modifiedTime)
+        setMetaContent("article:modified_time", modifiedTime, true);
+    }
 
-      {/* Preconnect */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+    // Twitter
+    setMetaContent("twitter:card", "summary_large_image");
+    setMetaContent("twitter:site", "@precious_okoyen");
+    setMetaContent("twitter:creator", "@precious_okoyen");
+    setMetaContent("twitter:title", seoTitle);
+    setMetaContent("twitter:description", seoDescription);
+    setMetaContent("twitter:image", seoImage);
+    setMetaContent(
+      "twitter:image:alt",
+      `${personalData.fullName} - AI Engineer & Software Developer`,
+    );
 
-      {/* Alternative Languages (if needed) */}
-      <link rel="alternate" hrefLang="en" href={seoUrl} />
-      <link rel="alternate" hrefLang="x-default" href={seoUrl} />
+    // LinkedIn
+    setMetaContent("linkedin:owner", personalData.socialLinks.linkedin, true);
 
-      {/* Feed Links (if blog exists) */}
-      {/* <link rel="alternate" type="application/rss+xml" title={`${personalData.fullName} - Blog Feed`} href={`${seoUrl}/feed.xml`} /> */}
-    </Helmet>
-  );
+    // Additional Meta Tags for Rich Snippets
+    setMetaContent("application-name", `${personalData.fullName} Portfolio`);
+    setMetaContent("msapplication-TileColor", "#1e3a8a");
+    setMetaContent("theme-color", "#1e3a8a");
+
+    // Contact Information
+    setMetaContent("contact", personalData.email);
+    setMetaContent(
+      "copyright",
+      `© ${new Date().getFullYear()} ${personalData.fullName}. All rights reserved.`,
+    );
+
+    // Geo Tags
+    setMetaContent("geo.region", "US-CA");
+    setMetaContent("geo.placename", "San Francisco");
+    setMetaContent("geo.position", "37.7749;-122.4194");
+    setMetaContent("ICBM", "37.7749, -122.4194");
+
+    // Professional Tags
+    setMetaContent("profession", "AI Engineer");
+    setMetaContent("industry", "Technology");
+    setMetaContent("expertise", personalData.expertise.join(", "));
+
+    // Add Structured Data
+    addStructuredData(personStructuredData, "person");
+    addStructuredData(serviceStructuredData, "service");
+    addStructuredData(websiteStructuredData, "website");
+
+    // DNS Prefetch and Preconnect (only add if not exists)
+    const dnsPrefetchDomains = [
+      "//fonts.googleapis.com",
+      "//fonts.gstatic.com",
+      "//github.com",
+      "//linkedin.com",
+    ];
+
+    dnsPrefetchDomains.forEach((domain) => {
+      if (
+        !document.querySelector(`link[rel="dns-prefetch"][href="${domain}"]`)
+      ) {
+        setLinkAttribute("dns-prefetch", domain);
+      }
+    });
+
+    // Preconnect
+    if (
+      !document.querySelector(
+        'link[rel="preconnect"][href="https://fonts.googleapis.com"]',
+      )
+    ) {
+      setLinkAttribute("preconnect", "https://fonts.googleapis.com");
+    }
+
+    if (
+      !document.querySelector(
+        'link[rel="preconnect"][href="https://fonts.gstatic.com"]',
+      )
+    ) {
+      setLinkAttribute("preconnect", "https://fonts.gstatic.com", {
+        crossOrigin: "",
+      });
+    }
+
+    // Alternative Languages
+    setLinkAttribute("alternate", seoUrl, { hrefLang: "en" });
+    setLinkAttribute("alternate", seoUrl, { hrefLang: "x-default" });
+  }, [
+    seoTitle,
+    seoDescription,
+    seoKeywords,
+    seoImage,
+    seoUrl,
+    type,
+    publishedTime,
+    modifiedTime,
+    author,
+    section,
+    personStructuredData,
+    serviceStructuredData,
+    websiteStructuredData,
+  ]);
+
+  // This component doesn't render anything visible
+  return null;
 };
 
 export default SEOHead;

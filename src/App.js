@@ -18,6 +18,7 @@ import ScrollProgress from "./components/ui/ScrollProgress";
 import { ErrorBoundary, OfflineIndicator } from "./components/ui/LoadingStates";
 import { cleanup } from "./utils/performance";
 import { useSkeletonTransition } from "./hooks/useSkeletonTransition";
+import SEOHead from "./components/SEO/SEOHead";
 
 // Lazy load components for better performance
 const Home = lazy(() => import("./pages/Home"));
@@ -142,6 +143,9 @@ const AppContent = () => {
         >
           {/* Accessibility skip link */}
           <SkipToContent />
+
+          {/* SEO Head Management */}
+          <SEOHead />
 
           {/* Scroll progress indicator */}
           <ScrollProgress />
