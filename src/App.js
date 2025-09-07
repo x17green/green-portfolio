@@ -1,5 +1,5 @@
 import React from "react";
-import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { CssBaseline, Box } from "@mui/material";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "@fontsource/roboto/300.css";
@@ -7,14 +7,19 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
-import { theme } from "./theme";
+import { getTheme } from "./theme/theme";
+import { ThemeProvider, useThemeMode } from "./theme/ThemeContext";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
+import ThemeToggle from "./components/ui/ThemeToggle";
 import Home from "./pages/Home";
 
-function App() {
+const AppContent = () => {
+  const { mode } = useThemeMode();
+  const theme = getTheme(mode);
+
   return (
-    <ThemeProvider theme={theme}>
+    <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
         <Box
@@ -24,6 +29,7 @@ function App() {
             minHeight: "100vh",
             backgroundColor: "background.default",
             color: "text.primary",
+            transition: "all 0.3s ease-in-out",
           }}
         >
           <Header />
@@ -33,8 +39,17 @@ function App() {
             </Routes>
           </Box>
           <Footer />
+          <ThemeToggle />
         </Box>
       </Router>
+    </MuiThemeProvider>
+  );
+};
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
     </ThemeProvider>
   );
 }
