@@ -1,7 +1,35 @@
 {
-  "name": "green-portfolio",
-  "version": "0.1.0",
-  "private": true,
+  "name": "precious-okoyen-portfolio",
+  "version": "1.0.0",
+  "description": "Precious E. Okoyen - AI Engineer Portfolio | Machine Learning & Software Development",
+  "author": "Precious E. Okoyen <pokosine@protonmail.com>",
+  "keywords": [
+    "Precious E. Okoyen",
+    "Ebisine",
+    "Precious Okoyen",
+    "Pokosine",
+    "Portfolio",
+    "Okoyen",
+    "AI Engineer",
+    "Machine Learning",
+    "Prompt Engineering",
+    "Software Developer",
+    "Portfolio",
+    "React",
+    "AI",
+    "TensorFlow",
+    "PyTorch"
+  ],
+  "homepage": "https://x17-green-portfolio.vercel.app/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/x17green/green-portfolio"
+  },
+  "bugs": {
+    "url": "https://github.com/x17green/green-portfolio/issues"
+  },
+  "license": "MIT",
+  "private": false,
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",

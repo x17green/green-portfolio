@@ -22,7 +22,7 @@ export const experienceData = [
     icon: <Psychology />,
     companyLogo: "/images/companies/techvision.jpg",
     description:
-      "Leading the development of next-generation AI systems with a focus on prompt engineering and large language model optimization. Spearheading initiatives that bridge cutting-edge AI research with practical business applications.",
+      "Precious E. Okoyen leads the development of next-generation AI systems with a focus on prompt engineering and large language model optimization. Spearheads initiatives that bridge cutting-edge AI research with practical business applications.",
     responsibilities: [
       "Lead a team of 8 AI engineers in developing advanced prompt engineering frameworks",
       "Architect and implement multi-modal AI systems using GPT-4, Claude, and custom models",
@@ -77,7 +77,7 @@ export const experienceData = [
     icon: <AutoAwesome />,
     companyLogo: "/images/companies/innovatetech.jpg",
     description:
-      "Developed and deployed machine learning models for predictive analytics and automation. Focused on deep learning architectures and real-time inference systems for enterprise clients.",
+      "Precious E. Okoyen developed and deployed machine learning models for predictive analytics and automation. Focused on deep learning architectures and real-time inference systems for enterprise clients.",
     responsibilities: [
       "Designed and implemented CNN and RNN models for computer vision and NLP tasks",
       "Built end-to-end ML pipelines from data ingestion to model deployment",
@@ -132,7 +132,7 @@ export const experienceData = [
     icon: <EmojiObjects />,
     companyLogo: "/images/companies/neuraldynamics.jpg",
     description:
-      "Started as a research intern and transitioned to full-time role. Contributed to cutting-edge AI research while developing practical applications for neural network optimization and automated machine learning.",
+      "Precious E. Okoyen started as a research intern and transitioned to full-time role. Contributed to cutting-edge AI research while developing practical applications for neural network optimization and automated machine learning.",
     responsibilities: [
       "Conducted research on novel neural network architectures and optimization techniques",
       "Implemented and tested state-of-the-art deep learning models",
@@ -187,7 +187,7 @@ export const experienceData = [
     icon: <Code />,
     companyLogo: "/images/companies/cloudscale.jpg",
     description:
-      "Developed scalable web applications and backend services. Gained foundational experience in software engineering practices while building interest in AI and machine learning applications.",
+      "Precious E. Okoyen developed scalable web applications and backend services. Gained foundational experience in software engineering practices while building interest in AI and machine learning applications.",
     responsibilities: [
       "Built and maintained RESTful APIs using Node.js and Express.js",
       "Developed responsive web applications with React and modern JavaScript",
@@ -242,7 +242,7 @@ export const educationData = [
     icon: <School />,
     logo: "/images/education/stanford.jpg",
     description:
-      "Specialized in machine learning, deep learning, and natural language processing. Thesis on 'Advanced Prompt Engineering Techniques for Large Language Models'.",
+      "Precious E. Okoyen specialized in machine learning, deep learning, and natural language processing. Thesis on 'Advanced Prompt Engineering Techniques for Large Language Models'.",
     coursework: [
       "Advanced Machine Learning (CS229)",
       "Deep Learning (CS230)",
@@ -261,7 +261,7 @@ export const educationData = [
       title: "Advanced Prompt Engineering Techniques for Large Language Models",
       advisor: "Prof. Christopher Manning",
       summary:
-        "Research on optimizing prompt strategies for improved LLM performance across diverse tasks.",
+        "Precious E. Okoyen's research on optimizing prompt strategies for improved LLM performance across diverse tasks.",
     },
   },
   {
@@ -274,7 +274,7 @@ export const educationData = [
     icon: <Engineering />,
     logo: "/images/education/berkeley.jpg",
     description:
-      "Strong foundation in computer science fundamentals with emphasis on algorithms, data structures, and software engineering principles.",
+      "Precious E. Okoyen built a strong foundation in computer science fundamentals with emphasis on algorithms, data structures, and software engineering principles.",
     coursework: [
       "Data Structures and Algorithms (CS61B)",
       "Computer Architecture (CS61C)",
