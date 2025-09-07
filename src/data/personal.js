@@ -241,9 +241,9 @@ export const personalData = {
     subheading: "Passionate AI Software Engineer",
     tagline: "Building Intelligent Solutions for a Smarter Tomorrow using Prompt Engineering & LLMs",
     content: [
-      "With over 3 years of experience in artificial intelligence and machine learning, I've dedicated my career to pushing the boundaries of what's possible with AI. My expertise spans from traditional machine learning algorithms to the latest developments in large language models and prompt engineering.",
-      "I'm particularly passionate about prompt engineering - the art and science of crafting inputs that unlock the full potential of AI models. Having worked with GPT, Claude, and other cutting-edge models, I understand how to leverage their capabilities to create innovative solutions for complex business challenges.",
-      "When I'm not training models or optimizing prompts, you'll find me contributing to open-source AI projects, writing technical articles, and mentoring the next generation of AI engineers."
+      "With over 3 years of experience in Software Development, Artificial Intelligence and Machine Learning, I've dedicated my career to pushing the boundaries of what's possible with AI. My expertise spans from traditional Software Engineering algorithms to the latest developments in Large Language Models (LLMs) and Prompt Engineering.",
+      "I'm particularly passionate about prompt engineering - the art and science of crafting inputs that unlock the full potential of AI models. Having worked with GPT, Claude, Gemini and other cutting-edge models, I understand how to leverage their capabilities to create innovative solutions for complex business challenges.",
+      "When I'm not training models or optimizing prompts, you'll find me contributing to open-source projects, writing technical articles, and mentoring the next generation of AI Software Engineers."
     ],
     certifications: [
       "Software Engineering (SWE) - ALX Africa",
