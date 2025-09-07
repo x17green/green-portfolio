@@ -252,7 +252,7 @@ const ContactSection = () => {
 
           <Grid container spacing={4}>
             {/* Contact Form */}
-            <Grid item xs={12} lg={7}>
+            <Grid size={{ xs:12, lg:7 }}>
               <motion.div variants={itemVariants}>
                 <Card
                   sx={{
@@ -281,7 +281,7 @@ const ContactSection = () => {
 
                     <Box component="form" onSubmit={handleSubmit}>
                       <Grid container spacing={3}>
-                        <Grid item xs={12} sm={6}>
+                        <Grid size={{ xs:12, sm:6 }}>
                           <TextField
                             fullWidth
                             label="Name"
@@ -302,7 +302,7 @@ const ContactSection = () => {
                             }}
                           />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid size={{ xs:12, sm:6 }}>
                           <TextField
                             fullWidth
                             label="Email"
@@ -324,7 +324,7 @@ const ContactSection = () => {
                             }}
                           />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid size={{ xs:12 }}>
                           <TextField
                             fullWidth
                             label="Subject"
@@ -345,7 +345,7 @@ const ContactSection = () => {
                             }}
                           />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid size={{ xs:12 }}>
                           <TextField
                             fullWidth
                             label="Message"
@@ -368,7 +368,7 @@ const ContactSection = () => {
                             }}
                           />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid size={{ xs:12 }}>
                           <Button
                             type="submit"
                             variant="contained"
@@ -405,7 +405,7 @@ const ContactSection = () => {
             </Grid>
 
             {/* Contact Information */}
-            <Grid item xs={12} lg={5}>
+            <Grid size={{ xs:12, lg:7 }}>
               <motion.div variants={itemVariants}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                   {/* Contact Info Cards */}

@@ -264,7 +264,7 @@ const SkillsSection = () => {
               >
                 <Grid container spacing={3}>
                   {filteredSkills.map((skill, index) => (
-                    <Grid item xs={12} sm={6} lg={4} key={skill.skill}>
+                    <Grid size={{ xs:12, md:6, lg:4 }} key={skill.skill}>
                       <SkillCard
                         skill={skill.skill}
                         level={skill.level}
@@ -285,7 +285,7 @@ const SkillsSection = () => {
             <Box sx={{ mt: 8, textAlign: 'center' }}>
               <Grid container spacing={4}>
                 {skillCategories.map((category, index) => (
-                  <Grid item xs={6} md={3} key={category.name}>
+                  <Grid size={{ xs:6, md:3 }} key={category.name}>
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}

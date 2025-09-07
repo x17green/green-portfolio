@@ -333,7 +333,7 @@ const ProjectsSection = () => {
                 {Object.entries(project.metrics)
                   .slice(0, 2)
                   .map(([key, value]) => (
-                    <Grid item xs={6} key={key}>
+                    <Grid size={{ xs:6 }} key={key}>
                       <Box
                         sx={{
                           textAlign: "center",
@@ -548,7 +548,7 @@ const ProjectsSection = () => {
               >
                 <Grid container spacing={4}>
                   {filteredProjects.map((project, index) => (
-                    <Grid item xs={12} md={6} lg={4} key={project.id}>
+                    <Grid size={{ xs:12, md:6, lg:4 }} key={project.id}>
                       <ProjectCard project={project} index={index} />
                     </Grid>
                   ))}
