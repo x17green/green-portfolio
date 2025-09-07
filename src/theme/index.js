@@ -1,2 +1,2 @@
-export { default as theme } from './theme';
-export { default } from './theme';
+export { getTheme as theme, getTheme as default } from "./theme";
+export { ThemeProvider, useThemeMode } from "./ThemeContext";
