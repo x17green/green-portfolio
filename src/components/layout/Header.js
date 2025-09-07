@@ -130,7 +130,7 @@ const Header = () => {
                     fontSize: "1.25rem",
                   }}
                 >
-                  AI Engineer Portfolio
+                  Precious E. Okoyen
                 </Typography>
               </Box>
             </motion.div>
