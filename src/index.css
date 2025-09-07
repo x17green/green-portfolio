@@ -277,6 +277,7 @@ img {
 @font-face {
     font-family: "Inter";
     font-display: swap;
+    src: url("https://fonts.gstatic.com/s/inter/v12/UcCO3Fwr2l8U0kAFcZp6YI6o.woff2") format("woff2");
 }
 
 /* Performance optimizations */
