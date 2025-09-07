@@ -20,7 +20,7 @@
     "TensorFlow",
     "PyTorch"
   ],
-  "homepage": "https://x17-green-portfolio.vercel.app/",
+  "homepage": "https://x17green.vercel.app/",
   "repository": {
     "type": "git",
     "url": "https://github.com/x17green/green-portfolio"

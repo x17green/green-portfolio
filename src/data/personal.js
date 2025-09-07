@@ -25,7 +25,7 @@ export const personalData = {
     github: "https://github.com/x17green",
     twitter: "https://twitter.com/0x17green",
     medium: "https://medium.com/@x17-green",
-    portfolio: "https://x17-green-portfolio.vercel.app/",
+    portfolio: "https://x17green.vercel.app/",
     calendly: "https://calendly.com/precious-okoyen",
     googleScholar: "https://scholar.google.com/citations?user=precious-okoyen"
   },

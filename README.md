@@ -187,8 +187,8 @@ src/
 
 ## 📄 Resume & Documents
 
-- 📋 [Download Resume (PDF)](https://x17-green-portfolio.vercel.app/files/precious-okoyen-resume.pdf)
-- 🎓 [View Certifications](https://x17-green-portfolio.vercel.app/certifications)
+- 📋 [Download Resume (PDF)](https://x17green.vercel.app/files/precious-okoyen-resume.pdf)
+- 🎓 [View Certifications](https://x17green.vercel.app/certifications)
 - 📚 [Research Publications](https://medium.com/@x17-green)
 
 ## 🤝 Collaboration & Opportunities
