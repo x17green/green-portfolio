@@ -1,4 +1,10 @@
-import React from "react";
+import {
+  Psychology,
+  AutoAwesome,
+  Timeline,
+  School,
+  WorkspacePremium,
+} from '@mui/icons-material';
 import {
   Box,
   Container,
@@ -10,35 +16,27 @@ import {
   Chip,
   useTheme,
   useMediaQuery,
-} from "@mui/material";
-import {
-  Psychology,
-  Code,
-  AutoAwesome,
-  Timeline,
-  School,
-  WorkspacePremium,
-} from "@mui/icons-material";
-import { motion } from "framer-motion";
-import personalData from "../../data/personal";
+} from '@mui/material';
+import { motion } from 'framer-motion';
+import personalData from '../../data/personal';
 
 const AboutSection = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const stats = [
     {
-      label: "Years of Experience",
+      label: 'Years of Experience',
       value: `${personalData.stats.yearsExperience}+`,
       icon: <Timeline />,
     },
     {
-      label: "Projects Completed",
+      label: 'Projects Completed',
       value: `${personalData.stats.projectsCompleted}+`,
       icon: <AutoAwesome />,
     },
     {
-      label: "AI Models Deployed",
+      label: 'AI Models Deployed',
       value: `${personalData.stats.modelsDeployed}`,
       icon: <Psychology />,
     },
@@ -63,7 +61,7 @@ const AboutSection = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: 'easeOut' },
     },
   };
 
@@ -72,7 +70,7 @@ const AboutSection = () => {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5, ease: 'easeOut' },
     },
   };
 
@@ -82,8 +80,8 @@ const AboutSection = () => {
       sx={{
         py: { xs: 8, md: 12 },
         background:
-          "linear-gradient(135deg, rgba(0, 230, 118, 0.02) 0%, rgba(25, 118, 210, 0.02) 100%)",
-        position: "relative",
+          'linear-gradient(135deg, rgba(0, 230, 118, 0.02) 0%, rgba(25, 118, 210, 0.02) 100%)',
+        position: 'relative',
       }}
     >
       <Container maxWidth="lg">
@@ -91,32 +89,32 @@ const AboutSection = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-100px' }}
         >
           {/* Section Header */}
           <motion.div variants={itemVariants}>
-            <Box sx={{ textAlign: "center", mb: 8 }}>
+            <Box sx={{ textAlign: 'center', mb: 8 }}>
               <Typography
                 variant="h6"
                 sx={{
-                  color: "primary.main",
+                  color: 'primary.main',
                   fontWeight: 600,
-                  textTransform: "uppercase",
+                  textTransform: 'uppercase',
                   letterSpacing: 2,
                   mb: 2,
                 }}
               >
-              {personalData.about.heading}
+                {personalData.about.heading}
               </Typography>
               <Typography
-                variant={isMobile ? "h4" : "h3"}
+                variant={isMobile ? 'h4' : 'h3'}
                 sx={{
                   fontWeight: 700,
                   mb: 3,
-                  background: "linear-gradient(45deg, #ffffff, #00e676)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                  background: 'linear-gradient(45deg, #ffffff, #00e676)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                 }}
               >
                 {personalData.about.subheading}
@@ -124,9 +122,9 @@ const AboutSection = () => {
               <Typography
                 variant="h6"
                 sx={{
-                  color: "text.secondary",
-                  maxWidth: "800px",
-                  mx: "auto",
+                  color: 'text.secondary',
+                  maxWidth: '800px',
+                  mx: 'auto',
                   lineHeight: 1.6,
                 }}
               >
@@ -141,19 +139,19 @@ const AboutSection = () => {
               <motion.div variants={itemVariants}>
                 <Card
                   sx={{
-                    background: "rgba(255, 255, 255, 0.05)",
-                    backdropFilter: "blur(10px)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
                     borderRadius: 3,
                     p: 3,
-                    height: "100%",
+                    height: '100%',
                   }}
                 >
                   <CardContent sx={{ p: 0 }}>
                     <Box
                       sx={{
-                        display: "flex",
-                        alignItems: "center",
+                        display: 'flex',
+                        alignItems: 'center',
                         gap: 2,
                         mb: 3,
                       }}
@@ -163,7 +161,7 @@ const AboutSection = () => {
                           width: 60,
                           height: 60,
                           background:
-                            "linear-gradient(45deg, #00e676, #1976d2)",
+                            'linear-gradient(45deg, #00e676, #1976d2)',
                         }}
                       >
                         <Psychology sx={{ fontSize: 32 }} />
@@ -186,7 +184,7 @@ const AboutSection = () => {
                         key={index}
                         variant="body1"
                         sx={{
-                          color: "text.secondary",
+                          color: 'text.secondary',
                           lineHeight: 1.8,
                           mb: 3,
                         }}
@@ -202,15 +200,15 @@ const AboutSection = () => {
                         sx={{
                           fontWeight: 600,
                           mb: 2,
-                          display: "flex",
-                          alignItems: "center",
+                          display: 'flex',
+                          alignItems: 'center',
                           gap: 1,
                         }}
                       >
-                        <WorkspacePremium sx={{ color: "primary.main" }} />
+                        <WorkspacePremium sx={{ color: 'primary.main' }} />
                         Certifications
                       </Typography>
-                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                         {certifications.map((cert, index) => (
                           <motion.div
                             key={cert}
@@ -223,12 +221,12 @@ const AboutSection = () => {
                               label={cert}
                               size="small"
                               sx={{
-                                backgroundColor: "rgba(25, 118, 210, 0.1)",
-                                color: "secondary.main",
-                                border: "1px solid rgba(25, 118, 210, 0.3)",
+                                backgroundColor: 'rgba(25, 118, 210, 0.1)',
+                                color: 'secondary.main',
+                                border: '1px solid rgba(25, 118, 210, 0.3)',
                                 fontWeight: 500,
-                                "&:hover": {
-                                  backgroundColor: "rgba(25, 118, 210, 0.2)",
+                                '&:hover': {
+                                  backgroundColor: 'rgba(25, 118, 210, 0.2)',
                                 },
                               }}
                             />
@@ -243,7 +241,7 @@ const AboutSection = () => {
 
             {/* Stats Cards */}
             <Grid size={{ xs: 12, md: 4 }}>
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 {stats.map((stat, index) => (
                   <motion.div
                     key={stat.label}
@@ -255,25 +253,25 @@ const AboutSection = () => {
                   >
                     <Card
                       sx={{
-                        background: "rgba(255, 255, 255, 0.05)",
-                        backdropFilter: "blur(10px)",
-                        border: "1px solid rgba(255, 255, 255, 0.1)",
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
                         borderRadius: 3,
                         p: 2,
-                        textAlign: "center",
-                        transition: "all 0.3s ease-in-out",
-                        "&:hover": {
-                          transform: "translateY(-4px)",
-                          boxShadow: "0px 8px 24px rgba(0, 230, 118, 0.2)",
-                          border: "1px solid rgba(0, 230, 118, 0.3)",
+                        textAlign: 'center',
+                        transition: 'all 0.3s ease-in-out',
+                        '&:hover': {
+                          transform: 'translateY(-4px)',
+                          boxShadow: '0px 8px 24px rgba(0, 230, 118, 0.2)',
+                          border: '1px solid rgba(0, 230, 118, 0.3)',
                         },
                       }}
                     >
                       <CardContent sx={{ p: 0 }}>
                         <Box
                           sx={{
-                            display: "flex",
-                            justifyContent: "center",
+                            display: 'flex',
+                            justifyContent: 'center',
                             mb: 2,
                           }}
                         >
@@ -282,8 +280,8 @@ const AboutSection = () => {
                               width: 48,
                               height: 48,
                               background: `linear-gradient(45deg, ${
-                                index % 2 === 0 ? "#00e676" : "#1976d2"
-                              }, ${index % 2 === 0 ? "#1976d2" : "#00e676"})`,
+                                index % 2 === 0 ? '#00e676' : '#1976d2'
+                              }, ${index % 2 === 0 ? '#1976d2' : '#00e676'})`,
                             }}
                           >
                             {stat.icon}
@@ -295,10 +293,10 @@ const AboutSection = () => {
                             fontWeight: 700,
                             mb: 1,
                             background:
-                              "linear-gradient(45deg, #00e676, #1976d2)",
-                            backgroundClip: "text",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
+                              'linear-gradient(45deg, #00e676, #1976d2)',
+                            backgroundClip: 'text',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
                           }}
                         >
                           {stat.value}
@@ -326,11 +324,11 @@ const AboutSection = () => {
                 sx={{
                   fontWeight: 600,
                   mb: 4,
-                  textAlign: "center",
-                  background: "linear-gradient(45deg, #ffffff, #00e676)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                  textAlign: 'center',
+                  background: 'linear-gradient(45deg, #ffffff, #00e676)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                 }}
               >
                 Professional Values
@@ -338,21 +336,21 @@ const AboutSection = () => {
               <Grid container spacing={3}>
                 {[
                   {
-                    title: "Innovation & Continuous Learning",
+                    title: 'Innovation & Continuous Learning',
                     description:
-                      "Always exploring cutting-edge technologies and methodologies to solve complex problems.",
+                      'Always exploring cutting-edge technologies and methodologies to solve complex problems.',
                     icon: <AutoAwesome />,
                   },
                   {
-                    title: "Ethical AI Development",
+                    title: 'Ethical AI Development',
                     description:
-                      "Committed to developing responsible AI systems that benefit humanity and respect privacy.",
+                      'Committed to developing responsible AI systems that benefit humanity and respect privacy.',
                     icon: <Psychology />,
                   },
                   {
-                    title: "Collaborative Problem Solving",
+                    title: 'Collaborative Problem Solving',
                     description:
-                      "Working together with diverse teams to create innovative solutions that make a real impact.",
+                      'Working together with diverse teams to create innovative solutions that make a real impact.',
                     icon: <School />,
                   },
                 ].map((value, index) => (
@@ -365,17 +363,17 @@ const AboutSection = () => {
                     >
                       <Card
                         sx={{
-                          background: "rgba(255, 255, 255, 0.03)",
-                          backdropFilter: "blur(10px)",
-                          border: "1px solid rgba(255, 255, 255, 0.08)",
+                          background: 'rgba(255, 255, 255, 0.03)',
+                          backdropFilter: 'blur(10px)',
+                          border: '1px solid rgba(255, 255, 255, 0.08)',
                           borderRadius: 3,
                           p: 3,
-                          textAlign: "center",
-                          height: "100%",
-                          transition: "all 0.3s ease-in-out",
-                          "&:hover": {
-                            transform: "translateY(-4px)",
-                            border: "1px solid rgba(0, 230, 118, 0.2)",
+                          textAlign: 'center',
+                          height: '100%',
+                          transition: 'all 0.3s ease-in-out',
+                          '&:hover': {
+                            transform: 'translateY(-4px)',
+                            border: '1px solid rgba(0, 230, 118, 0.2)',
                           },
                         }}
                       >
@@ -383,10 +381,10 @@ const AboutSection = () => {
                           sx={{
                             width: 56,
                             height: 56,
-                            mx: "auto",
+                            mx: 'auto',
                             mb: 2,
                             background:
-                              "linear-gradient(45deg, #00e676, #1976d2)",
+                              'linear-gradient(45deg, #00e676, #1976d2)',
                           }}
                         >
                           {value.icon}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { Send, CheckCircle, Error } from '@mui/icons-material';
 import {
   Box,
   Container,
@@ -17,19 +17,15 @@ import {
   Avatar,
   Divider,
 } from '@mui/material';
-import {
-  Email,
-  Phone,
-  LocationOn,
-  Send,
-  GitHub,
-  LinkedIn,
-  Twitter,
-  Schedule,
-  CheckCircle,
-  Error,
-} from '@mui/icons-material';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import personalData from '../../data/personal';
+import {
+  trackContactForm,
+  trackSocialClick,
+  trackNavigation,
+} from '../../utils/analytics';
+import LineIcon from '../ui/LineIcon';
 
 const ContactSection = () => {
   const theme = useTheme();
@@ -40,76 +36,101 @@ const ContactSection = () => {
     subject: '',
     message: '',
   });
-  const [formStatus, setFormStatus] = useState({ open: false, type: '', message: '' });
+  const [formStatus, setFormStatus] = useState({
+    open: false,
+    type: '',
+    message: '',
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const contactInfo = [
     {
-      icon: <Email />,
+      icon: <LineIcon name="email" />,
       label: 'Email',
-      value: 'hello@aiportfolio.dev',
-      link: 'mailto:hello@aiportfolio.dev',
+      value: personalData.email,
+      link: `mailto:${personalData.email}`,
       color: '#00e676',
     },
     {
-      icon: <Phone />,
+      icon: <LineIcon name="phone" />,
       label: 'Phone',
-      value: '+1 (555) 123-4567',
-      link: 'tel:+15551234567',
+      value: personalData.phone,
+      link: `tel:${personalData.phone.replace(/[^\d+]/g, '')}`,
       color: '#1976d2',
     },
     {
-      icon: <LocationOn />,
+      icon: <LineIcon name="location" />,
       label: 'Location',
-      value: 'San Francisco, CA',
-      link: 'https://maps.google.com/?q=San Francisco, CA',
+      value: personalData.location,
+      link: `https://maps.google.com/?q=${personalData.location}`,
       color: '#ff9800',
     },
     {
-      icon: <Schedule />,
+      icon: <LineIcon name="schedule" />,
       label: 'Availability',
-      value: 'Open for opportunities',
+      value: personalData.availability.status,
       color: '#4caf50',
     },
   ];
 
   const socialLinks = [
     {
-      icon: <GitHub />,
+      icon: <LineIcon name="github" />,
       label: 'GitHub',
-      url: 'https://github.com/yourusername',
+      url: personalData.socialLinks.github,
       color: theme.palette.mode === 'dark' ? '#ffffff' : '#333333',
     },
     {
-      icon: <LinkedIn />,
+      icon: <LineIcon name="linkedin" />,
       label: 'LinkedIn',
-      url: 'https://linkedin.com/in/yourusername',
+      url: personalData.socialLinks.linkedin,
       color: '#0077b5',
     },
     {
-      icon: <Twitter />,
+      icon: <LineIcon name="twitter" />,
       label: 'Twitter',
-      url: 'https://twitter.com/yourusername',
-      color: '#1da1f2',
+      url: personalData.socialLinks.twitter,
+      color: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
     },
     {
-      icon: <Email />,
+      icon: <LineIcon name="medium" />,
+      label: 'Medium',
+      url: personalData.socialLinks.medium,
+      color: '#00ab6c',
+    },
+    {
+      icon: <LineIcon name="calendar" />,
+      label: 'Calendly',
+      url: personalData.socialLinks.calendly,
+      color: '#006bff',
+    },
+    {
+      icon: <LineIcon name="email" />,
       label: 'Email',
-      url: 'mailto:hello@aiportfolio.dev',
+      url: `mailto:${personalData.email}`,
       color: '#ea4335',
     },
   ];
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    // Track form start
+    trackContactForm('form_start', {
+      formName: 'contact_form',
+      hasName: !!formData.name,
+      hasEmail: !!formData.email,
+      hasSubject: !!formData.subject,
+      hasMessage: !!formData.message,
+    });
 
     // Simulate form submission
     try {
@@ -118,7 +139,15 @@ const ContactSection = () => {
       setFormStatus({
         open: true,
         type: 'success',
-        message: 'Thank you for your message! I\'ll get back to you within 24 hours.',
+        message:
+          "Thank you for your message! I'll get back to you within 24 hours.",
+      });
+
+      // Track successful form submission
+      trackContactForm('form_submit', {
+        formName: 'contact_form',
+        subject: formData.subject,
+        messageLength: formData.message.length,
       });
 
       setFormData({ name: '', email: '', subject: '', message: '' });
@@ -126,7 +155,14 @@ const ContactSection = () => {
       setFormStatus({
         open: true,
         type: 'error',
-        message: 'Sorry, there was an error sending your message. Please try again.',
+        message:
+          'Sorry, there was an error sending your message. Please try again.',
+      });
+
+      // Track form error
+      trackContactForm('form_error', {
+        formName: 'contact_form',
+        errorMessage: error.message || 'Unknown error',
       });
     } finally {
       setIsSubmitting(false);
@@ -162,9 +198,10 @@ const ContactSection = () => {
       id="contact"
       sx={{
         py: { xs: 8, md: 12 },
-        background: theme.palette.mode === 'dark'
-          ? 'linear-gradient(135deg, rgba(25, 118, 210, 0.02) 0%, rgba(0, 230, 118, 0.02) 100%)'
-          : 'linear-gradient(135deg, rgba(25, 118, 210, 0.05) 0%, rgba(0, 230, 118, 0.05) 100%)',
+        background:
+          theme.palette.mode === 'dark'
+            ? 'linear-gradient(135deg, rgba(25, 118, 210, 0.02) 0%, rgba(0, 230, 118, 0.02) 100%)'
+            : 'linear-gradient(135deg, rgba(25, 118, 210, 0.05) 0%, rgba(0, 230, 118, 0.05) 100%)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -178,7 +215,8 @@ const ContactSection = () => {
           width: 120,
           height: 120,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0, 230, 118, 0.1) 0%, transparent 70%)',
+          background:
+            'radial-gradient(circle, rgba(0, 230, 118, 0.1) 0%, transparent 70%)',
           filter: 'blur(40px)',
         }}
         component={motion.div}
@@ -225,9 +263,10 @@ const ContactSection = () => {
                 sx={{
                   fontWeight: 700,
                   mb: 3,
-                  background: theme.palette.mode === 'dark'
-                    ? 'linear-gradient(45deg, #ffffff, #00e676)'
-                    : 'linear-gradient(45deg, #333333, #00e676)',
+                  background:
+                    theme.palette.mode === 'dark'
+                      ? 'linear-gradient(45deg, #ffffff, #00e676)'
+                      : 'linear-gradient(45deg, #333333, #00e676)',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -244,25 +283,28 @@ const ContactSection = () => {
                   lineHeight: 1.6,
                 }}
               >
-                Ready to discuss your next AI project or collaboration? I'd love to hear from you.
-                Drop me a message and let's explore the possibilities together.
+                Ready to discuss your next AI project or collaboration? I'd love
+                to hear from you. Drop me a message, schedule a call, or let's
+                explore the possibilities together.
               </Typography>
             </Box>
           </motion.div>
 
           <Grid container spacing={4}>
             {/* Contact Form */}
-            <Grid size={{ xs:12, lg:7 }}>
+            <Grid size={{ xs: 12, lg: 7 }}>
               <motion.div variants={itemVariants}>
                 <Card
                   sx={{
-                    background: theme.palette.mode === 'dark'
-                      ? 'rgba(255, 255, 255, 0.05)'
-                      : 'rgba(255, 255, 255, 0.9)',
+                    background:
+                      theme.palette.mode === 'dark'
+                        ? 'rgba(255, 255, 255, 0.05)'
+                        : 'rgba(255, 255, 255, 0.9)',
                     backdropFilter: 'blur(20px)',
-                    border: theme.palette.mode === 'dark'
-                      ? '1px solid rgba(255, 255, 255, 0.1)'
-                      : '1px solid rgba(0, 0, 0, 0.1)',
+                    border:
+                      theme.palette.mode === 'dark'
+                        ? '1px solid rgba(255, 255, 255, 0.1)'
+                        : '1px solid rgba(0, 0, 0, 0.1)',
                     borderRadius: 3,
                     overflow: 'hidden',
                   }}
@@ -281,7 +323,7 @@ const ContactSection = () => {
 
                     <Box component="form" onSubmit={handleSubmit}>
                       <Grid container spacing={3}>
-                        <Grid size={{ xs:12, sm:6 }}>
+                        <Grid size={{ xs: 12, sm: 6 }}>
                           <TextField
                             fullWidth
                             label="Name"
@@ -302,7 +344,7 @@ const ContactSection = () => {
                             }}
                           />
                         </Grid>
-                        <Grid size={{ xs:12, sm:6 }}>
+                        <Grid size={{ xs: 12, sm: 6 }}>
                           <TextField
                             fullWidth
                             label="Email"
@@ -324,7 +366,7 @@ const ContactSection = () => {
                             }}
                           />
                         </Grid>
-                        <Grid size={{ xs:12 }}>
+                        <Grid size={{ xs: 12 }}>
                           <TextField
                             fullWidth
                             label="Subject"
@@ -345,7 +387,7 @@ const ContactSection = () => {
                             }}
                           />
                         </Grid>
-                        <Grid size={{ xs:12 }}>
+                        <Grid size={{ xs: 12 }}>
                           <TextField
                             fullWidth
                             label="Message"
@@ -368,24 +410,33 @@ const ContactSection = () => {
                             }}
                           />
                         </Grid>
-                        <Grid size={{ xs:12 }}>
+                        <Grid size={{ xs: 12 }}>
                           <Button
                             type="submit"
                             variant="contained"
                             size="large"
                             disabled={isSubmitting}
-                            startIcon={isSubmitting ? <Schedule /> : <Send />}
+                            startIcon={
+                              isSubmitting ? (
+                                <LineIcon name="schedule" />
+                              ) : (
+                                <Send />
+                              )
+                            }
                             sx={{
-                              background: 'linear-gradient(45deg, #00e676 30%, #1976d2 90%)',
+                              background:
+                                'linear-gradient(45deg, #00e676 30%, #1976d2 90%)',
                               px: 4,
                               py: 1.5,
                               fontSize: '1rem',
                               fontWeight: 600,
                               boxShadow: '0px 8px 24px rgba(0, 230, 118, 0.3)',
                               '&:hover': {
-                                background: 'linear-gradient(45deg, #1976d2 30%, #00e676 90%)',
+                                background:
+                                  'linear-gradient(45deg, #1976d2 30%, #00e676 90%)',
                                 transform: 'translateY(-2px)',
-                                boxShadow: '0px 12px 32px rgba(0, 230, 118, 0.4)',
+                                boxShadow:
+                                  '0px 12px 32px rgba(0, 230, 118, 0.4)',
                               },
                               '&:disabled': {
                                 background: 'rgba(0, 230, 118, 0.3)',
@@ -405,7 +456,7 @@ const ContactSection = () => {
             </Grid>
 
             {/* Contact Information */}
-            <Grid size={{ xs:12, lg:7 }}>
+            <Grid size={{ xs: 12, lg: 7 }}>
               <motion.div variants={itemVariants}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                   {/* Contact Info Cards */}
@@ -419,13 +470,15 @@ const ContactSection = () => {
                     >
                       <Card
                         sx={{
-                          background: theme.palette.mode === 'dark'
-                            ? 'rgba(255, 255, 255, 0.05)'
-                            : 'rgba(255, 255, 255, 0.9)',
+                          background:
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.05)'
+                              : 'rgba(255, 255, 255, 0.9)',
                           backdropFilter: 'blur(20px)',
-                          border: theme.palette.mode === 'dark'
-                            ? '1px solid rgba(255, 255, 255, 0.1)'
-                            : '1px solid rgba(0, 0, 0, 0.1)',
+                          border:
+                            theme.palette.mode === 'dark'
+                              ? '1px solid rgba(255, 255, 255, 0.1)'
+                              : '1px solid rgba(0, 0, 0, 0.1)',
                           borderRadius: 2,
                           transition: 'all 0.3s ease-in-out',
                           '&:hover': {
@@ -435,7 +488,13 @@ const ContactSection = () => {
                         }}
                       >
                         <CardContent sx={{ p: 3 }}>
-                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 2,
+                            }}
+                          >
                             <Avatar
                               sx={{
                                 backgroundColor: `${info.color}20`,
@@ -460,7 +519,21 @@ const ContactSection = () => {
                               {info.link ? (
                                 <Link
                                   href={info.link}
-                                  target={info.link.startsWith('http') ? '_blank' : undefined}
+                                  target={
+                                    info.link.startsWith('http')
+                                      ? '_blank'
+                                      : undefined
+                                  }
+                                  onClick={() => {
+                                    if (info.label === 'Email') {
+                                      trackContactForm('email_click', {
+                                        contactMethod: 'direct_email',
+                                        email: info.value,
+                                      });
+                                    } else {
+                                      trackNavigation('contact_info', 'click');
+                                    }
+                                  }}
                                   sx={{
                                     color: 'text.secondary',
                                     textDecoration: 'none',
@@ -521,13 +594,20 @@ const ContactSection = () => {
                           whileTap={{ scale: 0.95 }}
                         >
                           <IconButton
-                            component={Link}
+                            component="a"
                             href={social.url}
                             target="_blank"
+                            onClick={() => {
+                              trackSocialClick(
+                                social.label.toLowerCase(),
+                                social.url
+                              );
+                            }}
                             sx={{
-                              backgroundColor: theme.palette.mode === 'dark'
-                                ? 'rgba(255, 255, 255, 0.05)'
-                                : 'rgba(255, 255, 255, 0.8)',
+                              backgroundColor:
+                                theme.palette.mode === 'dark'
+                                  ? 'rgba(255, 255, 255, 0.05)'
+                                  : 'rgba(255, 255, 255, 0.8)',
                               border: `2px solid ${social.color}40`,
                               color: social.color,
                               width: 56,
@@ -540,7 +620,6 @@ const ContactSection = () => {
                                 boxShadow: `0px 8px 24px ${social.color}40`,
                               },
                             }}
-                            aria-label={social.label}
                           >
                             {social.icon}
                           </IconButton>

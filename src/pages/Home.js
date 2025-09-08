@@ -1,16 +1,15 @@
-import React from "react";
-import { Box } from "@mui/material";
-import HeroSection from "../components/sections/HeroSection";
-import AboutSection from "../components/sections/AboutSection";
-import SkillsSection from "../components/sections/SkillsSection";
-import ProjectsSection from "../components/sections/ProjectsSection";
-import ExperienceSection from "../components/sections/ExperienceSection";
-import ContactSection from "../components/sections/ContactSection";
-import { usePageSEO } from "../hooks/useSEO";
+import { Box } from '@mui/material';
+import AboutSection from '../components/sections/AboutSection';
+import ContactSection from '../components/sections/ContactSection';
+import ExperienceSection from '../components/sections/ExperienceSection';
+import HeroSection from '../components/sections/HeroSection';
+import ProjectsSection from '../components/sections/ProjectsSection';
+import SkillsSection from '../components/sections/SkillsSection';
+import { usePageSEO } from '../hooks/useSEO';
 
 const Home = () => {
   // Initialize SEO for home page
-  usePageSEO("home");
+  usePageSEO('home');
 
   return (
     <Box>

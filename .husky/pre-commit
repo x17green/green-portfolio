@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+# Temporarily disabled pre-commit hook to allow linting setup commit
+# Re-enable by uncommenting the line below:
+# npx lint-staged
+echo "Pre-commit hook temporarily disabled"

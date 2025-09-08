@@ -1,4 +1,14 @@
-import React, { useState } from "react";
+import {
+  Work,
+  School,
+  EmojiEvents,
+  LocationOn,
+  CalendarToday,
+  TrendingUp,
+  ExpandMore,
+  Business,
+  CheckCircle,
+} from '@mui/icons-material';
 import {
   Box,
   Container,
@@ -14,38 +24,47 @@ import {
   useMediaQuery,
   IconButton,
   Collapse,
-} from "@mui/material";
-import {
-  Work,
-  School,
-  EmojiEvents,
-  LocationOn,
-  CalendarToday,
-  TrendingUp,
-  ExpandMore,
-  Business,
-  CheckCircle,
-} from "@mui/icons-material";
-import { motion, AnimatePresence } from "framer-motion";
+} from '@mui/material';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 import {
   experienceData,
   educationData,
   certificationsData,
   experienceStats,
-} from "../../data/experience";
+} from '../../data/experience';
+import { trackEvent } from '../../utils/analytics';
 
 const ExperienceSection = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [selectedTab, setSelectedTab] = useState(0);
   const [expandedCard, setExpandedCard] = useState(null);
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
+
+    // Track tab change analytics
+    const tabNames = ['experience', 'education', 'certifications'];
+    trackEvent('experience_tab_change', {
+      category: 'section_navigation',
+      label: tabNames[newValue],
+      tab_index: newValue,
+      tab_name: tabNames[newValue],
+    });
   };
 
-  const toggleCardExpansion = (cardId) => {
+  const toggleCardExpansion = cardId => {
+    const isExpanding = expandedCard !== cardId;
     setExpandedCard(expandedCard === cardId ? null : cardId);
+
+    // Track card expansion analytics
+    trackEvent('experience_card_expansion', {
+      category: 'experience_engagement',
+      label: `card_${cardId}`,
+      action: isExpanding ? 'expand' : 'collapse',
+      card_id: cardId,
+    });
   };
 
   const containerVariants = {
@@ -64,7 +83,7 @@ const ExperienceSection = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: 'easeOut' },
     },
   };
 
@@ -79,45 +98,56 @@ const ExperienceSection = () => {
       <Card
         sx={{
           background:
-            theme.palette.mode === "dark"
-              ? "rgba(255, 255, 255, 0.05)"
-              : "rgba(255, 255, 255, 0.9)",
-          backdropFilter: "blur(20px)",
+            theme.palette.mode === 'dark'
+              ? 'rgba(255, 255, 255, 0.05)'
+              : 'rgba(255, 255, 255, 0.9)',
+          backdropFilter: 'blur(20px)',
           border:
-            theme.palette.mode === "dark"
-              ? "1px solid rgba(255, 255, 255, 0.1)"
-              : "1px solid rgba(0, 0, 0, 0.1)",
+            theme.palette.mode === 'dark'
+              ? '1px solid rgba(255, 255, 255, 0.1)'
+              : '1px solid rgba(0, 0, 0, 0.1)',
           borderRadius: 3,
-          overflow: "hidden",
-          position: "relative",
-          transition: "all 0.3s ease-in-out",
-          "&:hover": {
-            transform: "translateY(-4px)",
-            border: "1px solid rgba(0, 230, 118, 0.3)",
+          overflow: 'hidden',
+          position: 'relative',
+          transition: 'all 0.3s ease-in-out',
+          cursor: 'pointer',
+          '&:hover': {
+            transform: 'translateY(-4px)',
+            border: '1px solid rgba(0, 230, 118, 0.3)',
             boxShadow:
-              theme.palette.mode === "dark"
-                ? "0px 16px 40px rgba(0, 230, 118, 0.2)"
-                : "0px 16px 40px rgba(0, 230, 118, 0.15)",
+              theme.palette.mode === 'dark'
+                ? '0px 16px 40px rgba(0, 230, 118, 0.2)'
+                : '0px 16px 40px rgba(0, 230, 118, 0.15)',
           },
-          "&::before": {
+          '&::before': {
             content: '""',
-            position: "absolute",
+            position: 'absolute',
             top: 0,
             left: 0,
             right: 0,
-            height: "4px",
+            height: '4px',
             background: experience.current
-              ? "linear-gradient(90deg, #00e676, #1976d2)"
-              : "linear-gradient(90deg, #1976d2, #00e676)",
+              ? 'linear-gradient(90deg, #00e676, #1976d2)'
+              : 'linear-gradient(90deg, #1976d2, #00e676)',
           },
+        }}
+        onClick={() => {
+          // Track experience card click
+          trackEvent('experience_card_click', {
+            category: 'experience_engagement',
+            label: experience.company,
+            company: experience.company,
+            position: experience.title,
+            card_index: index,
+          });
         }}
       >
         <CardContent sx={{ p: 4 }}>
           {/* Header */}
           <Box
             sx={{
-              display: "flex",
-              alignItems: "flex-start",
+              display: 'flex',
+              alignItems: 'flex-start',
               gap: 2,
               mb: 3,
             }}
@@ -126,7 +156,7 @@ const ExperienceSection = () => {
               sx={{
                 width: 60,
                 height: 60,
-                background: "linear-gradient(45deg, #00e676, #1976d2)",
+                background: 'linear-gradient(45deg, #00e676, #1976d2)',
                 mt: 0.5,
               }}
             >
@@ -137,7 +167,7 @@ const ExperienceSection = () => {
                 variant="h6"
                 sx={{
                   fontWeight: 600,
-                  color: "text.primary",
+                  color: 'text.primary',
                   mb: 0.5,
                 }}
               >
@@ -146,7 +176,7 @@ const ExperienceSection = () => {
               <Typography
                 variant="h6"
                 sx={{
-                  color: "primary.main",
+                  color: 'primary.main',
                   fontWeight: 500,
                   mb: 1,
                 }}
@@ -155,22 +185,22 @@ const ExperienceSection = () => {
               </Typography>
               <Box
                 sx={{
-                  display: "flex",
-                  flexWrap: "wrap",
+                  display: 'flex',
+                  flexWrap: 'wrap',
                   gap: 2,
-                  alignItems: "center",
+                  alignItems: 'center',
                   mb: 1,
                 }}
               >
-                <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                  <LocationOn sx={{ fontSize: 16, color: "text.secondary" }} />
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <LocationOn sx={{ fontSize: 16, color: 'text.secondary' }} />
                   <Typography variant="body2" color="text.secondary">
                     {experience.location}
                   </Typography>
                 </Box>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                   <CalendarToday
-                    sx={{ fontSize: 16, color: "text.secondary" }}
+                    sx={{ fontSize: 16, color: 'text.secondary' }}
                   />
                   <Typography variant="body2" color="text.secondary">
                     {experience.duration}
@@ -181,11 +211,11 @@ const ExperienceSection = () => {
                   size="small"
                   sx={{
                     backgroundColor: experience.current
-                      ? "rgba(0, 230, 118, 0.2)"
-                      : "rgba(25, 118, 210, 0.2)",
+                      ? 'rgba(0, 230, 118, 0.2)'
+                      : 'rgba(25, 118, 210, 0.2)',
                     color: experience.current
-                      ? "primary.main"
-                      : "secondary.main",
+                      ? 'primary.main'
+                      : 'secondary.main',
                     fontWeight: 500,
                   }}
                 />
@@ -196,14 +226,14 @@ const ExperienceSection = () => {
                 label="Current"
                 size="small"
                 sx={{
-                  backgroundColor: "rgba(0, 230, 118, 0.2)",
-                  color: "primary.main",
+                  backgroundColor: 'rgba(0, 230, 118, 0.2)',
+                  color: 'primary.main',
                   fontWeight: 600,
-                  animation: "pulse 2s infinite",
-                  "@keyframes pulse": {
-                    "0%": { opacity: 1 },
-                    "50%": { opacity: 0.7 },
-                    "100%": { opacity: 1 },
+                  animation: 'pulse 2s infinite',
+                  '@keyframes pulse': {
+                    '0%': { opacity: 1 },
+                    '50%': { opacity: 0.7 },
+                    '100%': { opacity: 1 },
                   },
                 }}
               />
@@ -214,7 +244,7 @@ const ExperienceSection = () => {
           <Typography
             variant="body1"
             sx={{
-              color: "text.secondary",
+              color: 'text.secondary',
               lineHeight: 1.7,
               mb: 3,
             }}
@@ -230,20 +260,20 @@ const ExperienceSection = () => {
                   <Grid size={{ xs: 12, sm: 4 }} key={index}>
                     <Box
                       sx={{
-                        textAlign: "center",
+                        textAlign: 'center',
                         p: 2,
                         borderRadius: 2,
                         background:
-                          theme.palette.mode === "dark"
-                            ? "rgba(255, 255, 255, 0.05)"
-                            : "rgba(0, 0, 0, 0.05)",
+                          theme.palette.mode === 'dark'
+                            ? 'rgba(255, 255, 255, 0.05)'
+                            : 'rgba(0, 0, 0, 0.05)',
                       }}
                     >
                       <Typography
                         variant="h5"
                         sx={{
                           fontWeight: 700,
-                          color: "primary.main",
+                          color: 'primary.main',
                           mb: 0.5,
                         }}
                       >
@@ -252,8 +282,8 @@ const ExperienceSection = () => {
                       <Typography
                         variant="caption"
                         sx={{
-                          color: "text.secondary",
-                          fontSize: "0.8rem",
+                          color: 'text.secondary',
+                          fontSize: '0.8rem',
                         }}
                       >
                         {highlight.description}
@@ -269,23 +299,23 @@ const ExperienceSection = () => {
           <Box sx={{ mb: 3 }}>
             <Typography
               variant="body2"
-              sx={{ fontWeight: 600, mb: 1, color: "text.primary" }}
+              sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}
             >
               Technologies Used:
             </Typography>
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {experience.technologies.slice(0, 6).map((tech) => (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+              {experience.technologies.slice(0, 6).map(tech => (
                 <Chip
                   key={tech}
                   label={tech}
                   size="small"
                   sx={{
-                    backgroundColor: "rgba(0, 230, 118, 0.1)",
-                    color: "primary.main",
-                    border: "1px solid rgba(0, 230, 118, 0.2)",
-                    fontSize: "0.75rem",
-                    "&:hover": {
-                      backgroundColor: "rgba(0, 230, 118, 0.2)",
+                    backgroundColor: 'rgba(0, 230, 118, 0.1)',
+                    color: 'primary.main',
+                    border: '1px solid rgba(0, 230, 118, 0.2)',
+                    fontSize: '0.75rem',
+                    '&:hover': {
+                      backgroundColor: 'rgba(0, 230, 118, 0.2)',
                     },
                   }}
                 />
@@ -295,10 +325,10 @@ const ExperienceSection = () => {
                   label={`+${experience.technologies.length - 6}`}
                   size="small"
                   sx={{
-                    backgroundColor: "rgba(25, 118, 210, 0.1)",
-                    color: "secondary.main",
-                    border: "1px solid rgba(25, 118, 210, 0.2)",
-                    fontSize: "0.75rem",
+                    backgroundColor: 'rgba(25, 118, 210, 0.1)',
+                    color: 'secondary.main',
+                    border: '1px solid rgba(25, 118, 210, 0.2)',
+                    fontSize: '0.75rem',
                   }}
                 />
               )}
@@ -308,23 +338,33 @@ const ExperienceSection = () => {
           {/* Expand/Collapse for details */}
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
             <Typography variant="body2" color="text.secondary">
-              {expandedCard === experience.id ? "Less details" : "More details"}
+              {expandedCard === experience.id ? 'Less details' : 'More details'}
             </Typography>
             <IconButton
-              onClick={() => toggleCardExpansion(experience.id)}
+              onClick={() => {
+                toggleCardExpansion(experience.id);
+                // Additional tracking for expand button click
+                trackEvent('experience_expand_button', {
+                  category: 'ui_interaction',
+                  label: experience.company,
+                  action:
+                    expandedCard === experience.id ? 'collapse' : 'expand',
+                  company: experience.company,
+                });
+              }}
               sx={{
-                color: "primary.main",
-                transition: "transform 0.3s ease-in-out",
+                color: 'primary.main',
+                transition: 'transform 0.3s ease-in-out',
                 transform:
                   expandedCard === experience.id
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
+                    ? 'rotate(180deg)'
+                    : 'rotate(0deg)',
               }}
             >
               <ExpandMore />
@@ -337,13 +377,13 @@ const ExperienceSection = () => {
               sx={{
                 mt: 3,
                 pt: 3,
-                borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+                borderTop: '1px solid rgba(255, 255, 255, 0.1)',
               }}
             >
               {/* Responsibilities */}
               <Typography
                 variant="h6"
-                sx={{ fontWeight: 600, mb: 2, color: "text.primary" }}
+                sx={{ fontWeight: 600, mb: 2, color: 'text.primary' }}
               >
                 Key Responsibilities:
               </Typography>
@@ -352,8 +392,8 @@ const ExperienceSection = () => {
                   <Box
                     key={index}
                     sx={{
-                      display: "flex",
-                      alignItems: "flex-start",
+                      display: 'flex',
+                      alignItems: 'flex-start',
                       gap: 1,
                       mb: 1,
                     }}
@@ -361,14 +401,14 @@ const ExperienceSection = () => {
                     <CheckCircle
                       sx={{
                         fontSize: 16,
-                        color: "primary.main",
+                        color: 'primary.main',
                         mt: 0.2,
                         flexShrink: 0,
                       }}
                     />
                     <Typography
                       variant="body2"
-                      sx={{ color: "text.secondary", lineHeight: 1.6 }}
+                      sx={{ color: 'text.secondary', lineHeight: 1.6 }}
                     >
                       {responsibility}
                     </Typography>
@@ -379,7 +419,7 @@ const ExperienceSection = () => {
               {/* Achievements */}
               <Typography
                 variant="h6"
-                sx={{ fontWeight: 600, mb: 2, color: "text.primary" }}
+                sx={{ fontWeight: 600, mb: 2, color: 'text.primary' }}
               >
                 Key Achievements:
               </Typography>
@@ -388,8 +428,8 @@ const ExperienceSection = () => {
                   <Box
                     key={index}
                     sx={{
-                      display: "flex",
-                      alignItems: "flex-start",
+                      display: 'flex',
+                      alignItems: 'flex-start',
                       gap: 1,
                       mb: 1,
                     }}
@@ -397,14 +437,14 @@ const ExperienceSection = () => {
                     <TrendingUp
                       sx={{
                         fontSize: 16,
-                        color: "secondary.main",
+                        color: 'secondary.main',
                         mt: 0.2,
                         flexShrink: 0,
                       }}
                     />
                     <Typography
                       variant="body2"
-                      sx={{ color: "text.secondary", lineHeight: 1.6 }}
+                      sx={{ color: 'text.secondary', lineHeight: 1.6 }}
                     >
                       {achievement}
                     </Typography>
@@ -429,46 +469,58 @@ const ExperienceSection = () => {
       <Card
         sx={{
           background:
-            theme.palette.mode === "dark"
-              ? "rgba(255, 255, 255, 0.05)"
-              : "rgba(255, 255, 255, 0.9)",
-          backdropFilter: "blur(20px)",
+            theme.palette.mode === 'dark'
+              ? 'rgba(255, 255, 255, 0.05)'
+              : 'rgba(255, 255, 255, 0.9)',
+          backdropFilter: 'blur(20px)',
           border:
-            theme.palette.mode === "dark"
-              ? "1px solid rgba(255, 255, 255, 0.1)"
-              : "1px solid rgba(0, 0, 0, 0.1)",
+            theme.palette.mode === 'dark'
+              ? '1px solid rgba(255, 255, 255, 0.1)'
+              : '1px solid rgba(0, 0, 0, 0.1)',
           borderRadius: 3,
-          overflow: "hidden",
-          position: "relative",
-          transition: "all 0.3s ease-in-out",
-          "&:hover": {
-            transform: "translateY(-4px)",
-            border: "1px solid rgba(25, 118, 210, 0.3)",
+          overflow: 'hidden',
+          position: 'relative',
+          transition: 'all 0.3s ease-in-out',
+          cursor: 'pointer',
+          '&:hover': {
+            transform: 'translateY(-4px)',
+            border: '1px solid rgba(25, 118, 210, 0.3)',
             boxShadow:
-              theme.palette.mode === "dark"
-                ? "0px 16px 40px rgba(25, 118, 210, 0.2)"
-                : "0px 16px 40px rgba(25, 118, 210, 0.15)",
+              theme.palette.mode === 'dark'
+                ? '0px 16px 40px rgba(25, 118, 210, 0.2)'
+                : '0px 16px 40px rgba(25, 118, 210, 0.15)',
           },
-          "&::before": {
+          '&::before': {
             content: '""',
-            position: "absolute",
+            position: 'absolute',
             top: 0,
             left: 0,
             right: 0,
-            height: "4px",
-            background: "linear-gradient(90deg, #1976d2, #00e676)",
+            height: '4px',
+            background: 'linear-gradient(90deg, #1976d2, #00e676)',
           },
+        }}
+        onClick={() => {
+          // Track education card click
+          trackEvent('education_card_click', {
+            category: 'education_engagement',
+            label: education.institution,
+            institution: education.institution,
+            degree: education.degree,
+            card_index: index,
+            gpa: education.gpa,
+          });
         }}
       >
         <CardContent sx={{ p: 4 }}>
           <Box
-            sx={{ display: "flex", alignItems: "flex-start", gap: 2, mb: 3 }}
+            sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, mb: 3 }}
           >
             <Avatar
               sx={{
                 width: 60,
                 height: 60,
-                background: "linear-gradient(45deg, #1976d2, #00e676)",
+                background: 'linear-gradient(45deg, #1976d2, #00e676)',
               }}
             >
               {education.icon}
@@ -478,7 +530,7 @@ const ExperienceSection = () => {
                 variant="h6"
                 sx={{
                   fontWeight: 600,
-                  color: "text.primary",
+                  color: 'text.primary',
                   mb: 0.5,
                 }}
               >
@@ -487,7 +539,7 @@ const ExperienceSection = () => {
               <Typography
                 variant="h6"
                 sx={{
-                  color: "secondary.main",
+                  color: 'secondary.main',
                   fontWeight: 500,
                   mb: 1,
                 }}
@@ -496,21 +548,21 @@ const ExperienceSection = () => {
               </Typography>
               <Box
                 sx={{
-                  display: "flex",
-                  flexWrap: "wrap",
+                  display: 'flex',
+                  flexWrap: 'wrap',
                   gap: 2,
-                  alignItems: "center",
+                  alignItems: 'center',
                 }}
               >
-                <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                  <LocationOn sx={{ fontSize: 16, color: "text.secondary" }} />
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <LocationOn sx={{ fontSize: 16, color: 'text.secondary' }} />
                   <Typography variant="body2" color="text.secondary">
                     {education.location}
                   </Typography>
                 </Box>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                   <CalendarToday
-                    sx={{ fontSize: 16, color: "text.secondary" }}
+                    sx={{ fontSize: 16, color: 'text.secondary' }}
                   />
                   <Typography variant="body2" color="text.secondary">
                     {education.duration}
@@ -520,8 +572,8 @@ const ExperienceSection = () => {
                   label={`GPA: ${education.gpa}`}
                   size="small"
                   sx={{
-                    backgroundColor: "rgba(25, 118, 210, 0.2)",
-                    color: "secondary.main",
+                    backgroundColor: 'rgba(25, 118, 210, 0.2)',
+                    color: 'secondary.main',
                     fontWeight: 500,
                   }}
                 />
@@ -532,7 +584,7 @@ const ExperienceSection = () => {
           <Typography
             variant="body1"
             sx={{
-              color: "text.secondary",
+              color: 'text.secondary',
               lineHeight: 1.7,
               mb: 3,
             }}
@@ -544,7 +596,7 @@ const ExperienceSection = () => {
           <Box sx={{ mb: 3 }}>
             <Typography
               variant="body2"
-              sx={{ fontWeight: 600, mb: 1, color: "text.primary" }}
+              sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}
             >
               Achievements:
             </Typography>
@@ -553,23 +605,34 @@ const ExperienceSection = () => {
                 <Box
                   key={index}
                   sx={{
-                    display: "flex",
-                    alignItems: "flex-start",
+                    display: 'flex',
+                    alignItems: 'flex-start',
                     gap: 1,
                     mb: 1,
+                  }}
+                  onClick={() => {
+                    // Track education achievement click
+                    trackEvent('education_achievement_click', {
+                      category: 'education_engagement',
+                      label: education.institution,
+                      institution: education.institution,
+                      degree: education.degree,
+                      achievement,
+                      card_index: index,
+                    });
                   }}
                 >
                   <EmojiEvents
                     sx={{
                       fontSize: 16,
-                      color: "secondary.main",
+                      color: 'secondary.main',
                       mt: 0.2,
                       flexShrink: 0,
                     }}
                   />
                   <Typography
                     variant="body2"
-                    sx={{ color: "text.secondary", lineHeight: 1.6 }}
+                    sx={{ color: 'text.secondary', lineHeight: 1.6 }}
                   >
                     {achievement}
                   </Typography>
@@ -582,23 +645,23 @@ const ExperienceSection = () => {
           <Box>
             <Typography
               variant="body2"
-              sx={{ fontWeight: 600, mb: 1, color: "text.primary" }}
+              sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}
             >
               Relevant Coursework:
             </Typography>
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {education.coursework.map((course) => (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+              {education.coursework.map(course => (
                 <Chip
                   key={course}
                   label={course}
                   size="small"
                   sx={{
-                    backgroundColor: "rgba(25, 118, 210, 0.1)",
-                    color: "secondary.main",
-                    border: "1px solid rgba(25, 118, 210, 0.2)",
-                    fontSize: "0.75rem",
-                    "&:hover": {
-                      backgroundColor: "rgba(25, 118, 210, 0.2)",
+                    backgroundColor: 'rgba(25, 118, 210, 0.1)',
+                    color: 'secondary.main',
+                    border: '1px solid rgba(25, 118, 210, 0.2)',
+                    fontSize: '0.75rem',
+                    '&:hover': {
+                      backgroundColor: 'rgba(25, 118, 210, 0.2)',
                     },
                   }}
                 />
@@ -621,35 +684,47 @@ const ExperienceSection = () => {
       <Card
         sx={{
           background:
-            theme.palette.mode === "dark"
-              ? "rgba(255, 255, 255, 0.05)"
-              : "rgba(255, 255, 255, 0.9)",
-          backdropFilter: "blur(20px)",
+            theme.palette.mode === 'dark'
+              ? 'rgba(255, 255, 255, 0.05)'
+              : 'rgba(255, 255, 255, 0.9)',
+          backdropFilter: 'blur(20px)',
           border:
-            theme.palette.mode === "dark"
-              ? "1px solid rgba(255, 255, 255, 0.1)"
-              : "1px solid rgba(0, 0, 0, 0.1)",
+            theme.palette.mode === 'dark'
+              ? '1px solid rgba(255, 255, 255, 0.1)'
+              : '1px solid rgba(0, 0, 0, 0.1)',
           borderRadius: 3,
           p: 3,
-          textAlign: "center",
-          transition: "all 0.3s ease-in-out",
-          "&:hover": {
-            transform: "translateY(-4px)",
-            border: "1px solid rgba(255, 152, 0, 0.3)",
+          textAlign: 'center',
+          transition: 'all 0.3s ease-in-out',
+          cursor: 'pointer',
+          '&:hover': {
+            transform: 'translateY(-4px)',
+            border: '1px solid rgba(255, 152, 0, 0.3)',
             boxShadow:
-              theme.palette.mode === "dark"
-                ? "0px 16px 40px rgba(255, 152, 0, 0.2)"
-                : "0px 16px 40px rgba(255, 152, 0, 0.15)",
+              theme.palette.mode === 'dark'
+                ? '0px 16px 40px rgba(255, 152, 0, 0.2)'
+                : '0px 16px 40px rgba(255, 152, 0, 0.15)',
           },
+        }}
+        onClick={() => {
+          // Track certification card click
+          trackEvent('certification_card_click', {
+            category: 'certification_engagement',
+            label: certification.name,
+            certification_name: certification.name,
+            issuer: certification.issuer,
+            card_index: index,
+            skills: certification.skills.join(', '),
+          });
         }}
       >
         <Avatar
           sx={{
             width: 56,
             height: 56,
-            mx: "auto",
+            mx: 'auto',
             mb: 2,
-            background: "linear-gradient(45deg, #ff9800, #f57c00)",
+            background: 'linear-gradient(45deg, #ff9800, #f57c00)',
           }}
         >
           {certification.icon}
@@ -658,9 +733,9 @@ const ExperienceSection = () => {
           variant="h6"
           sx={{
             fontWeight: 600,
-            color: "text.primary",
+            color: 'text.primary',
             mb: 1,
-            fontSize: "1rem",
+            fontSize: '1rem',
           }}
         >
           {certification.name}
@@ -668,7 +743,7 @@ const ExperienceSection = () => {
         <Typography
           variant="body2"
           sx={{
-            color: "warning.main",
+            color: 'warning.main',
             fontWeight: 500,
             mb: 2,
           }}
@@ -678,31 +753,31 @@ const ExperienceSection = () => {
         <Typography
           variant="caption"
           sx={{
-            color: "text.secondary",
-            display: "block",
+            color: 'text.secondary',
+            display: 'block',
             mb: 2,
           }}
         >
-          Issued: {certification.issueDate} • Expires:{" "}
+          Issued: {certification.issueDate} • Expires:{' '}
           {certification.expiryDate}
         </Typography>
         <Box
           sx={{
-            display: "flex",
-            flexWrap: "wrap",
+            display: 'flex',
+            flexWrap: 'wrap',
             gap: 0.5,
-            justifyContent: "center",
+            justifyContent: 'center',
           }}
         >
-          {certification.skills.slice(0, 3).map((skill) => (
+          {certification.skills.slice(0, 3).map(skill => (
             <Chip
               key={skill}
               label={skill}
               size="small"
               sx={{
-                backgroundColor: "rgba(255, 152, 0, 0.1)",
-                color: "warning.main",
-                fontSize: "0.7rem",
+                backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                color: 'warning.main',
+                fontSize: '0.7rem',
                 height: 20,
               }}
             />
@@ -718,25 +793,25 @@ const ExperienceSection = () => {
       sx={{
         py: { xs: 8, md: 12 },
         background:
-          theme.palette.mode === "dark"
-            ? "linear-gradient(135deg, rgba(0, 230, 118, 0.02) 0%, rgba(25, 118, 210, 0.02) 100%)"
-            : "linear-gradient(135deg, rgba(0, 230, 118, 0.05) 0%, rgba(25, 118, 210, 0.05) 100%)",
-        position: "relative",
-        overflow: "hidden",
+          theme.palette.mode === 'dark'
+            ? 'linear-gradient(135deg, rgba(0, 230, 118, 0.02) 0%, rgba(25, 118, 210, 0.02) 100%)'
+            : 'linear-gradient(135deg, rgba(0, 230, 118, 0.05) 0%, rgba(25, 118, 210, 0.05) 100%)',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
       {/* Background Elements */}
       <Box
         sx={{
-          position: "absolute",
-          top: "15%",
-          right: "10%",
+          position: 'absolute',
+          top: '15%',
+          right: '10%',
           width: 100,
           height: 100,
-          borderRadius: "50%",
+          borderRadius: '50%',
           background:
-            "radial-gradient(circle, rgba(0, 230, 118, 0.1) 0%, transparent 70%)",
-          filter: "blur(40px)",
+            'radial-gradient(circle, rgba(0, 230, 118, 0.1) 0%, transparent 70%)',
+          filter: 'blur(40px)',
         }}
         component={motion.div}
         animate={{
@@ -746,7 +821,7 @@ const ExperienceSection = () => {
         transition={{
           duration: 6,
           repeat: Infinity,
-          ease: "easeInOut",
+          ease: 'easeInOut',
         }}
       />
 
@@ -755,22 +830,22 @@ const ExperienceSection = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-100px' }}
         >
           {/* Section Header */}
           <motion.div variants={itemVariants}>
-            <Box sx={{ textAlign: "center", mb: 8 }}>
+            <Box sx={{ textAlign: 'center', mb: 8 }}>
               <Typography
                 variant="h6"
                 sx={{
-                  color: "primary.main",
+                  color: 'primary.main',
                   fontWeight: 600,
-                  textTransform: "uppercase",
+                  textTransform: 'uppercase',
                   letterSpacing: 2,
                   mb: 2,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   gap: 1,
                 }}
               >
@@ -778,17 +853,17 @@ const ExperienceSection = () => {
                 Professional Journey
               </Typography>
               <Typography
-                variant={isMobile ? "h4" : "h3"}
+                variant={isMobile ? 'h4' : 'h3'}
                 sx={{
                   fontWeight: 700,
                   mb: 3,
                   background:
-                    theme.palette.mode === "dark"
-                      ? "linear-gradient(45deg, #ffffff, #00e676)"
-                      : "linear-gradient(45deg, #333333, #00e676)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                    theme.palette.mode === 'dark'
+                      ? 'linear-gradient(45deg, #ffffff, #00e676)'
+                      : 'linear-gradient(45deg, #333333, #00e676)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                 }}
               >
                 Experience & Education
@@ -796,9 +871,9 @@ const ExperienceSection = () => {
               <Typography
                 variant="h6"
                 sx={{
-                  color: "text.secondary",
-                  maxWidth: "800px",
-                  mx: "auto",
+                  color: 'text.secondary',
+                  maxWidth: '800px',
+                  mx: 'auto',
                   lineHeight: 1.6,
                 }}
               >
@@ -815,22 +890,22 @@ const ExperienceSection = () => {
               <Grid container spacing={3}>
                 {[
                   {
-                    label: "Years Experience",
+                    label: 'Years Experience',
                     value: `${experienceStats.totalYears}+`,
                     icon: <Work />,
                   },
                   {
-                    label: "Companies",
+                    label: 'Companies',
                     value: experienceStats.companiesWorked,
                     icon: <Business />,
                   },
                   {
-                    label: "Projects",
+                    label: 'Projects',
                     value: `${experienceStats.projectsCompleted}+`,
                     icon: <TrendingUp />,
                   },
                   {
-                    label: "Papers Published",
+                    label: 'Papers Published',
                     value: experienceStats.papersPublished,
                     icon: <School />,
                   },
@@ -844,33 +919,43 @@ const ExperienceSection = () => {
                     >
                       <Box
                         sx={{
-                          textAlign: "center",
+                          textAlign: 'center',
                           p: 3,
                           borderRadius: 3,
                           background:
-                            theme.palette.mode === "dark"
-                              ? "rgba(255, 255, 255, 0.05)"
-                              : "rgba(255, 255, 255, 0.9)",
-                          backdropFilter: "blur(10px)",
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.05)'
+                              : 'rgba(255, 255, 255, 0.9)',
+                          backdropFilter: 'blur(10px)',
                           border:
-                            theme.palette.mode === "dark"
-                              ? "1px solid rgba(255, 255, 255, 0.1)"
-                              : "1px solid rgba(0, 0, 0, 0.1)",
-                          transition: "all 0.3s ease-in-out",
-                          "&:hover": {
-                            transform: "translateY(-4px)",
-                            border: "1px solid rgba(0, 230, 118, 0.3)",
+                            theme.palette.mode === 'dark'
+                              ? '1px solid rgba(255, 255, 255, 0.1)'
+                              : '1px solid rgba(0, 0, 0, 0.1)',
+                          transition: 'all 0.3s ease-in-out',
+                          '&:hover': {
+                            transform: 'translateY(-4px)',
+                            border: '1px solid rgba(0, 230, 118, 0.3)',
                           },
+                        }}
+                        onClick={() => {
+                          // Track stat card click
+                          trackEvent('experience_stat_click', {
+                            category: 'stats_engagement',
+                            label: stat.label,
+                            stat_name: stat.label,
+                            stat_value: stat.value,
+                            stat_index: index,
+                          });
                         }}
                       >
                         <Avatar
                           sx={{
                             width: 48,
                             height: 48,
-                            mx: "auto",
+                            mx: 'auto',
                             mb: 2,
                             background:
-                              "linear-gradient(45deg, #00e676, #1976d2)",
+                              'linear-gradient(45deg, #00e676, #1976d2)',
                           }}
                         >
                           {stat.icon}
@@ -879,7 +964,7 @@ const ExperienceSection = () => {
                           variant="h4"
                           sx={{
                             fontWeight: 700,
-                            color: "primary.main",
+                            color: 'primary.main',
                             mb: 1,
                           }}
                         >
@@ -888,7 +973,7 @@ const ExperienceSection = () => {
                         <Typography
                           variant="body2"
                           sx={{
-                            color: "text.secondary",
+                            color: 'text.secondary',
                             fontWeight: 500,
                           }}
                         >
@@ -904,24 +989,24 @@ const ExperienceSection = () => {
 
           {/* Tabs */}
           <motion.div variants={itemVariants}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 4 }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4 }}>
               <Tabs
                 value={selectedTab}
                 onChange={handleTabChange}
                 centered
                 sx={{
-                  "& .MuiTab-root": {
-                    textTransform: "none",
+                  '& .MuiTab-root': {
+                    textTransform: 'none',
                     fontWeight: 600,
-                    fontSize: "1rem",
+                    fontSize: '1rem',
                     minWidth: 120,
-                    color: "text.secondary",
-                    "&.Mui-selected": {
-                      color: "primary.main",
+                    color: 'text.secondary',
+                    '&.Mui-selected': {
+                      color: 'primary.main',
                     },
                   },
-                  "& .MuiTabs-indicator": {
-                    background: "linear-gradient(45deg, #00e676, #1976d2)",
+                  '& .MuiTabs-indicator': {
+                    background: 'linear-gradient(45deg, #00e676, #1976d2)',
                     height: 3,
                     borderRadius: 1.5,
                   },
@@ -948,7 +1033,7 @@ const ExperienceSection = () => {
               transition={{ duration: 0.3 }}
             >
               {selectedTab === 0 && (
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                   {experienceData.map((experience, index) => (
                     <ExperienceCard
                       key={experience.id}
@@ -960,7 +1045,7 @@ const ExperienceSection = () => {
               )}
 
               {selectedTab === 1 && (
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                   {educationData.map((education, index) => (
                     <EducationCard
                       key={education.id}
@@ -974,7 +1059,10 @@ const ExperienceSection = () => {
               {selectedTab === 2 && (
                 <Grid container spacing={3}>
                   {certificationsData.map((certification, index) => (
-                    <Grid size={{ xs: 12, sm: 6, md: 3 }} key={certification.id}>
+                    <Grid
+                      size={{ xs: 12, sm: 6, md: 3 }}
+                      key={certification.id}
+                    >
                       <CertificationCard
                         certification={certification}
                         index={index}

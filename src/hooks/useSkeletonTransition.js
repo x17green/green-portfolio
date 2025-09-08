@@ -71,7 +71,7 @@ export const useComponentLoading = (loadingCondition, options = {}) => {
   const {
     minLoadingTime = 300,
     skeletonType = 'default',
-    enableTransition = true
+    enableTransition = true,
   } = options;
 
   const [isLoading, setIsLoading] = useState(true);
@@ -118,10 +118,7 @@ export const useComponentLoading = (loadingCondition, options = {}) => {
  * Loads sections in sequence for better perceived performance
  */
 export const useProgressiveLoading = (sections = [], options = {}) => {
-  const {
-    sectionDelay = 200,
-    enableStaggering = true
-  } = options;
+  const { sectionDelay = 200, enableStaggering = true } = options;
 
   const [loadedSections, setLoadedSections] = useState(new Set());
   const [currentLoadingIndex, setCurrentLoadingIndex] = useState(0);
@@ -133,7 +130,7 @@ export const useProgressiveLoading = (sections = [], options = {}) => {
       return;
     }
 
-    const loadNextSection = (index) => {
+    const loadNextSection = index => {
       if (index < sections.length) {
         setTimeout(() => {
           setLoadedSections(prev => new Set([...prev, sections[index]]));
@@ -147,8 +144,8 @@ export const useProgressiveLoading = (sections = [], options = {}) => {
     loadNextSection(0);
   }, [sections, sectionDelay, enableStaggering]);
 
-  const isSectionLoaded = (sectionName) => loadedSections.has(sectionName);
-  const isSectionLoading = (sectionName) => {
+  const isSectionLoaded = sectionName => loadedSections.has(sectionName);
+  const isSectionLoading = sectionName => {
     const sectionIndex = sections.indexOf(sectionName);
     return sectionIndex === currentLoadingIndex;
   };
@@ -220,11 +217,7 @@ export const useLoadingState = (asyncOperation, dependencies = []) => {
  * Uses Intersection Observer for performance
  */
 export const useLazyLoading = (options = {}) => {
-  const {
-    threshold = 0.1,
-    rootMargin = '50px',
-    triggerOnce = true
-  } = options;
+  const { threshold = 0.1, rootMargin = '50px', triggerOnce = true } = options;
 
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);

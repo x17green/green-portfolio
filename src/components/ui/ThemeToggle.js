@@ -1,13 +1,12 @@
-import React from "react";
-import { Fab, Tooltip, useTheme, useMediaQuery } from "@mui/material";
-import { LightMode, DarkMode } from "@mui/icons-material";
-import { motion, AnimatePresence } from "framer-motion";
-import { useThemeMode } from "../../theme/ThemeContext";
+import { LightMode, DarkMode } from '@mui/icons-material';
+import { Fab, Tooltip, useTheme, useMediaQuery } from '@mui/material';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useThemeMode } from '../../theme/ThemeContext';
 
 const ThemeToggle = () => {
   const { toggleMode, isDark } = useThemeMode();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const fabVariants = {
     initial: { scale: 0, rotate: 180 },
@@ -15,7 +14,7 @@ const ThemeToggle = () => {
       scale: 1,
       rotate: 0,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 260,
         damping: 20,
       },
@@ -23,7 +22,7 @@ const ThemeToggle = () => {
     hover: {
       scale: 1.1,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 400,
         damping: 10,
       },
@@ -38,7 +37,7 @@ const ThemeToggle = () => {
       rotate: 0,
       transition: {
         duration: 0.3,
-        ease: "easeOut",
+        ease: 'easeOut',
       },
     },
     exit: {
@@ -52,13 +51,13 @@ const ThemeToggle = () => {
 
   return (
     <Tooltip
-      title={`Switch to ${isDark ? "light" : "dark"} mode`}
+      title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
       placement="left"
       arrow
     >
       <motion.div
         style={{
-          position: "fixed",
+          position: 'fixed',
           bottom: isMobile ? 80 : 32,
           right: isMobile ? 16 : 32,
           zIndex: 1000,
@@ -74,25 +73,25 @@ const ThemeToggle = () => {
           sx={{
             width: isMobile ? 48 : 56,
             height: isMobile ? 48 : 56,
-            backgroundColor: isDark ? "#64ffda" : "#00695c",
-            color: isDark ? "#000000" : "#ffffff",
+            backgroundColor: isDark ? '#64ffda' : '#00695c',
+            color: isDark ? '#000000' : '#ffffff',
             boxShadow: isDark
-              ? "0px 6px 20px rgba(0, 0, 0, 0.15)"
-              : "0px 6px 20px rgba(0, 0, 0, 0.1)",
+              ? '0px 6px 20px rgba(0, 0, 0, 0.15)'
+              : '0px 6px 20px rgba(0, 0, 0, 0.1)',
             border: `2px solid ${
-              isDark ? "rgba(100, 255, 218, 0.2)" : "rgba(0, 105, 92, 0.2)"
+              isDark ? 'rgba(100, 255, 218, 0.2)' : 'rgba(0, 105, 92, 0.2)'
             }`,
-            backdropFilter: "blur(12px)",
-            transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
-            "&:hover": {
-              backgroundColor: isDark ? "#4fd1c7" : "#004d40",
+            backdropFilter: 'blur(12px)',
+            transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+            '&:hover': {
+              backgroundColor: isDark ? '#4fd1c7' : '#004d40',
               boxShadow: isDark
-                ? "0px 8px 25px rgba(0, 0, 0, 0.2)"
-                : "0px 8px 25px rgba(0, 0, 0, 0.15)",
-              transform: "translateY(-2px)",
+                ? '0px 8px 25px rgba(0, 0, 0, 0.2)'
+                : '0px 8px 25px rgba(0, 0, 0, 0.15)',
+              transform: 'translateY(-2px)',
             },
-            "&:active": {
-              transform: "translateY(0px)",
+            '&:active': {
+              transform: 'translateY(0px)',
             },
           }}
         >

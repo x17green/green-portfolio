@@ -1,4 +1,10 @@
-import React, { useState } from 'react';
+import {
+  FilterList,
+  Psychology,
+  Code,
+  Build,
+  EmojiObjects,
+} from '@mui/icons-material';
 import {
   Box,
   Container,
@@ -9,16 +15,10 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-import {
-  FilterList,
-  Psychology,
-  Code,
-  Build,
-  EmojiObjects,
-} from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
-import SkillCard from '../ui/SkillCard';
+import React, { useState } from 'react';
 import { skillsData, skillCategories } from '../../data/skills';
+import SkillCard from '../ui/SkillCard';
 
 const SkillsSection = () => {
   const theme = useTheme();
@@ -32,14 +32,15 @@ const SkillsSection = () => {
     'Soft Skills': <EmojiObjects />,
   };
 
-  const filteredSkills = selectedCategory === 'All'
-    ? skillsData
-    : skillsData.filter(skill => {
-        const category = skillCategories.find(cat =>
-          cat.skills.some(s => s.skill === skill.skill)
-        );
-        return category?.name === selectedCategory;
-      });
+  const filteredSkills =
+    selectedCategory === 'All'
+      ? skillsData
+      : skillsData.filter(skill => {
+          const category = skillCategories.find(cat =>
+            cat.skills.some(s => s.skill === skill.skill)
+          );
+          return category?.name === selectedCategory;
+        });
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -80,9 +81,10 @@ const SkillsSection = () => {
       id="skills"
       sx={{
         py: { xs: 8, md: 12 },
-        background: theme.palette.mode === 'dark'
-          ? 'linear-gradient(135deg, rgba(25, 118, 210, 0.02) 0%, rgba(0, 230, 118, 0.02) 100%)'
-          : 'linear-gradient(135deg, rgba(25, 118, 210, 0.05) 0%, rgba(0, 230, 118, 0.05) 100%)',
+        background:
+          theme.palette.mode === 'dark'
+            ? 'linear-gradient(135deg, rgba(25, 118, 210, 0.02) 0%, rgba(0, 230, 118, 0.02) 100%)'
+            : 'linear-gradient(135deg, rgba(25, 118, 210, 0.05) 0%, rgba(0, 230, 118, 0.05) 100%)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -96,7 +98,8 @@ const SkillsSection = () => {
           width: 120,
           height: 120,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0, 230, 118, 0.1) 0%, transparent 70%)',
+          background:
+            'radial-gradient(circle, rgba(0, 230, 118, 0.1) 0%, transparent 70%)',
           filter: 'blur(40px)',
         }}
         component={motion.div}
@@ -119,7 +122,8 @@ const SkillsSection = () => {
           width: 100,
           height: 100,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(25, 118, 210, 0.1) 0%, transparent 70%)',
+          background:
+            'radial-gradient(circle, rgba(25, 118, 210, 0.1) 0%, transparent 70%)',
           filter: 'blur(30px)',
         }}
         component={motion.div}
@@ -167,9 +171,10 @@ const SkillsSection = () => {
                 sx={{
                   fontWeight: 700,
                   mb: 3,
-                  background: theme.palette.mode === 'dark'
-                    ? 'linear-gradient(45deg, #ffffff, #00e676)'
-                    : 'linear-gradient(45deg, #333333, #00e676)',
+                  background:
+                    theme.palette.mode === 'dark'
+                      ? 'linear-gradient(45deg, #ffffff, #00e676)'
+                      : 'linear-gradient(45deg, #333333, #00e676)',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -186,8 +191,9 @@ const SkillsSection = () => {
                   lineHeight: 1.6,
                 }}
               >
-                A comprehensive overview of my technical skills, AI expertise, and professional capabilities
-                developed through years of hands-on experience and continuous learning.
+                A comprehensive overview of my technical skills, AI expertise,
+                and professional capabilities developed through years of
+                hands-on experience and continuous learning.
               </Typography>
             </Box>
           </motion.div>
@@ -224,30 +230,37 @@ const SkillsSection = () => {
                   },
                 }}
               >
-                {['All', ...skillCategories.map(cat => cat.name)].map((category) => (
-                  <Button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    sx={{
-                      backgroundColor: selectedCategory === category
-                        ? 'rgba(0, 230, 118, 0.2)'
-                        : 'transparent',
-                      color: selectedCategory === category
-                        ? 'primary.main'
-                        : 'text.secondary',
-                      borderColor: selectedCategory === category
-                        ? 'primary.main'
-                        : 'rgba(0, 230, 118, 0.3)',
-                      '&:hover': {
-                        backgroundColor: 'rgba(0, 230, 118, 0.1)',
-                        borderColor: 'primary.main',
-                      },
-                    }}
-                    startIcon={category !== 'All' ? categoryIcons[category] : null}
-                  >
-                    {category}
-                  </Button>
-                ))}
+                {['All', ...skillCategories.map(cat => cat.name)].map(
+                  category => (
+                    <Button
+                      key={category}
+                      onClick={() => setSelectedCategory(category)}
+                      sx={{
+                        backgroundColor:
+                          selectedCategory === category
+                            ? 'rgba(0, 230, 118, 0.2)'
+                            : 'transparent',
+                        color:
+                          selectedCategory === category
+                            ? 'primary.main'
+                            : 'text.secondary',
+                        borderColor:
+                          selectedCategory === category
+                            ? 'primary.main'
+                            : 'rgba(0, 230, 118, 0.3)',
+                        '&:hover': {
+                          backgroundColor: 'rgba(0, 230, 118, 0.1)',
+                          borderColor: 'primary.main',
+                        },
+                      }}
+                      startIcon={
+                        category !== 'All' ? categoryIcons[category] : null
+                      }
+                    >
+                      {category}
+                    </Button>
+                  )
+                )}
               </ButtonGroup>
             </Box>
           </motion.div>
@@ -264,7 +277,7 @@ const SkillsSection = () => {
               >
                 <Grid container spacing={3}>
                   {filteredSkills.map((skill, index) => (
-                    <Grid size={{ xs:12, md:6, lg:4 }} key={skill.skill}>
+                    <Grid size={{ xs: 12, md: 6, lg: 4 }} key={skill.skill}>
                       <SkillCard
                         skill={skill.skill}
                         level={skill.level}
@@ -285,7 +298,7 @@ const SkillsSection = () => {
             <Box sx={{ mt: 8, textAlign: 'center' }}>
               <Grid container spacing={4}>
                 {skillCategories.map((category, index) => (
-                  <Grid size={{ xs:6, md:3 }} key={category.name}>
+                  <Grid size={{ xs: 6, md: 3 }} key={category.name}>
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -296,13 +309,15 @@ const SkillsSection = () => {
                         sx={{
                           p: 3,
                           borderRadius: 3,
-                          background: theme.palette.mode === 'dark'
-                            ? 'rgba(255, 255, 255, 0.03)'
-                            : 'rgba(255, 255, 255, 0.7)',
+                          background:
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.03)'
+                              : 'rgba(255, 255, 255, 0.7)',
                           backdropFilter: 'blur(10px)',
-                          border: theme.palette.mode === 'dark'
-                            ? '1px solid rgba(255, 255, 255, 0.08)'
-                            : '1px solid rgba(0, 0, 0, 0.08)',
+                          border:
+                            theme.palette.mode === 'dark'
+                              ? '1px solid rgba(255, 255, 255, 0.08)'
+                              : '1px solid rgba(0, 0, 0, 0.08)',
                           transition: 'all 0.3s ease-in-out',
                           '&:hover': {
                             transform: 'translateY(-4px)',
@@ -313,9 +328,8 @@ const SkillsSection = () => {
                         <Box sx={{ mb: 2 }}>
                           {categoryIcons[category.name] &&
                             React.cloneElement(categoryIcons[category.name], {
-                              sx: { fontSize: 32, color: category.color }
-                            })
-                          }
+                              sx: { fontSize: 32, color: category.color },
+                            })}
                         </Box>
                         <Typography
                           variant="h4"

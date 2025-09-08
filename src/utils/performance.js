@@ -7,7 +7,7 @@ export class PerformanceMonitor {
   }
 
   init() {
-    if (typeof window === "undefined") return;
+    if (typeof window === 'undefined') return;
 
     // Monitor Core Web Vitals
     this.observeCoreWebVitals();
@@ -21,61 +21,61 @@ export class PerformanceMonitor {
 
   observeCoreWebVitals() {
     // First Contentful Paint (FCP)
-    this.observePerformanceEntry("paint", (entries) => {
+    this.observePerformanceEntry('paint', entries => {
       const fcpEntry = entries.find(
-        (entry) => entry.name === "first-contentful-paint",
+        entry => entry.name === 'first-contentful-paint'
       );
       if (fcpEntry) {
         this.metrics.fcp = fcpEntry.startTime;
-        this.reportMetric("FCP", fcpEntry.startTime);
+        this.reportMetric('FCP', fcpEntry.startTime);
       }
     });
 
     // Largest Contentful Paint (LCP)
-    this.observePerformanceEntry("largest-contentful-paint", (entries) => {
+    this.observePerformanceEntry('largest-contentful-paint', entries => {
       const lastEntry = entries[entries.length - 1];
       if (lastEntry) {
         this.metrics.lcp = lastEntry.startTime;
-        this.reportMetric("LCP", lastEntry.startTime);
+        this.reportMetric('LCP', lastEntry.startTime);
       }
     });
 
     // First Input Delay (FID) - only if supported
-    this.observePerformanceEntry("first-input", (entries) => {
+    this.observePerformanceEntry('first-input', entries => {
       const firstInput = entries[0];
       if (firstInput) {
         const fid = firstInput.processingStart - firstInput.startTime;
         this.metrics.fid = fid;
-        this.reportMetric("FID", fid);
+        this.reportMetric('FID', fid);
       }
     });
 
     // Cumulative Layout Shift (CLS) - handle gracefully if not supported
     let clsValue = 0;
-    this.observePerformanceEntry("layout-shift", (entries) => {
+    this.observePerformanceEntry('layout-shift', entries => {
       for (const entry of entries) {
         if (!entry.hadRecentInput) {
           clsValue += entry.value;
         }
       }
       this.metrics.cls = clsValue;
-      this.reportMetric("CLS", clsValue);
+      this.reportMetric('CLS', clsValue);
     });
   }
 
   observeCustomMetrics() {
     // Time to Interactive (TTI) approximation
-    window.addEventListener("load", () => {
+    window.addEventListener('load', () => {
       setTimeout(() => {
         const tti = performance.now();
         this.metrics.tti = tti;
-        this.reportMetric("TTI", tti);
+        this.reportMetric('TTI', tti);
       }, 100);
     });
 
     // Navigation timing
-    window.addEventListener("load", () => {
-      const navigation = performance.getEntriesByType("navigation")[0];
+    window.addEventListener('load', () => {
+      const navigation = performance.getEntriesByType('navigation')[0];
       if (navigation) {
         this.metrics.navigationTiming = {
           dns: navigation.domainLookupEnd - navigation.domainLookupStart,
@@ -94,16 +94,16 @@ export class PerformanceMonitor {
   }
 
   observeResources() {
-    this.observePerformanceEntry("resource", (entries) => {
-      entries.forEach((entry) => {
-        if (entry.initiatorType === "img" && entry.duration > 1000) {
+    this.observePerformanceEntry('resource', entries => {
+      entries.forEach(entry => {
+        if (entry.initiatorType === 'img' && entry.duration > 1000) {
           console.warn(
-            `Slow image loading detected: ${entry.name} (${entry.duration}ms)`,
+            `Slow image loading detected: ${entry.name} (${entry.duration}ms)`
           );
         }
-        if (entry.initiatorType === "script" && entry.duration > 500) {
+        if (entry.initiatorType === 'script' && entry.duration > 500) {
           console.warn(
-            `Slow script loading detected: ${entry.name} (${entry.duration}ms)`,
+            `Slow script loading detected: ${entry.name} (${entry.duration}ms)`
           );
         }
       });
@@ -113,8 +113,8 @@ export class PerformanceMonitor {
   observePerformanceEntry(type, callback) {
     try {
       // Check if PerformanceObserver is supported
-      if (typeof PerformanceObserver === "undefined") {
-        console.warn("PerformanceObserver not supported");
+      if (typeof PerformanceObserver === 'undefined') {
+        console.warn('PerformanceObserver not supported');
         return;
       }
 
@@ -124,7 +124,7 @@ export class PerformanceMonitor {
         return;
       }
 
-      const observer = new PerformanceObserver((list) => {
+      const observer = new PerformanceObserver(list => {
         callback(list.getEntries());
       });
 
@@ -133,14 +133,14 @@ export class PerformanceMonitor {
     } catch (error) {
       console.warn(
         `Performance observer for ${type} not supported:`,
-        error.message,
+        error.message
       );
     }
   }
 
   reportMetric(name, value) {
     // Log to console in development
-    if (process.env.NODE_ENV === "development") {
+    if (process.env.NODE_ENV === 'development') {
       console.log(`Performance Metric - ${name}:`, value);
     }
 
@@ -153,11 +153,11 @@ export class PerformanceMonitor {
   }
 
   disconnect() {
-    this.observers.forEach((observer) => {
+    this.observers.forEach(observer => {
       try {
         observer.disconnect();
       } catch (error) {
-        console.warn("Error disconnecting performance observer:", error);
+        console.warn('Error disconnecting performance observer:', error);
       }
     });
     this.observers = [];
@@ -166,15 +166,15 @@ export class PerformanceMonitor {
 
 // Accessibility Utilities
 export class AccessibilityHelper {
-  static announceToScreenReader(message, priority = "polite") {
-    const announcement = document.createElement("div");
-    announcement.setAttribute("aria-live", priority);
-    announcement.setAttribute("aria-atomic", "true");
-    announcement.style.position = "absolute";
-    announcement.style.left = "-10000px";
-    announcement.style.width = "1px";
-    announcement.style.height = "1px";
-    announcement.style.overflow = "hidden";
+  static announceToScreenReader(message, priority = 'polite') {
+    const announcement = document.createElement('div');
+    announcement.setAttribute('aria-live', priority);
+    announcement.setAttribute('aria-atomic', 'true');
+    announcement.style.position = 'absolute';
+    announcement.style.left = '-10000px';
+    announcement.style.width = '1px';
+    announcement.style.height = '1px';
+    announcement.style.overflow = 'hidden';
     announcement.textContent = message;
 
     document.body.appendChild(announcement);
@@ -189,7 +189,7 @@ export class AccessibilityHelper {
 
   static focusElement(selector, options = {}) {
     const element =
-      typeof selector === "string"
+      typeof selector === 'string'
         ? document.querySelector(selector)
         : selector;
 
@@ -202,14 +202,14 @@ export class AccessibilityHelper {
 
   static trapFocus(container) {
     const focusableElements = container.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
 
     const firstElement = focusableElements[0];
     const lastElement = focusableElements[focusableElements.length - 1];
 
-    const handleTabKey = (e) => {
-      if (e.key === "Tab") {
+    const handleTabKey = e => {
+      if (e.key === 'Tab') {
         if (e.shiftKey) {
           if (document.activeElement === firstElement) {
             lastElement.focus();
@@ -224,23 +224,23 @@ export class AccessibilityHelper {
       }
     };
 
-    container.addEventListener("keydown", handleTabKey);
+    container.addEventListener('keydown', handleTabKey);
 
     // Return cleanup function
     return () => {
-      container.removeEventListener("keydown", handleTabKey);
+      container.removeEventListener('keydown', handleTabKey);
     };
   }
 
   static checkColorContrast(foreground, background) {
     // Simple contrast ratio calculation
-    const getLuminance = (color) => {
+    const getLuminance = color => {
       const rgb = parseInt(color.slice(1), 16);
       const r = (rgb >> 16) & 0xff;
       const g = (rgb >> 8) & 0xff;
       const b = (rgb >> 0) & 0xff;
 
-      const [rs, gs, bs] = [r, g, b].map((c) => {
+      const [rs, gs, bs] = [r, g, b].map(c => {
         c = c / 255;
         return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
       });
@@ -263,11 +263,11 @@ export class AccessibilityHelper {
 // Resource Loading Optimization
 export class ResourceOptimizer {
   static preloadCriticalResources(resources) {
-    resources.forEach((resource) => {
-      const link = document.createElement("link");
-      link.rel = "preload";
+    resources.forEach(resource => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
       link.href = resource.href;
-      link.as = resource.as || "fetch";
+      link.as = resource.as || 'fetch';
       if (resource.type) link.type = resource.type;
       if (resource.crossorigin) link.crossOrigin = resource.crossorigin;
       document.head.appendChild(link);
@@ -275,28 +275,28 @@ export class ResourceOptimizer {
   }
 
   static prefetchResources(resources) {
-    resources.forEach((href) => {
-      const link = document.createElement("link");
-      link.rel = "prefetch";
+    resources.forEach(href => {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
       link.href = href;
       document.head.appendChild(link);
     });
   }
 
   static lazyLoadImages() {
-    if ("IntersectionObserver" in window) {
+    if ('IntersectionObserver' in window) {
       const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry) => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             const img = entry.target;
             img.src = img.dataset.src;
-            img.classList.remove("lazy");
+            img.classList.remove('lazy');
             observer.unobserve(img);
           }
         });
       });
 
-      document.querySelectorAll("img[data-src]").forEach((img) => {
+      document.querySelectorAll('img[data-src]').forEach(img => {
         imageObserver.observe(img);
       });
     }
@@ -304,13 +304,13 @@ export class ResourceOptimizer {
 
   static optimizeImages() {
     // Add responsive image handling
-    const images = document.querySelectorAll("img");
-    images.forEach((img) => {
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
       if (!img.loading) {
-        img.loading = "lazy";
+        img.loading = 'lazy';
       }
       if (!img.decoding) {
-        img.decoding = "async";
+        img.decoding = 'async';
       }
     });
   }
@@ -319,13 +319,13 @@ export class ResourceOptimizer {
 // Memory Management
 export class MemoryManager {
   static observeMemoryUsage() {
-    if ("memory" in performance) {
+    if ('memory' in performance) {
       const logMemoryUsage = () => {
         const memory = performance.memory;
-        console.log("Memory Usage:", {
-          used: (memory.usedJSHeapSize / 1048576).toFixed(2) + " MB",
-          total: (memory.totalJSHeapSize / 1048576).toFixed(2) + " MB",
-          limit: (memory.jsHeapSizeLimit / 1048576).toFixed(2) + " MB",
+        console.log('Memory Usage:', {
+          used: `${(memory.usedJSHeapSize / 1048576).toFixed(2)} MB`,
+          total: `${(memory.totalJSHeapSize / 1048576).toFixed(2)} MB`,
+          limit: `${(memory.jsHeapSizeLimit / 1048576).toFixed(2)} MB`,
         });
       };
 
@@ -333,7 +333,7 @@ export class MemoryManager {
       logMemoryUsage();
 
       // Log memory usage every 30 seconds in development
-      if (process.env.NODE_ENV === "development") {
+      if (process.env.NODE_ENV === 'development') {
         setInterval(logMemoryUsage, 30000);
       }
     }
@@ -372,8 +372,8 @@ export class MemoryManager {
 // Bundle Size Analysis
 export class BundleAnalyzer {
   static logBundleInfo() {
-    if (process.env.NODE_ENV === "development") {
-      console.log("Bundle Analysis:", {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Bundle Analysis:', {
         chunks: this.getLoadedChunks(),
         scripts: this.getLoadedScripts(),
         stylesheets: this.getLoadedStylesheets(),
@@ -382,20 +382,18 @@ export class BundleAnalyzer {
   }
 
   static getLoadedChunks() {
-    return Array.from(document.querySelectorAll("script[src]")).map(
-      (script) => ({
-        src: script.src,
-        async: script.async,
-        defer: script.defer,
-      }),
-    );
+    return Array.from(document.querySelectorAll('script[src]')).map(script => ({
+      src: script.src,
+      async: script.async,
+      defer: script.defer,
+    }));
   }
 
   static getLoadedScripts() {
     return performance
-      .getEntriesByType("resource")
-      .filter((entry) => entry.initiatorType === "script")
-      .map((entry) => ({
+      .getEntriesByType('resource')
+      .filter(entry => entry.initiatorType === 'script')
+      .map(entry => ({
         name: entry.name,
         size: entry.transferSize,
         duration: entry.duration,
@@ -404,9 +402,9 @@ export class BundleAnalyzer {
 
   static getLoadedStylesheets() {
     return performance
-      .getEntriesByType("resource")
-      .filter((entry) => entry.initiatorType === "link")
-      .map((entry) => ({
+      .getEntriesByType('resource')
+      .filter(entry => entry.initiatorType === 'link')
+      .map(entry => ({
         name: entry.name,
         size: entry.transferSize,
         duration: entry.duration,
@@ -420,7 +418,7 @@ let performanceMonitor = null;
 try {
   performanceMonitor = new PerformanceMonitor();
 } catch (error) {
-  console.warn("Failed to initialize performance monitoring:", error);
+  console.warn('Failed to initialize performance monitoring:', error);
   // Create a mock object to prevent errors
   performanceMonitor = {
     getMetrics: () => ({}),
@@ -432,7 +430,7 @@ try {
 export const cleanup = () => {
   if (
     performanceMonitor &&
-    typeof performanceMonitor.disconnect === "function"
+    typeof performanceMonitor.disconnect === 'function'
   ) {
     performanceMonitor.disconnect();
   }

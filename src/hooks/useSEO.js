@@ -1,5 +1,5 @@
-import { useEffect, useCallback } from "react";
-import { personalData } from "../data/personal";
+import { useEffect, useCallback } from 'react';
+import { personalData } from '../data/personal';
 
 /**
  * Custom hook for managing page-specific SEO
@@ -11,8 +11,8 @@ const useSEO = ({
   keywords,
   image,
   url,
-  type = "website",
-  section = "portfolio",
+  type = 'website',
+  section = 'portfolio',
   publishedTime,
   modifiedTime,
   author = personalData.fullName,
@@ -20,7 +20,7 @@ const useSEO = ({
   // Default values from personal data
   const defaultTitle = personalData.seo.title;
   const defaultDescription = personalData.seo.description;
-  const defaultKeywords = personalData.seo.keywords.join(", ");
+  const defaultKeywords = personalData.seo.keywords.join(', ');
   const defaultImage = `${personalData.socialLinks.portfolio}/images/og-image.jpg`;
   const defaultUrl = personalData.socialLinks.portfolio;
 
@@ -35,97 +35,97 @@ const useSEO = ({
   const updateMetaContent = useCallback((name, content, isProperty = false) => {
     if (!content) return;
 
-    const attribute = isProperty ? "property" : "name";
+    const attribute = isProperty ? 'property' : 'name';
     let meta = document.querySelector(`meta[${attribute}="${name}"]`);
 
     if (meta) {
-      meta.setAttribute("content", content);
+      meta.setAttribute('content', content);
     } else {
-      meta = document.createElement("meta");
+      meta = document.createElement('meta');
       meta.setAttribute(attribute, name);
-      meta.setAttribute("content", content);
+      meta.setAttribute('content', content);
       document.head.appendChild(meta);
     }
   }, []);
 
   // Update document title
-  const updateTitle = useCallback((newTitle) => {
+  const updateTitle = useCallback(newTitle => {
     document.title = newTitle;
   }, []);
 
   // Update Open Graph tags
   const updateOpenGraph = useCallback(() => {
-    updateMetaContent("og:title", seoTitle, true);
-    updateMetaContent("og:description", seoDescription, true);
-    updateMetaContent("og:image", seoImage, true);
-    updateMetaContent("og:url", seoUrl, true);
-    updateMetaContent("og:type", type, true);
+    updateMetaContent('og:title', seoTitle, true);
+    updateMetaContent('og:description', seoDescription, true);
+    updateMetaContent('og:image', seoImage, true);
+    updateMetaContent('og:url', seoUrl, true);
+    updateMetaContent('og:type', type, true);
   }, [updateMetaContent, seoTitle, seoDescription, seoImage, seoUrl, type]);
 
   // Update Twitter Card tags
   const updateTwitterCard = useCallback(() => {
-    updateMetaContent("twitter:title", seoTitle);
-    updateMetaContent("twitter:description", seoDescription);
-    updateMetaContent("twitter:image", seoImage);
+    updateMetaContent('twitter:title', seoTitle);
+    updateMetaContent('twitter:description', seoDescription);
+    updateMetaContent('twitter:image', seoImage);
   }, [updateMetaContent, seoTitle, seoDescription, seoImage]);
 
   // Update basic meta tags
   const updateBasicMeta = useCallback(() => {
-    updateMetaContent("description", seoDescription);
-    updateMetaContent("keywords", seoKeywords);
-    updateMetaContent("author", author);
+    updateMetaContent('description', seoDescription);
+    updateMetaContent('keywords', seoKeywords);
+    updateMetaContent('author', author);
   }, [updateMetaContent, seoDescription, seoKeywords, author]);
 
   // Update canonical URL
   const updateCanonical = useCallback(() => {
     let canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) {
-      canonical.setAttribute("href", seoUrl);
+      canonical.setAttribute('href', seoUrl);
     } else {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      canonical.setAttribute("href", seoUrl);
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      canonical.setAttribute('href', seoUrl);
       document.head.appendChild(canonical);
     }
   }, [seoUrl]);
 
   // Add structured data for specific page types
   const addPageStructuredData = useCallback(() => {
-    if (type === "article") {
+    if (type === 'article') {
       const articleData = {
-        "@context": "https://schema.org",
-        "@type": "Article",
+        '@context': 'https://schema.org',
+        '@type': 'Article',
         headline: seoTitle,
         description: seoDescription,
         image: seoImage,
         author: {
-          "@type": "Person",
+          '@type': 'Person',
           name: author,
         },
         publisher: {
-          "@type": "Person",
+          '@type': 'Person',
           name: personalData.fullName,
         },
         datePublished: publishedTime,
         dateModified: modifiedTime || publishedTime,
         mainEntityOfPage: {
-          "@type": "WebPage",
-          "@id": seoUrl,
+          '@type': 'WebPage',
+          '@id': seoUrl,
         },
       };
 
       // Remove existing article schema
       const existingArticle = document.querySelector(
-        'script[data-schema-type="article"]',
+        'script[data-schema-type="article"]'
       );
       if (existingArticle) {
         existingArticle.remove();
       }
 
       // Add new article schema
-      const script = document.createElement("script");
-      script.type = "application/ld+json";
-      script.setAttribute("data-schema-type", "article");
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.setAttribute('data-schema-type', 'article');
       script.textContent = JSON.stringify(articleData);
       document.head.appendChild(script);
     }
@@ -189,42 +189,42 @@ export const seoConfigs = {
     title: `${personalData.fullName} - AI Prompt Specialist | Software Engineer - Portfolio`,
     description: `${personalData.fullName} - Professional AI Engineer & Software Developer specializing in machine learning, prompt engineering, and full-stack development. Explore my portfolio of AI-powered applications and innovative solutions.`,
     keywords: `${personalData.fullName}, Precious Okoyen, AI Engineer, Machine Learning, Prompt Engineering, Software Developer, Portfolio`,
-    section: "home",
+    section: 'home',
   },
 
   about: {
     title: `About ${personalData.fullName} - AI Engineer & Technology Leader`,
     description: `Learn more about ${personalData.fullName}'s background, expertise in AI engineering, machine learning, and professional journey in technology innovation.`,
     keywords: `About ${personalData.fullName}, AI Engineer Background, Machine Learning Expert, Technology Leader`,
-    section: "about",
+    section: 'about',
   },
 
   skills: {
     title: `${personalData.fullName} - Technical Skills | AI, ML & Software Development`,
     description: `Explore ${personalData.fullName}'s comprehensive technical skills in AI, machine learning, prompt engineering, and software development technologies.`,
     keywords: `${personalData.fullName} Skills, AI Skills, Machine Learning, Python, TensorFlow, React, Technical Expertise`,
-    section: "skills",
+    section: 'skills',
   },
 
   projects: {
     title: `${personalData.fullName} - AI Projects Portfolio | Machine Learning Applications`,
     description: `Discover ${personalData.fullName}'s innovative AI and machine learning projects, from prompt engineering platforms to neural network applications.`,
     keywords: `${personalData.fullName} Projects, AI Projects, Machine Learning Applications, Software Portfolio`,
-    section: "projects",
+    section: 'projects',
   },
 
   experience: {
     title: `${personalData.fullName} - Professional Experience | AI Engineering Career`,
     description: `${personalData.fullName}'s professional experience as AI Engineer, including roles at leading technology companies and achievements in machine learning.`,
     keywords: `${personalData.fullName} Experience, AI Engineer Career, Machine Learning Jobs, Professional Background`,
-    section: "experience",
+    section: 'experience',
   },
 
   contact: {
     title: `Contact ${personalData.fullName} - AI Engineer & Technology Consultant`,
     description: `Get in touch with ${personalData.fullName} for AI engineering opportunities, consulting, or collaboration on machine learning projects.`,
     keywords: `Contact ${personalData.fullName}, AI Engineer Contact, Machine Learning Consultant, Technology Collaboration`,
-    section: "contact",
+    section: 'contact',
   },
 };
 
@@ -243,13 +243,13 @@ export const usePageSEO = (pageKey, customConfig = {}) => {
 /**
  * Hook for project-specific SEO
  */
-export const useProjectSEO = (project) => {
+export const useProjectSEO = project => {
   const config = {
     title: `${project.title} - ${personalData.fullName} | AI Project Portfolio`,
     description: `${project.description} Developed by ${personalData.fullName}, AI Engineer specializing in ${project.category}.`,
-    keywords: `${project.title}, ${personalData.fullName}, ${project.technologies.join(", ")}, AI Project`,
-    type: "article",
-    section: "projects",
+    keywords: `${project.title}, ${personalData.fullName}, ${project.technologies.join(', ')}, AI Project`,
+    type: 'article',
+    section: 'projects',
     image: project.image,
     publishedTime: project.startDate,
     modifiedTime: project.endDate,
@@ -261,13 +261,13 @@ export const useProjectSEO = (project) => {
 /**
  * Hook for blog post SEO (if blog is added)
  */
-export const useBlogSEO = (post) => {
+export const useBlogSEO = post => {
   const config = {
     title: `${post.title} - ${personalData.fullName} Blog`,
     description: post.excerpt || post.description,
-    keywords: `${post.tags?.join(", ")}, ${personalData.fullName}, AI Blog, Technology`,
-    type: "article",
-    section: "blog",
+    keywords: `${post.tags?.join(', ')}, ${personalData.fullName}, AI Blog, Technology`,
+    type: 'article',
+    section: 'blog',
     image: post.featuredImage,
     publishedTime: post.publishedDate,
     modifiedTime: post.updatedDate,
@@ -319,18 +319,18 @@ export const seoUtils = {
     const baseKeywords = personalData.seo.keywords;
     const sectionKeywords = {
       home: [],
-      about: ["About", "Background", "Biography"],
-      skills: ["Skills", "Technical Skills", "Expertise"],
-      projects: ["Projects", "Portfolio", "Work"],
-      experience: ["Experience", "Career", "Professional Background"],
-      contact: ["Contact", "Hire", "Consulting"],
+      about: ['About', 'Background', 'Biography'],
+      skills: ['Skills', 'Technical Skills', 'Expertise'],
+      projects: ['Projects', 'Portfolio', 'Work'],
+      experience: ['Experience', 'Career', 'Professional Background'],
+      contact: ['Contact', 'Hire', 'Consulting'],
     };
 
     return [
       ...baseKeywords,
       ...(sectionKeywords[section] || []),
       ...additionalKeywords,
-    ].join(", ");
+    ].join(', ');
   },
 };
 
