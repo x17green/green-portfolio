@@ -60,7 +60,7 @@ export const personalData = {
     "DevOps & Model Deployment",
     "AI Ethics & Safety",
     "Team Leadership",
-    "TypeScript Profient"
+    "TypeScript Proficient"
   ],
 
   // Interests & Hobbies
