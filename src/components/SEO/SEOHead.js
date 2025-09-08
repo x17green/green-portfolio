@@ -271,8 +271,8 @@ const SEOHead = ({
 
     // Twitter
     setMetaContent("twitter:card", "summary_large_image");
-    setMetaContent("twitter:site", "@precious_okoyen");
-    setMetaContent("twitter:creator", "@precious_okoyen");
+    setMetaContent("twitter:site", "@0x17green");
+    setMetaContent("twitter:creator", "@0x17green");
     setMetaContent("twitter:title", seoTitle);
     setMetaContent("twitter:description", seoDescription);
     setMetaContent("twitter:image", seoImage);
