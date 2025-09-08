@@ -1,6 +1,6 @@
-import { Suspense, lazy, useEffect } from 'react';
 import { CssBaseline, Box, Fade } from '@mui/material';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
+import { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import '@fontsource/inter/300.css';
 import '@fontsource/inter/400.css';
