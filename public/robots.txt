@@ -1,3 +1,18 @@
 # https://www.robotstxt.org/robotstxt.html
+# Robots.txt for Precious E. Okoyen - AI Software Engineer Portfolio
+
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /private/
+Disallow: *.log
+
+# Sitemap location
+Sitemap: https://x17green.vercel.app/sitemap.xml
+
+# Crawl-delay for better server performance
+Crawl-delay: 1
+
+# Allow all search engines to crawl important files
+Allow: /files/precious-okoyen-resume.pdf
+Allow: /images/
+Allow: /icons/
