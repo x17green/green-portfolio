@@ -19,6 +19,7 @@ import { ErrorBoundary, OfflineIndicator } from "./components/ui/LoadingStates";
 import { cleanup } from "./utils/performance";
 import { useSkeletonTransition } from "./hooks/useSkeletonTransition";
 import SEOHead from "./components/SEO/SEOHead";
+import { initializeAnalytics, trackPageView } from "./utils/analytics";
 
 // Lazy load components for better performance
 const Home = lazy(() => import("./pages/Home"));
@@ -65,6 +66,15 @@ const AppContent = () => {
       fadeOutDuration: 600,
       contentDelay: 200,
     });
+
+  // Initialize Google Analytics
+  useEffect(() => {
+    // Initialize analytics with user consent (you can add consent logic here)
+    initializeAnalytics(true);
+
+    // Track initial page view
+    trackPageView("Precious E. Okoyen - AI Software Engineer Portfolio", "/");
+  }, []);
 
   // Initialize performance monitoring cleanup
   useEffect(() => {

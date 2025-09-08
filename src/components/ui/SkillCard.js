@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { motion } from "framer-motion";
+import { trackSkillInteraction } from "../../utils/analytics";
 
 const SkillCard = ({
   skill,
@@ -188,27 +189,38 @@ const SkillCard = ({
                 }}
               />
             </Box>
-            
+
             {description && (
               <Box sx={{ mb: 0, mt: 2 }}>
-                <Button
-                  onClick={() => setShowDescription(!showDescription)}
-                  endIcon={showDescription ? <ExpandLess /> : <ExpandMore />}
-                  sx={{
-                    textTransform: "none",
-                    color: colors.primary,
-                    fontSize: "0.875rem",
-                    fontWeight: 500,
-                    p: 0,
-                    minHeight: "auto",
-                    "&:hover": {
-                      backgroundColor: "transparent",
-                      color: colors.secondary,
-                    },
-                  }}
-                >
-                  More details
-                </Button>
+                {/* <Box sx={{ mb: 2 }}>*/}
+                  <Button
+                    onClick={() => {
+                      const newShowState = !showDescription;
+                      setShowDescription(newShowState);
+
+                      // Track skill interaction
+                      trackSkillInteraction(
+                        skill,
+                        newShowState ? 'expand_details' : 'collapse_details',
+                        category
+                      );
+                    }}
+                    endIcon={showDescription ? <ExpandLess /> : <ExpandMore />}
+                    sx={{
+                      textTransform: "none",
+                      color: colors.primary,
+                      fontSize: "0.875rem",
+                      fontWeight: 500,
+                      p: 0,
+                      minHeight: "auto",
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                        color: colors.secondary,
+                      },
+                    }}
+                  >
+                    More details
+                  </Button>
                 <Collapse in={showDescription}>
                   <Typography
                     variant="body2"

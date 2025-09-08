@@ -8,37 +8,46 @@ import {
   Link,
   Divider,
 } from "@mui/material";
-import {
-  GitHub,
-  LinkedIn,
-  Twitter,
-  Email,
-  Phone,
-  LocationOn,
-  Favorite,
-} from "@mui/icons-material";
+import { Favorite } from "@mui/icons-material";
 import { motion } from "framer-motion";
+import personalData from "../../data/personal";
+import {
+  trackSocialClick,
+  trackContactForm,
+  trackNavigation,
+} from "../../utils/analytics";
+import LineIcon from "../ui/LineIcon";
 
 const Footer = () => {
   const socialLinks = [
     {
-      icon: <GitHub />,
-      href: "https://github.com/x17green",
+      icon: <LineIcon name="github" />,
+      href: personalData.socialLinks.github,
       label: "GitHub",
     },
     {
-      icon: <LinkedIn />,
-      href: "https://linkedin.com/in/x17-green",
+      icon: <LineIcon name="linkedin" />,
+      href: personalData.socialLinks.linkedin,
       label: "LinkedIn",
     },
     {
-      icon: <Twitter />,
-      href: "https://twitter.com/0x17green",
+      icon: <LineIcon name="twitter" />,
+      href: personalData.socialLinks.twitter,
       label: "Twitter",
     },
     {
-      icon: <Email />,
-      href: "mailto:pokosine@protonmail.com",
+      icon: <LineIcon name="medium" />,
+      href: personalData.socialLinks.medium,
+      label: "Medium",
+    },
+    {
+      icon: <LineIcon name="calendar" />,
+      href: personalData.socialLinks.calendly,
+      label: "Calendly",
+    },
+    {
+      icon: <LineIcon name="email" />,
+      href: `mailto:${personalData.email}`,
       label: "Email",
     },
   ];
@@ -51,13 +60,26 @@ const Footer = () => {
     { label: "Contact", href: "#contact" },
   ];
 
-  const handleNavClick = (href) => {
+  const handleNavClick = (href, label = "") => {
     if (href.startsWith("#")) {
       const element = document.querySelector(href);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
+      // Track navigation analytics
+      const sectionName = href.replace("#", "");
+      trackNavigation(sectionName, "footer_click");
+    } else if (href.startsWith("mailto:")) {
+      // Track email click
+      trackContactForm("email_click", {
+        contactMethod: "footer_email",
+        email: href.replace("mailto:", ""),
+      });
+      window.open(href, "_blank", "noopener,noreferrer");
     } else {
+      // Track social media click
+      const platform = label.toLowerCase();
+      trackSocialClick(platform, href);
       window.open(href, "_blank", "noopener,noreferrer");
     }
   };
@@ -78,7 +100,7 @@ const Footer = () => {
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           {/* Brand Section */}
-          <Grid size={{ xs:12, md:4 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -96,34 +118,41 @@ const Footer = () => {
                   mb: 2,
                 }}
               >
-                AI+Software Engineer Portfolio
+                {personalData.displayName}
               </Typography>
               <Typography
                 variant="body2"
                 color="text.secondary"
                 sx={{ mb: 3, lineHeight: 1.6 }}
               >
-                Passionate Software Engineer specializing in AI prompt engineering,
-                and cutting-edge artificial intelligence
-                solutions. Building the future, one algorithm at a time.
+                {personalData.bio.medium}
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <LocationOn sx={{ color: "primary.main", fontSize: 18 }} />
+                  <LineIcon
+                    name="location"
+                    sx={{ color: "primary.main", fontSize: 18 }}
+                  />
                   <Typography variant="body2" color="text.secondary">
-                    Bayelsa, NG
+                    {personalData.location}
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <Phone sx={{ color: "primary.main", fontSize: 18 }} />
+                  <LineIcon
+                    name="phone"
+                    sx={{ color: "primary.main", fontSize: 18 }}
+                  />
                   <Typography variant="body2" color="text.secondary">
-                    +234 (706) 153-9439
+                    {personalData.phone}
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <Email sx={{ color: "primary.main", fontSize: 18 }} />
+                  <LineIcon
+                    name="email"
+                    sx={{ color: "primary.main", fontSize: 18 }}
+                  />
                   <Typography variant="body2" color="text.secondary">
-                    hello@aiportfolio.dev
+                    {personalData.email}
                   </Typography>
                 </Box>
               </Box>
@@ -131,7 +160,7 @@ const Footer = () => {
           </Grid>
 
           {/* Quick Links */}
-          <Grid size={{ xs:12, md:4 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -152,7 +181,7 @@ const Footer = () => {
                 {quickLinks.map((link, index) => (
                   <Link
                     key={link.label}
-                    onClick={() => handleNavClick(link.href)}
+                    onClick={() => handleNavClick(link.href, link.label)}
                     sx={{
                       color: "text.secondary",
                       textDecoration: "none",
@@ -173,7 +202,7 @@ const Footer = () => {
           </Grid>
 
           {/* Social Links & Newsletter */}
-          <Grid size={{ xs:12, md:4 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -195,8 +224,9 @@ const Footer = () => {
                 color="text.secondary"
                 sx={{ mb: 3, lineHeight: 1.6 }}
               >
-                Let's collaborate on AI projects and share insights about the
-                future of artificial intelligence.
+                Let's collaborate on AI projects, schedule a consultation, and
+                share insights about the future of artificial intelligence and
+                software engineering.
               </Typography>
               <Box sx={{ display: "flex", gap: 1, mb: 3 }}>
                 {socialLinks.map((social, index) => (
@@ -206,7 +236,7 @@ const Footer = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <IconButton
-                      onClick={() => handleNavClick(social.href)}
+                      onClick={() => handleNavClick(social.href, social.label)}
                       sx={{
                         color: "text.secondary",
                         border: "1px solid rgba(255, 255, 255, 0.1)",
@@ -262,12 +292,13 @@ const Footer = () => {
                 gap: 0.5,
               }}
             >
-              © {new Date().getFullYear()} AI Engineer Portfolio. Made with
+              © {new Date().getFullYear()} {personalData.displayName}. Made
+              with
               <Favorite sx={{ color: "primary.main", fontSize: 16 }} />
               and cutting-edge AI technology.
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Designed for the future of AI
+              {personalData.title}
             </Typography>
           </Box>
         </motion.div>

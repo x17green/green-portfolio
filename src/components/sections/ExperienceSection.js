@@ -33,6 +33,7 @@ import {
   certificationsData,
   experienceStats,
 } from "../../data/experience";
+import { trackEvent } from "../../utils/analytics";
 
 const ExperienceSection = () => {
   const theme = useTheme();
@@ -42,10 +43,28 @@ const ExperienceSection = () => {
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
+
+    // Track tab change analytics
+    const tabNames = ["experience", "education", "certifications"];
+    trackEvent("experience_tab_change", {
+      category: "section_navigation",
+      label: tabNames[newValue],
+      tab_index: newValue,
+      tab_name: tabNames[newValue],
+    });
   };
 
   const toggleCardExpansion = (cardId) => {
+    const isExpanding = expandedCard !== cardId;
     setExpandedCard(expandedCard === cardId ? null : cardId);
+
+    // Track card expansion analytics
+    trackEvent("experience_card_expansion", {
+      category: "experience_engagement",
+      label: `card_${cardId}`,
+      action: isExpanding ? "expand" : "collapse",
+      card_id: cardId,
+    });
   };
 
   const containerVariants = {
@@ -91,6 +110,7 @@ const ExperienceSection = () => {
           overflow: "hidden",
           position: "relative",
           transition: "all 0.3s ease-in-out",
+          cursor: "pointer",
           "&:hover": {
             transform: "translateY(-4px)",
             border: "1px solid rgba(0, 230, 118, 0.3)",
@@ -110,6 +130,16 @@ const ExperienceSection = () => {
               ? "linear-gradient(90deg, #00e676, #1976d2)"
               : "linear-gradient(90deg, #1976d2, #00e676)",
           },
+        }}
+        onClick={() => {
+          // Track experience card click
+          trackEvent("experience_card_click", {
+            category: "experience_engagement",
+            label: experience.company,
+            company: experience.company,
+            position: experience.title,
+            card_index: index,
+          });
         }}
       >
         <CardContent sx={{ p: 4 }}>
@@ -317,7 +347,17 @@ const ExperienceSection = () => {
               {expandedCard === experience.id ? "Less details" : "More details"}
             </Typography>
             <IconButton
-              onClick={() => toggleCardExpansion(experience.id)}
+              onClick={() => {
+                toggleCardExpansion(experience.id);
+                // Additional tracking for expand button click
+                trackEvent("experience_expand_button", {
+                  category: "ui_interaction",
+                  label: experience.company,
+                  action:
+                    expandedCard === experience.id ? "collapse" : "expand",
+                  company: experience.company,
+                });
+              }}
               sx={{
                 color: "primary.main",
                 transition: "transform 0.3s ease-in-out",
@@ -441,6 +481,7 @@ const ExperienceSection = () => {
           overflow: "hidden",
           position: "relative",
           transition: "all 0.3s ease-in-out",
+          cursor: "pointer",
           "&:hover": {
             transform: "translateY(-4px)",
             border: "1px solid rgba(25, 118, 210, 0.3)",
@@ -458,6 +499,17 @@ const ExperienceSection = () => {
             height: "4px",
             background: "linear-gradient(90deg, #1976d2, #00e676)",
           },
+        }}
+        onClick={() => {
+          // Track education card click
+          trackEvent("education_card_click", {
+            category: "education_engagement",
+            label: education.institution,
+            institution: education.institution,
+            degree: education.degree,
+            card_index: index,
+            gpa: education.gpa,
+          });
         }}
       >
         <CardContent sx={{ p: 4 }}>
@@ -558,6 +610,17 @@ const ExperienceSection = () => {
                     gap: 1,
                     mb: 1,
                   }}
+                  onClick={() => {
+                    // Track education achievement click
+                    trackEvent("education_achievement_click", {
+                      category: "education_engagement",
+                      label: education.institution,
+                      institution: education.institution,
+                      degree: education.degree,
+                      achievement: achievement,
+                      card_index: index,
+                    });
+                  }}
                 >
                   <EmojiEvents
                     sx={{
@@ -633,6 +696,7 @@ const ExperienceSection = () => {
           p: 3,
           textAlign: "center",
           transition: "all 0.3s ease-in-out",
+          cursor: "pointer",
           "&:hover": {
             transform: "translateY(-4px)",
             border: "1px solid rgba(255, 152, 0, 0.3)",
@@ -641,6 +705,17 @@ const ExperienceSection = () => {
                 ? "0px 16px 40px rgba(255, 152, 0, 0.2)"
                 : "0px 16px 40px rgba(255, 152, 0, 0.15)",
           },
+        }}
+        onClick={() => {
+          // Track certification card click
+          trackEvent("certification_card_click", {
+            category: "certification_engagement",
+            label: certification.name,
+            certification_name: certification.name,
+            issuer: certification.issuer,
+            card_index: index,
+            skills: certification.skills.join(", "),
+          });
         }}
       >
         <Avatar
@@ -862,6 +937,16 @@ const ExperienceSection = () => {
                             border: "1px solid rgba(0, 230, 118, 0.3)",
                           },
                         }}
+                        onClick={() => {
+                          // Track stat card click
+                          trackEvent("experience_stat_click", {
+                            category: "stats_engagement",
+                            label: stat.label,
+                            stat_name: stat.label,
+                            stat_value: stat.value,
+                            stat_index: index,
+                          });
+                        }}
                       >
                         <Avatar
                           sx={{
@@ -974,7 +1059,10 @@ const ExperienceSection = () => {
               {selectedTab === 2 && (
                 <Grid container spacing={3}>
                   {certificationsData.map((certification, index) => (
-                    <Grid size={{ xs: 12, sm: 6, md: 3 }} key={certification.id}>
+                    <Grid
+                      size={{ xs: 12, sm: 6, md: 3 }}
+                      key={certification.id}
+                    >
                       <CertificationCard
                         certification={certification}
                         index={index}

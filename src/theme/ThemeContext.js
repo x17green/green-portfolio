@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
+import { trackThemeChange } from "../utils/analytics";
 
 const ThemeContext = createContext();
 
@@ -58,6 +59,9 @@ export const ThemeProvider = ({ children }) => {
     setMode(newMode);
     localStorage.setItem("themeMode", newMode);
     updateThemeColor(newMode);
+
+    // Track theme change analytics
+    trackThemeChange(newMode);
 
     // Add smooth transition class to body
     document.body.classList.add("theme-transitioning");

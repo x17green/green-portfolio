@@ -20,6 +20,7 @@ import {
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import personalData from "../../data/personal";
+import { trackResumeDownload } from "../../utils/analytics";
 
 const HeroSection = () => {
   const theme = useTheme();
@@ -269,6 +270,12 @@ const HeroSection = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     startIcon={<Download />}
+                    onClick={() =>
+                      trackResumeDownload(
+                        personalData.resume.filename,
+                        "hero_button_click",
+                      )
+                    }
                     sx={{
                       px: 4,
                       py: 1.5,

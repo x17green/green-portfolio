@@ -20,6 +20,7 @@ import {
   Code as CodeIcon,
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
+import { trackNavigation } from "../../utils/analytics";
 
 const Header = () => {
   const theme = useTheme();
@@ -55,6 +56,9 @@ const Header = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+    // Track navigation analytics
+    const sectionName = href.replace("#", "");
+    trackNavigation(sectionName, "click");
     setMobileOpen(false);
   };
 

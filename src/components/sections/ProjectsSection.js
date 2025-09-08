@@ -30,6 +30,10 @@ import {
 } from "@mui/icons-material";
 import { motion, AnimatePresence } from "framer-motion";
 import { projectsData, categories } from "../../data/projects";
+import {
+  trackProjectInteraction,
+  trackNavigation,
+} from "../../utils/analytics";
 
 const ProjectsSection = () => {
   const theme = useTheme();
@@ -195,6 +199,13 @@ const ProjectsSection = () => {
                   component={Link}
                   href={project.demoUrl}
                   target="_blank"
+                  onClick={() =>
+                    trackProjectInteraction(
+                      project.title,
+                      "view_demo",
+                      project.demoUrl,
+                    )
+                  }
                   sx={{
                     backgroundColor: "rgba(255, 255, 255, 0.2)",
                     color: "white",
@@ -215,6 +226,13 @@ const ProjectsSection = () => {
                   component={Link}
                   href={project.githubUrl}
                   target="_blank"
+                  onClick={() =>
+                    trackProjectInteraction(
+                      project.title,
+                      "view_code",
+                      project.githubUrl,
+                    )
+                  }
                   sx={{
                     backgroundColor: "rgba(255, 255, 255, 0.2)",
                     color: "white",
@@ -235,6 +253,13 @@ const ProjectsSection = () => {
                   component={Link}
                   href={project.liveUrl}
                   target="_blank"
+                  onClick={() =>
+                    trackProjectInteraction(
+                      project.title,
+                      "view_live",
+                      project.liveUrl,
+                    )
+                  }
                   sx={{
                     backgroundColor: "rgba(255, 255, 255, 0.2)",
                     color: "white",
@@ -333,7 +358,7 @@ const ProjectsSection = () => {
                 {Object.entries(project.metrics)
                   .slice(0, 2)
                   .map(([key, value]) => (
-                    <Grid size={{ xs:6 }} key={key}>
+                    <Grid size={{ xs: 6 }} key={key}>
                       <Box
                         sx={{
                           textAlign: "center",
@@ -508,7 +533,10 @@ const ProjectsSection = () => {
                 {categories.map((category) => (
                   <Button
                     key={category.value}
-                    onClick={() => setSelectedCategory(category.value)}
+                    onClick={() => {
+                      setSelectedCategory(category.value);
+                      trackNavigation(`projects_${category.value}`, "filter");
+                    }}
                     sx={{
                       backgroundColor:
                         selectedCategory === category.value
@@ -548,7 +576,7 @@ const ProjectsSection = () => {
               >
                 <Grid container spacing={4}>
                   {filteredProjects.map((project, index) => (
-                    <Grid size={{ xs:12, md:6, lg:4 }} key={project.id}>
+                    <Grid size={{ xs: 12, md: 6, lg: 4 }} key={project.id}>
                       <ProjectCard project={project} index={index} />
                     </Grid>
                   ))}

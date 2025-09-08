@@ -21,6 +21,7 @@ import {
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import personalData from "../../data/personal";
+import { trackNavigation } from "../../utils/analytics";
 
 const AboutSection = () => {
   const theme = useTheme();
@@ -106,7 +107,7 @@ const AboutSection = () => {
                   mb: 2,
                 }}
               >
-              {personalData.about.heading}
+                {personalData.about.heading}
               </Typography>
               <Typography
                 variant={isMobile ? "h4" : "h3"}
