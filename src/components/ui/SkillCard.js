@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
   Typography,
   Box,
   Avatar,
+  Button,
+  Collapse,
   useTheme,
 } from "@mui/material";
+import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { motion } from "framer-motion";
 
 const SkillCard = ({
@@ -18,6 +21,7 @@ const SkillCard = ({
   delay = 0,
 }) => {
   const theme = useTheme();
+  const [showDescription, setShowDescription] = useState(false);
 
   const categoryColors = {
     Technical: { primary: "#00e676", secondary: "#00b248" },
@@ -111,19 +115,6 @@ const SkillCard = ({
             </Box>
           </Box>
 
-          {description && (
-            <Typography
-              variant="body2"
-              sx={{
-                color: "text.secondary",
-                lineHeight: 1.6,
-                mb: 3,
-              }}
-            >
-              {description}
-            </Typography>
-          )}
-
           <Box sx={{ mb: 1 }}>
             <Box
               sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}
@@ -197,6 +188,42 @@ const SkillCard = ({
                 }}
               />
             </Box>
+            
+            {description && (
+              <Box sx={{ mb: 0, mt: 2 }}>
+                <Button
+                  onClick={() => setShowDescription(!showDescription)}
+                  endIcon={showDescription ? <ExpandLess /> : <ExpandMore />}
+                  sx={{
+                    textTransform: "none",
+                    color: colors.primary,
+                    fontSize: "0.875rem",
+                    fontWeight: 500,
+                    p: 0,
+                    minHeight: "auto",
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                      color: colors.secondary,
+                    },
+                  }}
+                >
+                  More details
+                </Button>
+                <Collapse in={showDescription}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "text.secondary",
+                      lineHeight: 1.6,
+                      mt: 1,
+                    }}
+                  >
+                    {description}
+                  </Typography>
+                </Collapse>
+              </Box>
+            )}
+
           </Box>
         </CardContent>
       </Card>
