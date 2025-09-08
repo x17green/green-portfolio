@@ -186,7 +186,7 @@ const useSEO = ({
  */
 export const seoConfigs = {
   home: {
-    title: `${personalData.fullName} - AI Engineer Portfolio | Machine Learning & Software Development`,
+    title: `${personalData.fullName} - AI Prompt Specialist | Software Engineer - Portfolio`,
     description: `${personalData.fullName} - Professional AI Engineer & Software Developer specializing in machine learning, prompt engineering, and full-stack development. Explore my portfolio of AI-powered applications and innovative solutions.`,
     keywords: `${personalData.fullName}, Precious Okoyen, AI Engineer, Machine Learning, Prompt Engineering, Software Developer, Portfolio`,
     section: "home",

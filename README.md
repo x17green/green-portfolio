@@ -178,12 +178,12 @@ src/
 
 ## 📞 Connect with Precious E. Okoyen
 
-- 💼 **LinkedIn**: [Precious E.Okoyen](https://linkedin.com/in/x17-green)
+- 💼 **LinkedIn**: [Precious Okoyen](https://linkedin.com/in/x17-green)
 - 🐱 **GitHub**: [🎯 Mr. Green](https://github.com/x17green)
 - 📧 **Email**: [pokosine@protonmail.com](mailto:pokosine@protonmail.com)
 - 🌐 **Portfolio**: [Precious E. Okoyen](https://x17green.vercel.app)
-- 📝 **Medium**: [@x17-green](https://medium.com/@x17-green)
-- 🐦 **Twitter**: [@precious_okoyen](https://twitter.com/0x17green)
+- 📝 **Medium**: [Precious Okoyen Ebisine](https://medium.com/@x17-green)
+- 🐦 **Twitter**: [Mr. Green](https://twitter.com/0x17green)
 
 ## 📄 Resume & Documents
 
