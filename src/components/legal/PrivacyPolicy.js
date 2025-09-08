@@ -1,4 +1,4 @@
-import React from 'react';
+import { Privacy, Analytics, Security } from '@mui/icons-material';
 import {
   Box,
   Container,
@@ -11,7 +11,6 @@ import {
   Link,
   useTheme,
 } from '@mui/material';
-import { Privacy, Analytics, Security } from '@mui/icons-material';
 
 const PrivacyPolicy = () => {
   const theme = useTheme();
@@ -22,13 +21,15 @@ const PrivacyPolicy = () => {
         elevation={0}
         sx={{
           p: 4,
-          background: theme.palette.mode === 'dark'
-            ? 'rgba(255, 255, 255, 0.05)'
-            : 'rgba(255, 255, 255, 0.9)',
+          background:
+            theme.palette.mode === 'dark'
+              ? 'rgba(255, 255, 255, 0.05)'
+              : 'rgba(255, 255, 255, 0.9)',
           backdropFilter: 'blur(10px)',
-          border: theme.palette.mode === 'dark'
-            ? '1px solid rgba(255, 255, 255, 0.1)'
-            : '1px solid rgba(0, 0, 0, 0.1)',
+          border:
+            theme.palette.mode === 'dark'
+              ? '1px solid rgba(255, 255, 255, 0.1)'
+              : '1px solid rgba(0, 0, 0, 0.1)',
           borderRadius: 3,
         }}
       >
@@ -51,17 +52,21 @@ const PrivacyPolicy = () => {
             Introduction
           </Typography>
           <Typography variant="body1" sx={{ lineHeight: 1.8, mb: 2 }}>
-            This Privacy Policy describes how Precious E. Okoyen ("I", "me", or "my")
-            collects, uses, and protects your information when you visit my portfolio
-            website at{' '}
-            <Link href="https://x17green.vercel.app" target="_blank" rel="noopener noreferrer">
+            This Privacy Policy describes how Precious E. Okoyen ("I", "me", or
+            "my") collects, uses, and protects your information when you visit
+            my portfolio website at{' '}
+            <Link
+              href="https://x17green.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               x17green.vercel.app
             </Link>{' '}
             (the "Service").
           </Typography>
           <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
-            By using my Service, you agree to the collection and use of information
-            in accordance with this policy.
+            By using my Service, you agree to the collection and use of
+            information in accordance with this policy.
           </Typography>
         </Box>
 
@@ -78,9 +83,9 @@ const PrivacyPolicy = () => {
             Google Analytics
           </Typography>
           <Typography variant="body1" sx={{ lineHeight: 1.8, mb: 2 }}>
-            This website uses Google Analytics, a web analytics service provided by
-            Google LLC ("Google"). Google Analytics uses cookies and similar technologies
-            to analyze how users interact with the website.
+            This website uses Google Analytics, a web analytics service provided
+            by Google LLC ("Google"). Google Analytics uses cookies and similar
+            technologies to analyze how users interact with the website.
           </Typography>
 
           <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>
@@ -129,9 +134,10 @@ const PrivacyPolicy = () => {
             Contact Form Information
           </Typography>
           <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
-            When you use the contact form on this website, I collect the information
-            you voluntarily provide, such as your name, email address, and message content.
-            This information is used solely to respond to your inquiry.
+            When you use the contact form on this website, I collect the
+            information you voluntarily provide, such as your name, email
+            address, and message content. This information is used solely to
+            respond to your inquiry.
           </Typography>
         </Box>
 
@@ -180,13 +186,15 @@ const PrivacyPolicy = () => {
             </Typography>
           </Box>
           <Typography variant="body1" sx={{ lineHeight: 1.8, mb: 2 }}>
-            I am committed to protecting your privacy and personal information. The security
-            of your data is important to me, and I implement appropriate technical and
-            organizational measures to protect your information.
+            I am committed to protecting your privacy and personal information.
+            The security of your data is important to me, and I implement
+            appropriate technical and organizational measures to protect your
+            information.
           </Typography>
           <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
-            However, please note that no method of transmission over the internet or
-            electronic storage is 100% secure, and I cannot guarantee absolute security.
+            However, please note that no method of transmission over the
+            internet or electronic storage is 100% secure, and I cannot
+            guarantee absolute security.
           </Typography>
         </Box>
 
@@ -203,8 +211,8 @@ const PrivacyPolicy = () => {
               <ListItemText
                 primary={
                   <Box>
-                    <strong>Google Analytics:</strong> For website analytics and performance monitoring.
-                    View Google's Privacy Policy at{' '}
+                    <strong>Google Analytics:</strong> For website analytics and
+                    performance monitoring. View Google's Privacy Policy at{' '}
                     <Link
                       href="https://policies.google.com/privacy"
                       target="_blank"
@@ -280,13 +288,13 @@ const PrivacyPolicy = () => {
             Cookies
           </Typography>
           <Typography variant="body1" sx={{ lineHeight: 1.8, mb: 2 }}>
-            This website uses cookies to enhance your browsing experience and gather
-            analytics data. Cookies are small text files stored on your device that
-            help improve website functionality.
+            This website uses cookies to enhance your browsing experience and
+            gather analytics data. Cookies are small text files stored on your
+            device that help improve website functionality.
           </Typography>
           <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
-            You can control cookies through your browser settings. However, disabling
-            cookies may affect your experience on this website.
+            You can control cookies through your browser settings. However,
+            disabling cookies may affect your experience on this website.
           </Typography>
         </Box>
 
@@ -296,10 +304,11 @@ const PrivacyPolicy = () => {
             Children's Privacy
           </Typography>
           <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
-            This website is not intended for children under 13 years of age. I do not
-            knowingly collect personal information from children under 13. If you are
-            a parent or guardian and believe your child has provided personal information,
-            please contact me so I can delete such information.
+            This website is not intended for children under 13 years of age. I
+            do not knowingly collect personal information from children under
+            13. If you are a parent or guardian and believe your child has
+            provided personal information, please contact me so I can delete
+            such information.
           </Typography>
         </Box>
 
@@ -309,9 +318,10 @@ const PrivacyPolicy = () => {
             Changes to This Privacy Policy
           </Typography>
           <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
-            I may update this Privacy Policy from time to time. Any changes will be
-            posted on this page with an updated "Last updated" date. I encourage you
-            to review this Privacy Policy periodically for any changes.
+            I may update this Privacy Policy from time to time. Any changes will
+            be posted on this page with an updated "Last updated" date. I
+            encourage you to review this Privacy Policy periodically for any
+            changes.
           </Typography>
         </Box>
 
@@ -321,8 +331,8 @@ const PrivacyPolicy = () => {
             Contact Information
           </Typography>
           <Typography variant="body1" sx={{ lineHeight: 1.8, mb: 2 }}>
-            If you have any questions about this Privacy Policy or how your information
-            is handled, please contact me:
+            If you have any questions about this Privacy Policy or how your
+            information is handled, please contact me:
           </Typography>
           <List sx={{ pl: 2 }}>
             <ListItem sx={{ py: 0.5 }}>

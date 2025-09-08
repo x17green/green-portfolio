@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { Box, Typography, Button, CircularProgress, Fade } from "@mui/material";
-import { motion, AnimatePresence } from "framer-motion";
+import { Box, Typography, Button, CircularProgress, Fade } from '@mui/material';
+import { motion, AnimatePresence } from 'framer-motion';
+import React, { Component } from 'react';
 
 // Global Loading Indicator
 export const GlobalLoading = ({
   isVisible = false,
-  message = "Loading...",
+  message = 'Loading...',
 }) => {
   return (
     <AnimatePresence>
@@ -16,31 +16,31 @@ export const GlobalLoading = ({
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
           style={{
-            position: "fixed",
+            position: 'fixed',
             inset: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
-            backdropFilter: "blur(8px)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             zIndex: 9999,
           }}
         >
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
               gap: 3,
               p: 4,
-              backgroundColor: "background.paper",
+              backgroundColor: 'background.paper',
               borderRadius: 2,
-              boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
             }}
           >
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
             >
               <CircularProgress size={60} thickness={3} />
             </motion.div>
@@ -56,16 +56,16 @@ export const GlobalLoading = ({
 
 // Page Loading Indicator
 export const PageLoading = ({
-  height = "400px",
-  message = "Loading content...",
+  height = '400px',
+  message = 'Loading content...',
 }) => {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
         height,
         gap: 3,
       }}
@@ -88,8 +88,8 @@ export const PageLoading = ({
 
 // Skeleton Loading Component
 export const SkeletonLoader = ({
-  variant = "rectangular",
-  width = "100%",
+  variant = 'rectangular',
+  width = '100%',
   height = 40,
   count = 1,
   spacing = 2,
@@ -100,18 +100,18 @@ export const SkeletonLoader = ({
       sx={{
         width,
         height,
-        backgroundColor: "action.hover",
-        borderRadius: variant === "circular" ? "50%" : 1,
+        backgroundColor: 'action.hover',
+        borderRadius: variant === 'circular' ? '50%' : 1,
         mb: spacing,
-        animation: "pulse 1.5s ease-in-out infinite",
-        "@keyframes pulse": {
-          "0%": {
+        animation: 'pulse 1.5s ease-in-out infinite',
+        '@keyframes pulse': {
+          '0%': {
             opacity: 0.6,
           },
-          "50%": {
+          '50%': {
             opacity: 0.3,
           },
-          "100%": {
+          '100%': {
             opacity: 0.6,
           },
         },
@@ -128,8 +128,8 @@ export const CardSkeleton = ({ showImage = true, lines = 3 }) => {
     <Box
       sx={{
         p: 2,
-        border: "1px solid",
-        borderColor: "divider",
+        border: '1px solid',
+        borderColor: 'divider',
         borderRadius: 2,
       }}
     >
@@ -149,7 +149,7 @@ export const CardSkeleton = ({ showImage = true, lines = 3 }) => {
         spacing={1}
       />
       <SkeletonLoader variant="text" height={16} count={lines} spacing={1} />
-      <Box sx={{ display: "flex", gap: 1, mt: 2 }}>
+      <Box sx={{ display: 'flex', gap: 1, mt: 2 }}>
         <SkeletonLoader
           variant="rectangular"
           width={80}
@@ -192,13 +192,13 @@ export class ErrorBoundary extends Component {
     });
 
     // Log error to console in development
-    if (process.env.NODE_ENV === "development") {
-      console.error("Error Boundary caught an error:", error, errorInfo);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error Boundary caught an error:', error, errorInfo);
     }
   }
 
   handleRetry = () => {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       hasError: false,
       error: null,
       errorInfo: null,
@@ -215,15 +215,15 @@ export class ErrorBoundary extends Component {
       return (
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            minHeight: this.props.fullPage ? "100vh" : "400px",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: this.props.fullPage ? '100vh' : '400px',
             p: 4,
-            textAlign: "center",
-            backgroundColor: "background.default",
-            color: "text.primary",
+            textAlign: 'center',
+            backgroundColor: 'background.default',
+            color: 'text.primary',
           }}
         >
           <motion.div
@@ -241,21 +241,21 @@ export class ErrorBoundary extends Component {
               "We're sorry, but something unexpected happened. Please try again."}
           </Typography>
 
-          {process.env.NODE_ENV === "development" && this.state.error && (
+          {process.env.NODE_ENV === 'development' && this.state.error && (
             <Box
               sx={{
                 mt: 2,
                 p: 2,
-                backgroundColor: "grey.100",
+                backgroundColor: 'grey.100',
                 borderRadius: 1,
-                maxWidth: "600px",
-                overflow: "auto",
+                maxWidth: '600px',
+                overflow: 'auto',
               }}
             >
               <Typography
                 variant="caption"
                 component="pre"
-                sx={{ whiteSpace: "pre-wrap" }}
+                sx={{ whiteSpace: 'pre-wrap' }}
               >
                 {this.state.error.toString()}
                 {this.state.errorInfo?.componentStack}
@@ -263,13 +263,13 @@ export class ErrorBoundary extends Component {
             </Box>
           )}
 
-          <Box sx={{ mt: 3, display: "flex", gap: 2, flexWrap: "wrap" }}>
+          <Box sx={{ mt: 3, display: 'flex', gap: 2, flexWrap: 'wrap' }}>
             <Button
               variant="contained"
               onClick={this.handleRetry}
               disabled={this.state.retryCount >= 3}
             >
-              {this.state.retryCount >= 3 ? "Max Retries Reached" : "Try Again"}
+              {this.state.retryCount >= 3 ? 'Max Retries Reached' : 'Try Again'}
             </Button>
 
             <Button variant="outlined" onClick={this.handleReload}>
@@ -299,7 +299,7 @@ export class ErrorBoundary extends Component {
 // HOC for adding error boundary to components
 export const withErrorBoundary = (
   WrappedComponent,
-  errorBoundaryProps = {},
+  errorBoundaryProps = {}
 ) => {
   return function WithErrorBoundaryComponent(props) {
     return (
@@ -311,7 +311,7 @@ export const withErrorBoundary = (
 };
 
 // Hook for handling async loading states
-export const useAsyncOperation = (asyncFunction) => {
+export const useAsyncOperation = asyncFunction => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const [data, setData] = React.useState(null);
@@ -331,7 +331,7 @@ export const useAsyncOperation = (asyncFunction) => {
         setLoading(false);
       }
     },
-    [asyncFunction],
+    [asyncFunction]
   );
 
   const reset = React.useCallback(() => {
@@ -351,12 +351,12 @@ export const useNetworkStatus = () => {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
 
     return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
     };
   }, []);
 
@@ -375,16 +375,16 @@ export const OfflineIndicator = () => {
           animate={{ y: 0 }}
           exit={{ y: -100 }}
           style={{
-            position: "fixed",
+            position: 'fixed',
             top: 0,
             left: 0,
             right: 0,
-            backgroundColor: "#f59e0b",
-            color: "white",
-            padding: "8px 16px",
-            textAlign: "center",
+            backgroundColor: '#f59e0b',
+            color: 'white',
+            padding: '8px 16px',
+            textAlign: 'center',
             zIndex: 9998,
-            fontSize: "14px",
+            fontSize: '14px',
             fontWeight: 500,
           }}
         >

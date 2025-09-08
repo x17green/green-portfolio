@@ -1,28 +1,26 @@
-import React, { Suspense, lazy, useEffect } from "react";
-import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-import { CssBaseline, Box, Fade } from "@mui/material";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "@fontsource/inter/300.css";
-import "@fontsource/inter/400.css";
-import "@fontsource/inter/500.css";
-import "@fontsource/inter/600.css";
-import "@fontsource/inter/700.css";
-import "@fontsource/inter/800.css";
-
-import { getTheme } from "./theme/theme";
-import { ThemeProvider, useThemeMode } from "./theme/ThemeContext";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
-import { ThemeToggle } from "./theme/ThemeContext";
-import ScrollProgress from "./components/ui/ScrollProgress";
-import { ErrorBoundary, OfflineIndicator } from "./components/ui/LoadingStates";
-import { cleanup } from "./utils/performance";
-import { useSkeletonTransition } from "./hooks/useSkeletonTransition";
-import SEOHead from "./components/SEO/SEOHead";
-import { initializeAnalytics, trackPageView } from "./utils/analytics";
+import { Suspense, lazy, useEffect } from 'react';
+import { CssBaseline, Box, Fade } from '@mui/material';
+import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import '@fontsource/inter/300.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/inter/800.css';
+import Footer from './components/layout/Footer';
+import Header from './components/layout/Header';
+import SEOHead from './components/SEO/SEOHead';
+import { ErrorBoundary, OfflineIndicator } from './components/ui/LoadingStates';
+import ScrollProgress from './components/ui/ScrollProgress';
+import { useSkeletonTransition } from './hooks/useSkeletonTransition';
+import { getTheme } from './theme/theme';
+import { ThemeProvider, useThemeMode, ThemeToggle } from './theme/ThemeContext';
+import { initializeAnalytics, trackPageView } from './utils/analytics';
+import { cleanup } from './utils/performance';
 
 // Lazy load components for better performance
-const Home = lazy(() => import("./pages/Home"));
+const Home = lazy(() => import('./pages/Home'));
 
 // Skip to main content component for accessibility
 const SkipToContent = () => (
@@ -30,23 +28,23 @@ const SkipToContent = () => (
     component="a"
     href="#main-content"
     sx={{
-      position: "absolute",
-      left: "-9999px",
+      position: 'absolute',
+      left: '-9999px',
       zIndex: 9999,
-      padding: "8px 16px",
-      backgroundColor: "primary.main",
-      color: "primary.contrastText",
-      textDecoration: "none",
+      padding: '8px 16px',
+      backgroundColor: 'primary.main',
+      color: 'primary.contrastText',
+      textDecoration: 'none',
       borderRadius: 1,
-      fontSize: "14px",
+      fontSize: '14px',
       fontWeight: 500,
-      transition: "all 0.2s ease",
-      "&:focus": {
-        left: "16px",
-        top: "16px",
-        outline: "2px solid",
-        outlineColor: "primary.light",
-        outlineOffset: "2px",
+      transition: 'all 0.2s ease',
+      '&:focus': {
+        left: '16px',
+        top: '16px',
+        outline: '2px solid',
+        outlineColor: 'primary.light',
+        outlineOffset: '2px',
       },
     }}
   >
@@ -73,7 +71,7 @@ const AppContent = () => {
     initializeAnalytics(true);
 
     // Track initial page view
-    trackPageView("Precious E. Okoyen - AI Software Engineer Portfolio", "/");
+    trackPageView('Precious E. Okoyen - AI Software Engineer Portfolio', '/');
   }, []);
 
   // Initialize performance monitoring cleanup
@@ -90,8 +88,8 @@ const AppContent = () => {
       const themeColorMeta = document.querySelector('meta[name="theme-color"]');
       if (themeColorMeta) {
         themeColorMeta.setAttribute(
-          "content",
-          mode === "dark" ? "#0a0a0a" : "#ffffff",
+          'content',
+          mode === 'dark' ? '#0a0a0a' : '#ffffff'
         );
       }
 
@@ -99,7 +97,7 @@ const AppContent = () => {
       document.documentElement.className = `theme-${mode}`;
 
       // Add smooth scroll behavior
-      document.documentElement.style.scrollBehavior = "smooth";
+      document.documentElement.style.scrollBehavior = 'smooth';
     };
 
     updateMetaTags();
@@ -107,21 +105,23 @@ const AppContent = () => {
 
   // Performance monitoring
   useEffect(() => {
-    if (typeof window !== "undefined" && "performance" in window) {
-      const observer = new PerformanceObserver((list) => {
+    if (typeof window !== 'undefined' && 'performance' in window) {
+      const observer = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           if (
-            entry.entryType === "paint" &&
-            entry.name === "first-contentful-paint"
+            entry.entryType === 'paint' &&
+            entry.name === 'first-contentful-paint'
           ) {
-            console.log("FCP:", entry.startTime);
+            if (process.env.NODE_ENV === 'development') {
+              console.log('FCP:', entry.startTime);
+            }
           }
         }
       });
 
       try {
-        if (PerformanceObserver.supportedEntryTypes?.includes("paint")) {
-          observer.observe({ entryTypes: ["paint"] });
+        if (PerformanceObserver.supportedEntryTypes?.includes('paint')) {
+          observer.observe({ entryTypes: ['paint'] });
         }
       } catch (e) {
         // Performance Observer not supported
@@ -149,7 +149,7 @@ const AppContent = () => {
         <ErrorBoundary
           fullPage={false}
           fallbackMessage="We're experiencing technical difficulties. Please refresh the page or try again later."
-          onGoHome={() => (window.location.href = "/")}
+          onGoHome={() => (window.location.href = '/')}
         >
           {/* Accessibility skip link */}
           <SkipToContent />
@@ -167,33 +167,33 @@ const AppContent = () => {
           <Fade
             in={showContent}
             timeout={skeletonTransitioning ? 600 : 300}
-            style={{ transitionDelay: skeletonTransitioning ? "200ms" : "0ms" }}
+            style={{ transitionDelay: skeletonTransitioning ? '200ms' : '0ms' }}
           >
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "column",
-                minHeight: "100vh",
-                backgroundColor: "background.default",
-                color: "text.primary",
+                display: 'flex',
+                flexDirection: 'column',
+                minHeight: '100vh',
+                backgroundColor: 'background.default',
+                color: 'text.primary',
                 transition: isTransitioning
-                  ? "background-color 0.3s ease, color 0.3s ease"
-                  : "none",
-                position: "relative",
-                scrollBehavior: "smooth",
-                overflowX: "hidden",
+                  ? 'background-color 0.3s ease, color 0.3s ease'
+                  : 'none',
+                position: 'relative',
+                scrollBehavior: 'smooth',
+                overflowX: 'hidden',
                 // Custom selection styles
-                "& ::selection": {
-                  backgroundColor: "primary.main",
-                  color: "primary.contrastText",
+                '& ::selection': {
+                  backgroundColor: 'primary.main',
+                  color: 'primary.contrastText',
                   opacity: 0.2,
                 },
                 // Enhanced focus styles for accessibility
-                "& *:focus-visible": {
-                  outline: "2px solid",
-                  outlineColor: "primary.main",
-                  outlineOffset: "2px",
-                  borderRadius: "4px",
+                '& *:focus-visible': {
+                  outline: '2px solid',
+                  outlineColor: 'primary.main',
+                  outlineOffset: '2px',
+                  borderRadius: '4px',
                 },
               }}
             >
@@ -208,10 +208,10 @@ const AppContent = () => {
                 id="main-content"
                 sx={{
                   flex: 1,
-                  position: "relative",
-                  minHeight: "calc(100vh - 160px)", // Approximate header + footer height
-                  "&:focus": {
-                    outline: "none",
+                  position: 'relative',
+                  minHeight: 'calc(100vh - 160px)', // Approximate header + footer height
+                  '&:focus': {
+                    outline: 'none',
                   },
                 }}
                 tabIndex={-1}
@@ -226,26 +226,26 @@ const AppContent = () => {
                         element={
                           <Box
                             sx={{
-                              display: "flex",
-                              flexDirection: "column",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              minHeight: "60vh",
-                              textAlign: "center",
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              minHeight: '60vh',
+                              textAlign: 'center',
                               p: 4,
                             }}
                           >
-                            <Box sx={{ fontSize: "4rem", mb: 2 }}>🔍</Box>
+                            <Box sx={{ fontSize: '4rem', mb: 2 }}>🔍</Box>
                             <Box
                               component="h1"
-                              sx={{ typography: "h4", mb: 2 }}
+                              sx={{ typography: 'h4', mb: 2 }}
                             >
                               Page Not Found
                             </Box>
                             <Box
                               sx={{
-                                typography: "body1",
-                                color: "text.secondary",
+                                typography: 'body1',
+                                color: 'text.secondary',
                                 mb: 3,
                               }}
                             >
@@ -255,17 +255,17 @@ const AppContent = () => {
                               component="a"
                               href="/"
                               sx={{
-                                display: "inline-block",
+                                display: 'inline-block',
                                 px: 3,
                                 py: 1.5,
-                                backgroundColor: "primary.main",
-                                color: "primary.contrastText",
-                                textDecoration: "none",
+                                backgroundColor: 'primary.main',
+                                color: 'primary.contrastText',
+                                textDecoration: 'none',
                                 borderRadius: 1,
-                                transition: "all 0.2s ease",
-                                "&:hover": {
-                                  backgroundColor: "primary.dark",
-                                  transform: "translateY(-1px)",
+                                transition: 'all 0.2s ease',
+                                '&:hover': {
+                                  backgroundColor: 'primary.dark',
+                                  transform: 'translateY(-1px)',
                                 },
                               }}
                             >

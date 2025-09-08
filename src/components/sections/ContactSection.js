@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { Send, CheckCircle, Error } from '@mui/icons-material';
 import {
   Box,
   Container,
@@ -16,116 +16,116 @@ import {
   Link,
   Avatar,
   Divider,
-} from "@mui/material";
-import { Send, CheckCircle, Error } from "@mui/icons-material";
-import { motion } from "framer-motion";
-import personalData from "../../data/personal";
+} from '@mui/material';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import personalData from '../../data/personal';
 import {
   trackContactForm,
   trackSocialClick,
   trackNavigation,
-} from "../../utils/analytics";
-import LineIcon from "../ui/LineIcon";
+} from '../../utils/analytics';
+import LineIcon from '../ui/LineIcon';
 
 const ContactSection = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
   });
   const [formStatus, setFormStatus] = useState({
     open: false,
-    type: "",
-    message: "",
+    type: '',
+    message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const contactInfo = [
     {
       icon: <LineIcon name="email" />,
-      label: "Email",
+      label: 'Email',
       value: personalData.email,
       link: `mailto:${personalData.email}`,
-      color: "#00e676",
+      color: '#00e676',
     },
     {
       icon: <LineIcon name="phone" />,
-      label: "Phone",
+      label: 'Phone',
       value: personalData.phone,
-      link: `tel:${personalData.phone.replace(/[^\d+]/g, "")}`,
-      color: "#1976d2",
+      link: `tel:${personalData.phone.replace(/[^\d+]/g, '')}`,
+      color: '#1976d2',
     },
     {
       icon: <LineIcon name="location" />,
-      label: "Location",
+      label: 'Location',
       value: personalData.location,
       link: `https://maps.google.com/?q=${personalData.location}`,
-      color: "#ff9800",
+      color: '#ff9800',
     },
     {
       icon: <LineIcon name="schedule" />,
-      label: "Availability",
+      label: 'Availability',
       value: personalData.availability.status,
-      color: "#4caf50",
+      color: '#4caf50',
     },
   ];
 
   const socialLinks = [
     {
       icon: <LineIcon name="github" />,
-      label: "GitHub",
+      label: 'GitHub',
       url: personalData.socialLinks.github,
-      color: theme.palette.mode === "dark" ? "#ffffff" : "#333333",
+      color: theme.palette.mode === 'dark' ? '#ffffff' : '#333333',
     },
     {
       icon: <LineIcon name="linkedin" />,
-      label: "LinkedIn",
+      label: 'LinkedIn',
       url: personalData.socialLinks.linkedin,
-      color: "#0077b5",
+      color: '#0077b5',
     },
     {
       icon: <LineIcon name="twitter" />,
-      label: "Twitter",
+      label: 'Twitter',
       url: personalData.socialLinks.twitter,
-      color: theme.palette.mode === "dark" ? "#ffffff" : "#000000",
+      color: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
     },
     {
       icon: <LineIcon name="medium" />,
-      label: "Medium",
+      label: 'Medium',
       url: personalData.socialLinks.medium,
-      color: "#00ab6c",
+      color: '#00ab6c',
     },
     {
       icon: <LineIcon name="calendar" />,
-      label: "Calendly",
+      label: 'Calendly',
       url: personalData.socialLinks.calendly,
-      color: "#006bff",
+      color: '#006bff',
     },
     {
       icon: <LineIcon name="email" />,
-      label: "Email",
+      label: 'Email',
       url: `mailto:${personalData.email}`,
-      color: "#ea4335",
+      color: '#ea4335',
     },
   ];
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setIsSubmitting(true);
 
     // Track form start
-    trackContactForm("form_start", {
-      formName: "contact_form",
+    trackContactForm('form_start', {
+      formName: 'contact_form',
       hasName: !!formData.name,
       hasEmail: !!formData.email,
       hasSubject: !!formData.subject,
@@ -134,35 +134,35 @@ const ContactSection = () => {
 
     // Simulate form submission
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, 2000));
 
       setFormStatus({
         open: true,
-        type: "success",
+        type: 'success',
         message:
           "Thank you for your message! I'll get back to you within 24 hours.",
       });
 
       // Track successful form submission
-      trackContactForm("form_submit", {
-        formName: "contact_form",
+      trackContactForm('form_submit', {
+        formName: 'contact_form',
         subject: formData.subject,
         messageLength: formData.message.length,
       });
 
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
       setFormStatus({
         open: true,
-        type: "error",
+        type: 'error',
         message:
-          "Sorry, there was an error sending your message. Please try again.",
+          'Sorry, there was an error sending your message. Please try again.',
       });
 
       // Track form error
-      trackContactForm("form_error", {
-        formName: "contact_form",
-        errorMessage: error.message || "Unknown error",
+      trackContactForm('form_error', {
+        formName: 'contact_form',
+        errorMessage: error.message || 'Unknown error',
       });
     } finally {
       setIsSubmitting(false);
@@ -189,7 +189,7 @@ const ContactSection = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: 'easeOut' },
     },
   };
 
@@ -199,25 +199,25 @@ const ContactSection = () => {
       sx={{
         py: { xs: 8, md: 12 },
         background:
-          theme.palette.mode === "dark"
-            ? "linear-gradient(135deg, rgba(25, 118, 210, 0.02) 0%, rgba(0, 230, 118, 0.02) 100%)"
-            : "linear-gradient(135deg, rgba(25, 118, 210, 0.05) 0%, rgba(0, 230, 118, 0.05) 100%)",
-        position: "relative",
-        overflow: "hidden",
+          theme.palette.mode === 'dark'
+            ? 'linear-gradient(135deg, rgba(25, 118, 210, 0.02) 0%, rgba(0, 230, 118, 0.02) 100%)'
+            : 'linear-gradient(135deg, rgba(25, 118, 210, 0.05) 0%, rgba(0, 230, 118, 0.05) 100%)',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
       {/* Background Elements */}
       <Box
         sx={{
-          position: "absolute",
-          top: "15%",
-          left: "10%",
+          position: 'absolute',
+          top: '15%',
+          left: '10%',
           width: 120,
           height: 120,
-          borderRadius: "50%",
+          borderRadius: '50%',
           background:
-            "radial-gradient(circle, rgba(0, 230, 118, 0.1) 0%, transparent 70%)",
-          filter: "blur(40px)",
+            'radial-gradient(circle, rgba(0, 230, 118, 0.1) 0%, transparent 70%)',
+          filter: 'blur(40px)',
         }}
         component={motion.div}
         animate={{
@@ -227,7 +227,7 @@ const ContactSection = () => {
         transition={{
           duration: 6,
           repeat: Infinity,
-          ease: "easeInOut",
+          ease: 'easeInOut',
         }}
       />
 
@@ -236,22 +236,22 @@ const ContactSection = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-100px' }}
         >
           {/* Section Header */}
           <motion.div variants={itemVariants}>
-            <Box sx={{ textAlign: "center", mb: 8 }}>
+            <Box sx={{ textAlign: 'center', mb: 8 }}>
               <Typography
                 variant="h6"
                 sx={{
-                  color: "primary.main",
+                  color: 'primary.main',
                   fontWeight: 600,
-                  textTransform: "uppercase",
+                  textTransform: 'uppercase',
                   letterSpacing: 2,
                   mb: 2,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   gap: 1,
                 }}
               >
@@ -259,17 +259,17 @@ const ContactSection = () => {
                 Get In Touch
               </Typography>
               <Typography
-                variant={isMobile ? "h4" : "h3"}
+                variant={isMobile ? 'h4' : 'h3'}
                 sx={{
                   fontWeight: 700,
                   mb: 3,
                   background:
-                    theme.palette.mode === "dark"
-                      ? "linear-gradient(45deg, #ffffff, #00e676)"
-                      : "linear-gradient(45deg, #333333, #00e676)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                    theme.palette.mode === 'dark'
+                      ? 'linear-gradient(45deg, #ffffff, #00e676)'
+                      : 'linear-gradient(45deg, #333333, #00e676)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                 }}
               >
                 Let's Build Something Amazing
@@ -277,9 +277,9 @@ const ContactSection = () => {
               <Typography
                 variant="h6"
                 sx={{
-                  color: "text.secondary",
-                  maxWidth: "800px",
-                  mx: "auto",
+                  color: 'text.secondary',
+                  maxWidth: '800px',
+                  mx: 'auto',
                   lineHeight: 1.6,
                 }}
               >
@@ -297,16 +297,16 @@ const ContactSection = () => {
                 <Card
                   sx={{
                     background:
-                      theme.palette.mode === "dark"
-                        ? "rgba(255, 255, 255, 0.05)"
-                        : "rgba(255, 255, 255, 0.9)",
-                    backdropFilter: "blur(20px)",
+                      theme.palette.mode === 'dark'
+                        ? 'rgba(255, 255, 255, 0.05)'
+                        : 'rgba(255, 255, 255, 0.9)',
+                    backdropFilter: 'blur(20px)',
                     border:
-                      theme.palette.mode === "dark"
-                        ? "1px solid rgba(255, 255, 255, 0.1)"
-                        : "1px solid rgba(0, 0, 0, 0.1)",
+                      theme.palette.mode === 'dark'
+                        ? '1px solid rgba(255, 255, 255, 0.1)'
+                        : '1px solid rgba(0, 0, 0, 0.1)',
                     borderRadius: 3,
-                    overflow: "hidden",
+                    overflow: 'hidden',
                   }}
                 >
                   <CardContent sx={{ p: 4 }}>
@@ -315,7 +315,7 @@ const ContactSection = () => {
                       sx={{
                         fontWeight: 600,
                         mb: 3,
-                        color: "text.primary",
+                        color: 'text.primary',
                       }}
                     >
                       Send me a message
@@ -333,12 +333,12 @@ const ContactSection = () => {
                             required
                             variant="outlined"
                             sx={{
-                              "& .MuiOutlinedInput-root": {
-                                "&:hover fieldset": {
-                                  borderColor: "primary.main",
+                              '& .MuiOutlinedInput-root': {
+                                '&:hover fieldset': {
+                                  borderColor: 'primary.main',
                                 },
-                                "&.Mui-focused fieldset": {
-                                  borderColor: "primary.main",
+                                '&.Mui-focused fieldset': {
+                                  borderColor: 'primary.main',
                                 },
                               },
                             }}
@@ -355,12 +355,12 @@ const ContactSection = () => {
                             required
                             variant="outlined"
                             sx={{
-                              "& .MuiOutlinedInput-root": {
-                                "&:hover fieldset": {
-                                  borderColor: "primary.main",
+                              '& .MuiOutlinedInput-root': {
+                                '&:hover fieldset': {
+                                  borderColor: 'primary.main',
                                 },
-                                "&.Mui-focused fieldset": {
-                                  borderColor: "primary.main",
+                                '&.Mui-focused fieldset': {
+                                  borderColor: 'primary.main',
                                 },
                               },
                             }}
@@ -376,12 +376,12 @@ const ContactSection = () => {
                             required
                             variant="outlined"
                             sx={{
-                              "& .MuiOutlinedInput-root": {
-                                "&:hover fieldset": {
-                                  borderColor: "primary.main",
+                              '& .MuiOutlinedInput-root': {
+                                '&:hover fieldset': {
+                                  borderColor: 'primary.main',
                                 },
-                                "&.Mui-focused fieldset": {
-                                  borderColor: "primary.main",
+                                '&.Mui-focused fieldset': {
+                                  borderColor: 'primary.main',
                                 },
                               },
                             }}
@@ -399,12 +399,12 @@ const ContactSection = () => {
                             rows={4}
                             variant="outlined"
                             sx={{
-                              "& .MuiOutlinedInput-root": {
-                                "&:hover fieldset": {
-                                  borderColor: "primary.main",
+                              '& .MuiOutlinedInput-root': {
+                                '&:hover fieldset': {
+                                  borderColor: 'primary.main',
                                 },
-                                "&.Mui-focused fieldset": {
-                                  borderColor: "primary.main",
+                                '&.Mui-focused fieldset': {
+                                  borderColor: 'primary.main',
                                 },
                               },
                             }}
@@ -425,27 +425,27 @@ const ContactSection = () => {
                             }
                             sx={{
                               background:
-                                "linear-gradient(45deg, #00e676 30%, #1976d2 90%)",
+                                'linear-gradient(45deg, #00e676 30%, #1976d2 90%)',
                               px: 4,
                               py: 1.5,
-                              fontSize: "1rem",
+                              fontSize: '1rem',
                               fontWeight: 600,
-                              boxShadow: "0px 8px 24px rgba(0, 230, 118, 0.3)",
-                              "&:hover": {
+                              boxShadow: '0px 8px 24px rgba(0, 230, 118, 0.3)',
+                              '&:hover': {
                                 background:
-                                  "linear-gradient(45deg, #1976d2 30%, #00e676 90%)",
-                                transform: "translateY(-2px)",
+                                  'linear-gradient(45deg, #1976d2 30%, #00e676 90%)',
+                                transform: 'translateY(-2px)',
                                 boxShadow:
-                                  "0px 12px 32px rgba(0, 230, 118, 0.4)",
+                                  '0px 12px 32px rgba(0, 230, 118, 0.4)',
                               },
-                              "&:disabled": {
-                                background: "rgba(0, 230, 118, 0.3)",
-                                transform: "none",
+                              '&:disabled': {
+                                background: 'rgba(0, 230, 118, 0.3)',
+                                transform: 'none',
                               },
-                              transition: "all 0.3s ease-in-out",
+                              transition: 'all 0.3s ease-in-out',
                             }}
                           >
-                            {isSubmitting ? "Sending..." : "Send Message"}
+                            {isSubmitting ? 'Sending...' : 'Send Message'}
                           </Button>
                         </Grid>
                       </Grid>
@@ -458,7 +458,7 @@ const ContactSection = () => {
             {/* Contact Information */}
             <Grid size={{ xs: 12, lg: 7 }}>
               <motion.div variants={itemVariants}>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                   {/* Contact Info Cards */}
                   {contactInfo.map((info, index) => (
                     <motion.div
@@ -471,18 +471,18 @@ const ContactSection = () => {
                       <Card
                         sx={{
                           background:
-                            theme.palette.mode === "dark"
-                              ? "rgba(255, 255, 255, 0.05)"
-                              : "rgba(255, 255, 255, 0.9)",
-                          backdropFilter: "blur(20px)",
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.05)'
+                              : 'rgba(255, 255, 255, 0.9)',
+                          backdropFilter: 'blur(20px)',
                           border:
-                            theme.palette.mode === "dark"
-                              ? "1px solid rgba(255, 255, 255, 0.1)"
-                              : "1px solid rgba(0, 0, 0, 0.1)",
+                            theme.palette.mode === 'dark'
+                              ? '1px solid rgba(255, 255, 255, 0.1)'
+                              : '1px solid rgba(0, 0, 0, 0.1)',
                           borderRadius: 2,
-                          transition: "all 0.3s ease-in-out",
-                          "&:hover": {
-                            transform: "translateX(8px)",
+                          transition: 'all 0.3s ease-in-out',
+                          '&:hover': {
+                            transform: 'translateX(8px)',
                             border: `1px solid ${info.color}40`,
                           },
                         }}
@@ -490,8 +490,8 @@ const ContactSection = () => {
                         <CardContent sx={{ p: 3 }}>
                           <Box
                             sx={{
-                              display: "flex",
-                              alignItems: "center",
+                              display: 'flex',
+                              alignItems: 'center',
                               gap: 2,
                             }}
                           >
@@ -510,7 +510,7 @@ const ContactSection = () => {
                                 variant="h6"
                                 sx={{
                                   fontWeight: 600,
-                                  color: "text.primary",
+                                  color: 'text.primary',
                                   mb: 0.5,
                                 }}
                               >
@@ -520,24 +520,24 @@ const ContactSection = () => {
                                 <Link
                                   href={info.link}
                                   target={
-                                    info.link.startsWith("http")
-                                      ? "_blank"
+                                    info.link.startsWith('http')
+                                      ? '_blank'
                                       : undefined
                                   }
                                   onClick={() => {
-                                    if (info.label === "Email") {
-                                      trackContactForm("email_click", {
-                                        contactMethod: "direct_email",
+                                    if (info.label === 'Email') {
+                                      trackContactForm('email_click', {
+                                        contactMethod: 'direct_email',
                                         email: info.value,
                                       });
                                     } else {
-                                      trackNavigation("contact_info", "click");
+                                      trackNavigation('contact_info', 'click');
                                     }
                                   }}
                                   sx={{
-                                    color: "text.secondary",
-                                    textDecoration: "none",
-                                    "&:hover": {
+                                    color: 'text.secondary',
+                                    textDecoration: 'none',
+                                    '&:hover': {
                                       color: info.color,
                                     },
                                   }}
@@ -547,7 +547,7 @@ const ContactSection = () => {
                               ) : (
                                 <Typography
                                   variant="body1"
-                                  sx={{ color: "text.secondary" }}
+                                  sx={{ color: 'text.secondary' }}
                                 >
                                   {info.value}
                                 </Typography>
@@ -573,18 +573,18 @@ const ContactSection = () => {
                       sx={{
                         fontWeight: 600,
                         mb: 3,
-                        color: "text.primary",
-                        textAlign: "center",
+                        color: 'text.primary',
+                        textAlign: 'center',
                       }}
                     >
                       Connect with me
                     </Typography>
                     <Box
                       sx={{
-                        display: "flex",
-                        justifyContent: "center",
+                        display: 'flex',
+                        justifyContent: 'center',
                         gap: 2,
-                        flexWrap: "wrap",
+                        flexWrap: 'wrap',
                       }}
                     >
                       {socialLinks.map((social, index) => (
@@ -600,23 +600,23 @@ const ContactSection = () => {
                             onClick={() => {
                               trackSocialClick(
                                 social.label.toLowerCase(),
-                                social.url,
+                                social.url
                               );
                             }}
                             sx={{
                               backgroundColor:
-                                theme.palette.mode === "dark"
-                                  ? "rgba(255, 255, 255, 0.05)"
-                                  : "rgba(255, 255, 255, 0.8)",
+                                theme.palette.mode === 'dark'
+                                  ? 'rgba(255, 255, 255, 0.05)'
+                                  : 'rgba(255, 255, 255, 0.8)',
                               border: `2px solid ${social.color}40`,
                               color: social.color,
                               width: 56,
                               height: 56,
-                              transition: "all 0.3s ease-in-out",
-                              "&:hover": {
+                              transition: 'all 0.3s ease-in-out',
+                              '&:hover': {
                                 backgroundColor: `${social.color}20`,
                                 borderColor: social.color,
-                                transform: "translateY(-4px)",
+                                transform: 'translateY(-4px)',
                                 boxShadow: `0px 8px 24px ${social.color}40`,
                               },
                             }}
@@ -639,16 +639,16 @@ const ContactSection = () => {
         open={formStatus.open}
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
         <Alert
           onClose={handleCloseSnackbar}
           severity={formStatus.type}
-          icon={formStatus.type === "success" ? <CheckCircle /> : <Error />}
+          icon={formStatus.type === 'success' ? <CheckCircle /> : <Error />}
           sx={{
-            width: "100%",
+            width: '100%',
             borderRadius: 2,
-            "& .MuiAlert-icon": {
+            '& .MuiAlert-icon': {
               fontSize: 24,
             },
           }}

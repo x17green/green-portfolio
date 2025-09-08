@@ -14,7 +14,10 @@ export const isGtagAvailable = () => {
  * @param {string} pageTitle - The title of the page
  * @param {string} pagePath - The path of the page (e.g., '/', '/about')
  */
-export const trackPageView = (pageTitle, pagePath = window.location.pathname) => {
+export const trackPageView = (
+  pageTitle,
+  pagePath = window.location.pathname
+) => {
   if (!isGtagAvailable()) {
     console.warn('Google Analytics not loaded');
     return;
@@ -55,7 +58,10 @@ export const trackEvent = (eventName, eventParams = {}) => {
  * @param {string} fileName - Name of the resume file
  * @param {string} downloadType - Type of download (button_click, direct_link, etc.)
  */
-export const trackResumeDownload = (fileName = 'resume', downloadType = 'button_click') => {
+export const trackResumeDownload = (
+  fileName = 'resume',
+  downloadType = 'button_click'
+) => {
   trackEvent('resume_download', {
     category: 'file_download',
     label: fileName,
@@ -98,7 +104,11 @@ export const trackSocialClick = (platform, profileUrl = '') => {
  * @param {string} action - Action taken (view_demo, view_code, view_details)
  * @param {string} projectUrl - URL of the project
  */
-export const trackProjectInteraction = (projectName, action, projectUrl = '') => {
+export const trackProjectInteraction = (
+  projectName,
+  action,
+  projectUrl = ''
+) => {
   trackEvent('project_interaction', {
     category: 'portfolio_engagement',
     label: `${projectName}_${action}`,
@@ -142,7 +152,7 @@ export const trackNavigation = (section, method = 'click') => {
  * Track theme changes
  * @param {string} theme - Theme selected (light, dark)
  */
-export const trackThemeChange = (theme) => {
+export const trackThemeChange = theme => {
   trackEvent('theme_change', {
     category: 'user_preference',
     label: theme,
@@ -155,7 +165,7 @@ export const trackThemeChange = (theme) => {
  * Track scroll depth
  * @param {number} percentage - Percentage of page scrolled
  */
-export const trackScrollDepth = (percentage) => {
+export const trackScrollDepth = percentage => {
   // Only track at specific milestones to avoid spam
   const milestones = [25, 50, 75, 90, 100];
   if (milestones.includes(percentage)) {
@@ -226,7 +236,7 @@ export const trackEngagementTime = (timeSpent, section = 'page') => {
     category: 'user_engagement',
     label: section,
     time_spent: timeSpent,
-    section: section,
+    section,
     description: `User spent ${timeSpent} seconds in ${section}`,
   });
 };

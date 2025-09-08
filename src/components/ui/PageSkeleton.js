@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Container } from '@mui/material';
 import { motion } from 'framer-motion';
 
@@ -93,7 +92,8 @@ const HeroSkeleton = () => (
       display: 'flex',
       alignItems: 'center',
       pt: '80px',
-      background: 'linear-gradient(135deg, rgba(30, 58, 138, 0.1) 0%, rgba(79, 70, 229, 0.1) 100%)',
+      background:
+        'linear-gradient(135deg, rgba(30, 58, 138, 0.1) 0%, rgba(79, 70, 229, 0.1) 100%)',
     }}
   >
     <Container maxWidth="lg">
@@ -164,7 +164,14 @@ const HeroSkeleton = () => (
 const SectionHeaderSkeleton = ({ delay = 0 }) => (
   <Box sx={{ textAlign: 'center', mb: 8 }}>
     <SkeletonBar width="200px" height="40px" delay={delay} />
-    <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Box
+      sx={{
+        mt: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
       <SkeletonBar width="500px" height="16px" delay={delay + 0.1} />
       <SkeletonBar width="400px" height="16px" delay={delay + 0.2} />
     </Box>
@@ -193,7 +200,12 @@ const SkillsSkeleton = () => (
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr' },
+          gridTemplateColumns: {
+            xs: '1fr',
+            sm: '1fr 1fr',
+            md: '1fr 1fr 1fr',
+            lg: '1fr 1fr 1fr 1fr',
+          },
           gap: 3,
         }}
       >
@@ -210,8 +222,16 @@ const SkillsSkeleton = () => (
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
               <SkeletonCircle size={40} delay={1.8 + index * 0.05} />
               <Box sx={{ ml: 2, flex: 1 }}>
-                <SkeletonBar width="70%" height="16px" delay={1.8 + index * 0.05} />
-                <SkeletonBar width="50%" height="12px" delay={1.9 + index * 0.05} />
+                <SkeletonBar
+                  width="70%"
+                  height="16px"
+                  delay={1.8 + index * 0.05}
+                />
+                <SkeletonBar
+                  width="50%"
+                  height="12px"
+                  delay={1.9 + index * 0.05}
+                />
               </Box>
             </Box>
             <SkeletonBar width="100%" height="8px" delay={2 + index * 0.05} />
@@ -277,11 +297,27 @@ const ProjectsSkeleton = () => (
 
             {/* Project content skeleton */}
             <Box sx={{ p: 3 }}>
-              <SkeletonBar width="80%" height="20px" delay={3.1 + index * 0.1} />
+              <SkeletonBar
+                width="80%"
+                height="20px"
+                delay={3.1 + index * 0.1}
+              />
               <Box sx={{ mt: 2 }}>
-                <SkeletonBar width="100%" height="14px" delay={3.2 + index * 0.1} />
-                <SkeletonBar width="90%" height="14px" delay={3.3 + index * 0.1} />
-                <SkeletonBar width="60%" height="14px" delay={3.4 + index * 0.1} />
+                <SkeletonBar
+                  width="100%"
+                  height="14px"
+                  delay={3.2 + index * 0.1}
+                />
+                <SkeletonBar
+                  width="90%"
+                  height="14px"
+                  delay={3.3 + index * 0.1}
+                />
+                <SkeletonBar
+                  width="60%"
+                  height="14px"
+                  delay={3.4 + index * 0.1}
+                />
               </Box>
 
               {/* Tech stack skeleton */}
@@ -298,8 +334,16 @@ const ProjectsSkeleton = () => (
 
               {/* Action buttons skeleton */}
               <Box sx={{ display: 'flex', gap: 2, mt: 3 }}>
-                <SkeletonBar width="80px" height="36px" delay={3.6 + index * 0.1} />
-                <SkeletonBar width="80px" height="36px" delay={3.7 + index * 0.1} />
+                <SkeletonBar
+                  width="80px"
+                  height="36px"
+                  delay={3.6 + index * 0.1}
+                />
+                <SkeletonBar
+                  width="80px"
+                  height="36px"
+                  delay={3.7 + index * 0.1}
+                />
               </Box>
             </Box>
           </Box>
@@ -342,14 +386,38 @@ const ExperienceSkeleton = () => (
 
             {/* Experience content */}
             <Box sx={{ flex: 1 }}>
-              <SkeletonBar width="60%" height="20px" delay={4.3 + index * 0.2} />
-              <SkeletonBar width="40%" height="16px" delay={4.4 + index * 0.2} />
-              <SkeletonBar width="30%" height="14px" delay={4.5 + index * 0.2} />
+              <SkeletonBar
+                width="60%"
+                height="20px"
+                delay={4.3 + index * 0.2}
+              />
+              <SkeletonBar
+                width="40%"
+                height="16px"
+                delay={4.4 + index * 0.2}
+              />
+              <SkeletonBar
+                width="30%"
+                height="14px"
+                delay={4.5 + index * 0.2}
+              />
 
               <Box sx={{ mt: 2 }}>
-                <SkeletonBar width="100%" height="14px" delay={4.6 + index * 0.2} />
-                <SkeletonBar width="90%" height="14px" delay={4.7 + index * 0.2} />
-                <SkeletonBar width="70%" height="14px" delay={4.8 + index * 0.2} />
+                <SkeletonBar
+                  width="100%"
+                  height="14px"
+                  delay={4.6 + index * 0.2}
+                />
+                <SkeletonBar
+                  width="90%"
+                  height="14px"
+                  delay={4.7 + index * 0.2}
+                />
+                <SkeletonBar
+                  width="70%"
+                  height="14px"
+                  delay={4.8 + index * 0.2}
+                />
               </Box>
 
               {/* Skills tags skeleton */}
@@ -389,10 +457,17 @@ const ContactSkeleton = () => (
           <SkeletonBar width="200px" height="24px" delay={5.2} />
           <Box sx={{ mt: 3, space: 2 }}>
             {Array.from({ length: 3 }, (_, index) => (
-              <Box key={index} sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+              <Box
+                key={index}
+                sx={{ display: 'flex', alignItems: 'center', mb: 3 }}
+              >
                 <SkeletonCircle size={24} delay={5.3 + index * 0.1} />
                 <Box sx={{ ml: 2 }}>
-                  <SkeletonBar width="150px" height="16px" delay={5.4 + index * 0.1} />
+                  <SkeletonBar
+                    width="150px"
+                    height="16px"
+                    delay={5.4 + index * 0.1}
+                  />
                 </Box>
               </Box>
             ))}
@@ -442,7 +517,11 @@ const FooterSkeleton = () => (
         {/* Footer sections skeleton */}
         {Array.from({ length: 3 }, (_, index) => (
           <Box key={index}>
-            <SkeletonBar width="120px" height="18px" delay={6.5 + index * 0.1} />
+            <SkeletonBar
+              width="120px"
+              height="18px"
+              delay={6.5 + index * 0.1}
+            />
             <Box sx={{ mt: 2 }}>
               {Array.from({ length: 4 }, (_, linkIndex) => (
                 <SkeletonBar
@@ -458,7 +537,13 @@ const FooterSkeleton = () => (
       </Box>
 
       {/* Copyright skeleton */}
-      <Box sx={{ textAlign: 'center', pt: 4, borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+      <Box
+        sx={{
+          textAlign: 'center',
+          pt: 4,
+          borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+        }}
+      >
         <SkeletonBar width="300px" height="14px" delay={7} />
       </Box>
     </Container>

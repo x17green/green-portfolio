@@ -1,4 +1,4 @@
-import React from "react";
+import { Favorite } from '@mui/icons-material';
 import {
   Box,
   Container,
@@ -7,80 +7,79 @@ import {
   IconButton,
   Link,
   Divider,
-} from "@mui/material";
-import { Favorite } from "@mui/icons-material";
-import { motion } from "framer-motion";
-import personalData from "../../data/personal";
+} from '@mui/material';
+import { motion } from 'framer-motion';
+import personalData from '../../data/personal';
 import {
   trackSocialClick,
   trackContactForm,
   trackNavigation,
-} from "../../utils/analytics";
-import LineIcon from "../ui/LineIcon";
+} from '../../utils/analytics';
+import LineIcon from '../ui/LineIcon';
 
 const Footer = () => {
   const socialLinks = [
     {
       icon: <LineIcon name="github" />,
       href: personalData.socialLinks.github,
-      label: "GitHub",
+      label: 'GitHub',
     },
     {
       icon: <LineIcon name="linkedin" />,
       href: personalData.socialLinks.linkedin,
-      label: "LinkedIn",
+      label: 'LinkedIn',
     },
     {
       icon: <LineIcon name="twitter" />,
       href: personalData.socialLinks.twitter,
-      label: "Twitter",
+      label: 'Twitter',
     },
     {
       icon: <LineIcon name="medium" />,
       href: personalData.socialLinks.medium,
-      label: "Medium",
+      label: 'Medium',
     },
     {
       icon: <LineIcon name="calendar" />,
       href: personalData.socialLinks.calendly,
-      label: "Calendly",
+      label: 'Calendly',
     },
     {
       icon: <LineIcon name="email" />,
       href: `mailto:${personalData.email}`,
-      label: "Email",
+      label: 'Email',
     },
   ];
 
   const quickLinks = [
-    { label: "About", href: "#about" },
-    { label: "Skills", href: "#skills" },
-    { label: "Projects", href: "#projects" },
-    { label: "Experience", href: "#experience" },
-    { label: "Contact", href: "#contact" },
+    { label: 'About', href: '#about' },
+    { label: 'Skills', href: '#skills' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Contact', href: '#contact' },
   ];
 
-  const handleNavClick = (href, label = "") => {
-    if (href.startsWith("#")) {
+  const handleNavClick = (href, label = '') => {
+    if (href.startsWith('#')) {
       const element = document.querySelector(href);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        element.scrollIntoView({ behavior: 'smooth' });
       }
       // Track navigation analytics
-      const sectionName = href.replace("#", "");
-      trackNavigation(sectionName, "footer_click");
-    } else if (href.startsWith("mailto:")) {
+      const sectionName = href.replace('#', '');
+      trackNavigation(sectionName, 'footer_click');
+    } else if (href.startsWith('mailto:')) {
       // Track email click
-      trackContactForm("email_click", {
-        contactMethod: "footer_email",
-        email: href.replace("mailto:", ""),
+      trackContactForm('email_click', {
+        contactMethod: 'footer_email',
+        email: href.replace('mailto:', ''),
       });
-      window.open(href, "_blank", "noopener,noreferrer");
+      window.open(href, '_blank', 'noopener,noreferrer');
     } else {
       // Track social media click
       const platform = label.toLowerCase();
       trackSocialClick(platform, href);
-      window.open(href, "_blank", "noopener,noreferrer");
+      window.open(href, '_blank', 'noopener,noreferrer');
     }
   };
 
@@ -88,10 +87,10 @@ const Footer = () => {
     <Box
       component="footer"
       sx={{
-        backgroundColor: "background.paper",
+        backgroundColor: 'background.paper',
         backgroundImage:
-          "linear-gradient(135deg, rgba(0, 230, 118, 0.05) 0%, rgba(25, 118, 210, 0.05) 100%)",
-        borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+          'linear-gradient(135deg, rgba(0, 230, 118, 0.05) 0%, rgba(25, 118, 210, 0.05) 100%)',
+        borderTop: '1px solid rgba(255, 255, 255, 0.1)',
         pt: 6,
         pb: 3,
         mt: 8,
@@ -111,10 +110,10 @@ const Footer = () => {
                 variant="h6"
                 sx={{
                   fontWeight: 700,
-                  background: "linear-gradient(45deg, #00e676, #1976d2)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                  background: 'linear-gradient(45deg, #00e676, #1976d2)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                   mb: 2,
                 }}
               >
@@ -127,29 +126,29 @@ const Footer = () => {
               >
                 {personalData.bio.medium}
               </Typography>
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <LineIcon
                     name="location"
-                    sx={{ color: "primary.main", fontSize: 18 }}
+                    sx={{ color: 'primary.main', fontSize: 18 }}
                   />
                   <Typography variant="body2" color="text.secondary">
                     {personalData.location}
                   </Typography>
                 </Box>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <LineIcon
                     name="phone"
-                    sx={{ color: "primary.main", fontSize: 18 }}
+                    sx={{ color: 'primary.main', fontSize: 18 }}
                   />
                   <Typography variant="body2" color="text.secondary">
                     {personalData.phone}
                   </Typography>
                 </Box>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <LineIcon
                     name="email"
-                    sx={{ color: "primary.main", fontSize: 18 }}
+                    sx={{ color: 'primary.main', fontSize: 18 }}
                   />
                   <Typography variant="body2" color="text.secondary">
                     {personalData.email}
@@ -171,26 +170,26 @@ const Footer = () => {
                 variant="h6"
                 sx={{
                   fontWeight: 600,
-                  color: "primary.main",
+                  color: 'primary.main',
                   mb: 2,
                 }}
               >
                 Quick Links
               </Typography>
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                 {quickLinks.map((link, index) => (
                   <Link
                     key={link.label}
                     onClick={() => handleNavClick(link.href, link.label)}
                     sx={{
-                      color: "text.secondary",
-                      textDecoration: "none",
-                      cursor: "pointer",
-                      transition: "all 0.3s ease-in-out",
-                      display: "inline-block",
-                      "&:hover": {
-                        color: "primary.main",
-                        transform: "translateX(5px)",
+                      color: 'text.secondary',
+                      textDecoration: 'none',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease-in-out',
+                      display: 'inline-block',
+                      '&:hover': {
+                        color: 'primary.main',
+                        transform: 'translateX(5px)',
                       },
                     }}
                   >
@@ -213,7 +212,7 @@ const Footer = () => {
                 variant="h6"
                 sx={{
                   fontWeight: 600,
-                  color: "primary.main",
+                  color: 'primary.main',
                   mb: 2,
                 }}
               >
@@ -228,7 +227,7 @@ const Footer = () => {
                 share insights about the future of artificial intelligence and
                 software engineering.
               </Typography>
-              <Box sx={{ display: "flex", gap: 1, mb: 3 }}>
+              <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
                 {socialLinks.map((social, index) => (
                   <motion.div
                     key={social.label}
@@ -238,15 +237,15 @@ const Footer = () => {
                     <IconButton
                       onClick={() => handleNavClick(social.href, social.label)}
                       sx={{
-                        color: "text.secondary",
-                        border: "1px solid rgba(255, 255, 255, 0.1)",
+                        color: 'text.secondary',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
                         borderRadius: 2,
-                        transition: "all 0.3s ease-in-out",
-                        "&:hover": {
-                          color: "primary.main",
-                          borderColor: "primary.main",
-                          backgroundColor: "rgba(0, 230, 118, 0.1)",
-                          transform: "translateY(-2px)",
+                        transition: 'all 0.3s ease-in-out',
+                        '&:hover': {
+                          color: 'primary.main',
+                          borderColor: 'primary.main',
+                          backgroundColor: 'rgba(0, 230, 118, 0.1)',
+                          transform: 'translateY(-2px)',
                         },
                       }}
                       aria-label={social.label}
@@ -263,7 +262,7 @@ const Footer = () => {
         <Divider
           sx={{
             my: 4,
-            borderColor: "rgba(255, 255, 255, 0.1)",
+            borderColor: 'rgba(255, 255, 255, 0.1)',
           }}
         />
 
@@ -276,10 +275,10 @@ const Footer = () => {
         >
           <Box
             sx={{
-              display: "flex",
-              flexDirection: { xs: "column", md: "row" },
-              justifyContent: "space-between",
-              alignItems: "center",
+              display: 'flex',
+              flexDirection: { xs: 'column', md: 'row' },
+              justifyContent: 'space-between',
+              alignItems: 'center',
               gap: 2,
             }}
           >
@@ -287,14 +286,14 @@ const Footer = () => {
               variant="body2"
               color="text.secondary"
               sx={{
-                display: "flex",
-                alignItems: "center",
+                display: 'flex',
+                alignItems: 'center',
                 gap: 0.5,
               }}
             >
               © {new Date().getFullYear()} {personalData.displayName}. Made
               with
-              <Favorite sx={{ color: "primary.main", fontSize: 16 }} />
+              <Favorite sx={{ color: 'primary.main', fontSize: 16 }} />
               and cutting-edge AI technology.
             </Typography>
             <Typography variant="body2" color="text.secondary">
