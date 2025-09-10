@@ -126,13 +126,26 @@ const ProjectsSection = () => {
         }}
       >
         {/* Project Image */}
-        <Box sx={{ position: 'relative', overflow: 'hidden' }}>
+        <Box
+          sx={{
+            position: 'relative',
+            overflow: 'hidden',
+            height: 200,
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <CardMedia
             component="img"
-            height="200"
             image={project.image}
             alt={project.title}
             sx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
               transition: 'transform 0.3s ease-in-out',
               '&:hover': {
                 transform: 'scale(1.05)',
