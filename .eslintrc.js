@@ -1,4 +1,4 @@
-module.exports = {
+const eslintConfig = {
   env: {
     browser: true,
     es2021: true,
@@ -141,3 +141,5 @@ module.exports = {
     },
   ],
 };
+
+export default eslintConfig;
