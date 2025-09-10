@@ -67,7 +67,11 @@ const Header = () => {
       sx={{ width: 250, height: '100%', backgroundColor: 'background.paper' }}
     >
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
-        <IconButton onClick={handleDrawerToggle} color="inherit">
+        <IconButton
+          onClick={handleDrawerToggle}
+          color="inherit"
+          aria-label="close drawer"
+        >
           <CloseIcon />
         </IconButton>
       </Box>

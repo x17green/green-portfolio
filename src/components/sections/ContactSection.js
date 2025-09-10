@@ -597,6 +597,10 @@ const ContactSection = () => {
                             component="a"
                             href={social.url}
                             target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Visit ${social.label}`}
+                            title={`Visit ${social.label}`}
+                            role="link"
                             onClick={() => {
                               trackSocialClick(
                                 social.label.toLowerCase(),

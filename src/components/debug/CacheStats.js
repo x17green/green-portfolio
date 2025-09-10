@@ -133,7 +133,11 @@ const CacheStats = ({ onClose }) => {
         </Typography>
         <Box>
           <Tooltip title="Refresh Statistics">
-            <IconButton onClick={refreshStats} disabled={refreshing}>
+            <IconButton
+              onClick={refreshStats}
+              disabled={refreshing}
+              aria-label="Refresh cache statistics"
+            >
               <Refresh />
             </IconButton>
           </Tooltip>
