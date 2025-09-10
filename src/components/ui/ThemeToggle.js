@@ -1,125 +1,164 @@
 import { LightMode, DarkMode } from '@mui/icons-material';
-import { Fab, Tooltip, useTheme, useMediaQuery } from '@mui/material';
-import { motion, AnimatePresence } from 'framer-motion';
+import { IconButton, Tooltip, useMediaQuery } from '@mui/material';
+import { useMemo } from 'react';
+import { TRANSITION_DURATIONS } from '../../theme/constants';
 import { useThemeMode } from '../../theme/ThemeContext';
 
-const ThemeToggle = () => {
-  const { toggleMode, isDark } = useThemeMode();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+const ThemeToggle = ({ size = 'medium', position = 'fixed' }) => {
+  const { mode, toggleMode, isTransitioning, hasManualOverride } =
+    useThemeMode();
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const fabVariants = {
-    initial: { scale: 0, rotate: 180 },
-    animate: {
-      scale: 1,
-      rotate: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 260,
-        damping: 20,
-      },
-    },
-    hover: {
-      scale: 1.1,
-      transition: {
-        type: 'spring',
-        stiffness: 400,
-        damping: 10,
-      },
-    },
-    tap: { scale: 0.95 },
-  };
+  // Memoize styles for better performance
+  const buttonStyles = useMemo(() => {
+    const sizeMap = {
+      small: { width: 40, height: 40, fontSize: 16 },
+      medium: { width: 50, height: 50, fontSize: 20 },
+      large: { width: 60, height: 60, fontSize: 24 },
+    };
 
-  const iconVariants = {
-    initial: { opacity: 0, rotate: -90 },
-    animate: {
-      opacity: 1,
-      rotate: 0,
-      transition: {
-        duration: 0.3,
-        ease: 'easeOut',
-      },
-    },
-    exit: {
-      opacity: 0,
-      rotate: 90,
-      transition: {
-        duration: 0.2,
-      },
-    },
+    const currentSize = sizeMap[size];
+    const isDark = mode === 'dark';
+
+    return {
+      position,
+      bottom: position === 'fixed' ? (isMobile ? '80px' : '2rem') : 'auto',
+      right: position === 'fixed' ? (isMobile ? '16px' : '2rem') : 'auto',
+      zIndex: 1000,
+      width: currentSize.width,
+      height: currentSize.height,
+      borderRadius: '50%',
+      cursor: 'pointer',
+      background: isDark
+        ? 'linear-gradient(135deg, #64ffda, #4fd1c7)'
+        : 'linear-gradient(135deg, #f59e0b, #d97706)',
+      color: isDark ? '#000000' : '#ffffff',
+      boxShadow: isDark
+        ? '0 4px 20px rgba(100, 255, 218, 0.3)'
+        : '0 4px 20px rgba(245, 158, 11, 0.3)',
+      transition: `all ${TRANSITION_DURATIONS.button}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`,
+      transform: isTransitioning ? 'scale(0.95)' : 'scale(1)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: currentSize.fontSize,
+      outline: 'none',
+      backdropFilter: 'blur(8px)',
+      border: `2px solid ${
+        isDark ? 'rgba(100, 255, 218, 0.2)' : 'rgba(245, 158, 11, 0.2)'
+      }`,
+    };
+  }, [size, position, mode, isTransitioning, isMobile]);
+
+  // Memoize hover styles with ultra-fast response
+  const hoverStyles = useMemo(
+    () => ({
+      transform: 'scale(1.05) translateY(-1px)',
+      boxShadow:
+        mode === 'dark'
+          ? '0 4px 20px rgba(100, 255, 218, 0.5)'
+          : '0 4px 20px rgba(245, 158, 11, 0.5)',
+      transition: `all ${TRANSITION_DURATIONS.hover}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`,
+    }),
+    [mode]
+  );
+
+  // Handle click with ultra-fast immediate visual feedback
+  const handleClick = () => {
+    // Add immediate scale effect with faster recovery
+    const button = document.querySelector('[data-theme-toggle]');
+    if (button) {
+      button.style.transform = 'scale(0.92)';
+      button.style.transition = `transform ${TRANSITION_DURATIONS.button}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+
+      // Ultra-fast recovery
+      setTimeout(() => {
+        if (button) {
+          button.style.transform = isTransitioning ? 'scale(0.96)' : 'scale(1)';
+        }
+      }, TRANSITION_DURATIONS.button);
+    }
+
+    toggleMode();
   };
 
   return (
     <Tooltip
-      title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+      title={
+        hasManualOverride
+          ? `Switch to ${mode === 'dark' ? 'light' : 'dark'} mode`
+          : `Following system theme (${mode}). Click to override.`
+      }
       placement="left"
       arrow
+      componentsProps={{
+        tooltip: {
+          sx: {
+            fontSize: '0.75rem',
+            maxWidth: 200,
+          },
+        },
+      }}
     >
-      <motion.div
-        style={{
-          position: 'fixed',
-          bottom: isMobile ? 80 : 32,
-          right: isMobile ? 16 : 32,
-          zIndex: 1000,
+      <IconButton
+        onClick={handleClick}
+        data-theme-toggle
+        sx={{
+          ...buttonStyles,
+          '&:hover': hoverStyles,
+          '&:focus': {
+            outline: '2px solid',
+            outlineColor: mode === 'dark' ? '#64ffda' : '#f59e0b',
+            outlineOffset: '2px',
+          },
+          '&:active': {
+            transform: 'scale(0.92)',
+            transition: `transform ${TRANSITION_DURATIONS.button}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`,
+          },
+          // Ultra-fast Material-UI transitions
+          '&.MuiIconButton-root': {
+            transition: `all ${TRANSITION_DURATIONS.component}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`,
+          },
         }}
-        variants={fabVariants}
-        initial="initial"
-        animate="animate"
-        whileHover="hover"
-        whileTap="tap"
+        aria-label={`Switch to ${mode === 'dark' ? 'light' : 'dark'} mode`}
       >
-        <Fab
-          onClick={toggleMode}
-          sx={{
-            width: isMobile ? 48 : 56,
-            height: isMobile ? 48 : 56,
-            backgroundColor: isDark ? '#64ffda' : '#00695c',
-            color: isDark ? '#000000' : '#ffffff',
-            boxShadow: isDark
-              ? '0px 6px 20px rgba(0, 0, 0, 0.15)'
-              : '0px 6px 20px rgba(0, 0, 0, 0.1)',
-            border: `2px solid ${
-              isDark ? 'rgba(100, 255, 218, 0.2)' : 'rgba(0, 105, 92, 0.2)'
-            }`,
-            backdropFilter: 'blur(12px)',
-            transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-            '&:hover': {
-              backgroundColor: isDark ? '#4fd1c7' : '#004d40',
-              boxShadow: isDark
-                ? '0px 8px 25px rgba(0, 0, 0, 0.2)'
-                : '0px 8px 25px rgba(0, 0, 0, 0.15)',
-              transform: 'translateY(-2px)',
-            },
-            '&:active': {
-              transform: 'translateY(0px)',
-            },
-          }}
-        >
-          <AnimatePresence mode="wait">
-            {isDark ? (
-              <motion.div
-                key="light-icon"
-                variants={iconVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-              >
-                <LightMode sx={{ fontSize: isMobile ? 20 : 24 }} />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="dark-icon"
-                variants={iconVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-              >
-                <DarkMode sx={{ fontSize: isMobile ? 20 : 24 }} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </Fab>
-      </motion.div>
+        {/* Ultra-fast icon switching with minimal transition */}
+        {mode === 'dark' ? (
+          <LightMode
+            sx={{
+              fontSize: 'inherit',
+              transition: `opacity ${TRANSITION_DURATIONS.button}ms ease-out`,
+              opacity: 1,
+            }}
+          />
+        ) : (
+          <DarkMode
+            sx={{
+              fontSize: 'inherit',
+              transition: `opacity ${TRANSITION_DURATIONS.button}ms ease-out`,
+              opacity: 1,
+            }}
+          />
+        )}
+
+        {/* System preference indicator */}
+        {!hasManualOverride && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '-2px',
+              right: '-2px',
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              backgroundColor: mode === 'dark' ? '#4ade80' : '#3b82f6',
+              border: '1px solid white',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+            }}
+            aria-hidden="true"
+          />
+        )}
+      </IconButton>
     </Tooltip>
   );
 };
