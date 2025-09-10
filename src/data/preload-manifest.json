@@ -1,0 +1,55 @@
+{
+  "version": "1.0.0",
+  "generated": "2025-09-09T11:44:10.452Z",
+  "config": {
+    "maxCriticalImages": 8,
+    "maxFileSize": 2097152
+  },
+  "critical": [
+    {
+      "url": "/images/profile.png",
+      "filename": "profile.png",
+      "format": "png",
+      "size": 232049,
+      "sizeFormatted": "226.61 KB",
+      "priority": 120,
+      "as": "image",
+      "type": "image/png",
+      "crossorigin": "anonymous",
+      "importance": "high"
+    },
+    {
+      "url": "/images/hero/profile.png",
+      "filename": "profile.png",
+      "format": "png",
+      "size": 232049,
+      "sizeFormatted": "226.61 KB",
+      "priority": 100,
+      "as": "image",
+      "type": "image/png",
+      "crossorigin": "anonymous",
+      "importance": "high"
+    },
+    {
+      "url": "/images/profile/profile.png",
+      "filename": "profile.png",
+      "format": "png",
+      "size": 232049,
+      "sizeFormatted": "226.61 KB",
+      "priority": 100,
+      "as": "image",
+      "type": "image/png",
+      "crossorigin": "anonymous",
+      "importance": "high"
+    }
+  ],
+  "stats": {
+    "totalImages": 3,
+    "criticalImages": 3,
+    "preloadableImages": 3,
+    "selectedForPreload": 3,
+    "totalSize": "679.83 KB",
+    "criticalSize": "679.83 KB",
+    "preloadSize": "679.83 KB"
+  }
+}

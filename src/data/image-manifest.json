@@ -1,0 +1,187 @@
+{
+  "version": "1.0.0",
+  "generated": "2025-09-09T11:32:55.094Z",
+  "images": {
+    "hero/profile.png": {
+      "filename": "profile.png",
+      "relativePath": "hero/profile.png",
+      "fullPath": "/home/green/Documents/git_dir/green-portfolio/public/images/hero/profile.png",
+      "size": 232049,
+      "sizeFormatted": "226.61 KB",
+      "format": "png",
+      "isCritical": true,
+      "shouldLazyLoad": false,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "lastModified": "2025-09-08T04:30:39.142Z",
+      "responsive": [],
+      "optimized": true,
+      "originalSize": 232049,
+      "optimizedSize": 185639,
+      "savings": 46410,
+      "savingsPercent": 20,
+      "formats": [
+        {
+          "format": "png",
+          "url": "/images/hero/profile.png",
+          "webpUrl": null,
+          "avifUrl": null
+        },
+        {
+          "format": "webp",
+          "url": "/images/hero/profile.png",
+          "webpUrl": "/images/hero/profile.webp",
+          "avifUrl": null
+        },
+        {
+          "format": "avif",
+          "url": "/images/hero/profile.png",
+          "webpUrl": null,
+          "avifUrl": "/images/hero/profile.avif"
+        }
+      ],
+      "srcSet": "",
+      "placeholder": null
+    },
+    "profile/profile.png": {
+      "filename": "profile.png",
+      "relativePath": "profile/profile.png",
+      "fullPath": "/home/green/Documents/git_dir/green-portfolio/public/images/profile/profile.png",
+      "size": 232049,
+      "sizeFormatted": "226.61 KB",
+      "format": "png",
+      "isCritical": true,
+      "shouldLazyLoad": false,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "lastModified": "2025-09-08T04:30:39.144Z",
+      "responsive": [],
+      "optimized": true,
+      "originalSize": 232049,
+      "optimizedSize": 185639,
+      "savings": 46410,
+      "savingsPercent": 20,
+      "formats": [
+        {
+          "format": "png",
+          "url": "/images/profile/profile.png",
+          "webpUrl": null,
+          "avifUrl": null
+        },
+        {
+          "format": "webp",
+          "url": "/images/profile/profile.png",
+          "webpUrl": "/images/profile/profile.webp",
+          "avifUrl": null
+        },
+        {
+          "format": "avif",
+          "url": "/images/profile/profile.png",
+          "webpUrl": null,
+          "avifUrl": "/images/profile/profile.avif"
+        }
+      ],
+      "srcSet": "",
+      "placeholder": null
+    },
+    "profile.png": {
+      "filename": "profile.png",
+      "relativePath": "profile.png",
+      "fullPath": "/home/green/Documents/git_dir/green-portfolio/public/images/profile.png",
+      "size": 232049,
+      "sizeFormatted": "226.61 KB",
+      "format": "png",
+      "isCritical": true,
+      "shouldLazyLoad": false,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "lastModified": "2025-09-07T05:23:06.836Z",
+      "responsive": [],
+      "optimized": true,
+      "originalSize": 232049,
+      "optimizedSize": 185639,
+      "savings": 46410,
+      "savingsPercent": 20,
+      "formats": [
+        {
+          "format": "png",
+          "url": "/images/profile.png",
+          "webpUrl": null,
+          "avifUrl": null
+        },
+        {
+          "format": "webp",
+          "url": "/images/profile.png",
+          "webpUrl": "/images/profile.webp",
+          "avifUrl": null
+        },
+        {
+          "format": "avif",
+          "url": "/images/profile.png",
+          "webpUrl": null,
+          "avifUrl": "/images/profile.avif"
+        }
+      ],
+      "srcSet": "",
+      "placeholder": null
+    }
+  },
+  "critical": ["hero/profile.png", "profile/profile.png", "profile.png"],
+  "lazy": [],
+  "preload": [
+    {
+      "href": "/images/hero/profile.png",
+      "as": "image",
+      "type": "image/png",
+      "importance": "high"
+    },
+    {
+      "href": "/images/profile/profile.png",
+      "as": "image",
+      "type": "image/png",
+      "importance": "high"
+    },
+    {
+      "href": "/images/profile.png",
+      "as": "image",
+      "type": "image/png",
+      "importance": "high"
+    }
+  ],
+  "stats": {
+    "totalImages": 3,
+    "criticalImages": 3,
+    "lazyImages": 0,
+    "totalSize": 696147,
+    "totalSizeFormatted": "679.83 KB",
+    "optimizedSize": 556917,
+    "optimizedSizeFormatted": "543.86 KB",
+    "savings": 139230,
+    "savingsFormatted": "135.97 KB",
+    "savingsPercent": 20,
+    "errors": []
+  },
+  "webpCommands": [
+    {
+      "input": "/home/green/Documents/git_dir/green-portfolio/public/images/hero/profile.png",
+      "output": "/home/green/Documents/git_dir/green-portfolio/public/images/hero/profile.webp",
+      "quality": 90
+    },
+    {
+      "input": "/home/green/Documents/git_dir/green-portfolio/public/images/profile/profile.png",
+      "output": "/home/green/Documents/git_dir/green-portfolio/public/images/profile/profile.webp",
+      "quality": 90
+    },
+    {
+      "input": "/home/green/Documents/git_dir/green-portfolio/public/images/profile.png",
+      "output": "/home/green/Documents/git_dir/green-portfolio/public/images/profile.webp",
+      "quality": 90
+    }
+  ]
+}
