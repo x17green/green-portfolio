@@ -151,13 +151,18 @@ export const trackNavigation = (section, method = 'click') => {
 /**
  * Track theme changes
  * @param {string} theme - Theme selected (light, dark)
+ * @param {Object} metadata - Additional metadata about the theme change
  */
-export const trackThemeChange = theme => {
+export const trackThemeChange = (theme, metadata = {}) => {
   trackEvent('theme_change', {
     category: 'user_preference',
     label: theme,
     theme_selected: theme,
+    source: metadata.source || 'manual',
+    previous_theme: metadata.previousTheme || null,
+    is_system_preference: metadata.isSystemPreference || false,
     description: `User changed theme to ${theme} mode`,
+    ...metadata,
   });
 };
 

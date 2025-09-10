@@ -358,6 +358,11 @@ const ExperienceSection = () => {
                   company: experience.company,
                 });
               }}
+              aria-label={
+                expandedCard === experience.id
+                  ? 'Collapse experience details'
+                  : 'Expand experience details'
+              }
               sx={{
                 color: 'primary.main',
                 transition: 'transform 0.3s ease-in-out',

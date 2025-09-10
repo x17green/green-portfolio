@@ -7,7 +7,7 @@ Disallow: /private/
 Disallow: *.log
 
 # Sitemap location
-Sitemap: https://x17green.vercel.app/sitemap.xml
+Sitemap: https://x17green.tech/sitemap.xml
 
 # Crawl-delay for better server performance
 Crawl-delay: 1
