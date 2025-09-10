@@ -16,8 +16,12 @@ const writeFile = promisify(fs.writeFile);
 // Configuration
 const CONFIG = {
   inputDir: path.join(__dirname, '../public/images'),
-  manifestPath: path.join(__dirname, '../src/data/preload-manifest.json'),
+  manifestPath: path.join(__dirname, '../build/preload-manifest.json'),
   preloadHintsPath: path.join(__dirname, '../public/preload-hints.html'),
+  componentPath: path.join(
+    __dirname,
+    '../src/components/generated/ImagePreloader.js'
+  ),
   supportedFormats: ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp', '.avif'],
   criticalImages: [
     'hero-bg',
@@ -49,7 +53,10 @@ class ImagePreloader {
   }
 
   async run() {
-    console.log('🚀 Starting image preload analysis...');
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log('🚀 Starting image preload analysis...');
+    }
 
     try {
       // Ensure directories exist
@@ -76,7 +83,10 @@ class ImagePreloader {
       // Display results
       this.displayResults();
     } catch (error) {
-      console.error('❌ Image preload analysis failed:', error);
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.error('❌ Image preload analysis failed:', error);
+      }
       process.exit(1);
     }
   }
@@ -85,6 +95,7 @@ class ImagePreloader {
     const dirs = [
       path.dirname(this.config.manifestPath),
       path.dirname(this.config.preloadHintsPath),
+      path.dirname(this.config.componentPath),
     ];
 
     for (const dir of dirs) {
@@ -99,7 +110,10 @@ class ImagePreloader {
 
     try {
       if (!fs.existsSync(dir)) {
-        console.warn(`⚠️  Images directory not found: ${dir}`);
+        if (process.env.NODE_ENV === 'development') {
+          // eslint-disable-next-line no-console
+          console.warn(`⚠️  Images directory not found: ${dir}`);
+        }
         return images;
       }
 
@@ -125,7 +139,10 @@ class ImagePreloader {
         }
       }
     } catch (error) {
-      console.warn(`⚠️  Could not scan directory ${dir}:`, error.message);
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.warn(`⚠️  Could not scan directory ${dir}:`, error.message);
+      }
     }
 
     return images;
@@ -176,7 +193,8 @@ class ImagePreloader {
         priority: this.calculatePriority(
           nameWithoutExt,
           relativePath,
-          stats.size
+          stats.size,
+          ext
         ),
         url: `/images/${relativePath}`,
         lastModified: stats.mtime,
@@ -189,7 +207,7 @@ class ImagePreloader {
     }
   }
 
-  calculatePriority(nameWithoutExt, relativePath, size) {
+  calculatePriority(nameWithoutExt, relativePath, size, ext) {
     let priority = 0;
 
     // Higher priority for specific critical patterns
@@ -227,7 +245,7 @@ class ImagePreloader {
 
     // Bonus for modern formats
     const modernFormats = ['webp', 'avif'];
-    const format = path.extname(nameWithoutExt).substring(1);
+    const format = ext.substring(1); // Use the ext parameter directly
     if (modernFormats.includes(format)) {
       priority += 10;
     }
@@ -247,9 +265,12 @@ class ImagePreloader {
     // Limit to max critical images
     const critical = candidates.slice(0, this.config.maxCriticalImages);
 
-    console.log(
-      `🎯 Identified ${critical.length} critical images for preloading`
-    );
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log(
+        `🎯 Identified ${critical.length} critical images for preloading`
+      );
+    }
 
     return critical;
   }
@@ -297,7 +318,10 @@ class ImagePreloader {
       'utf8'
     );
 
-    console.log(`📄 Generated preload manifest: ${this.config.manifestPath}`);
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log(`📄 Generated preload manifest: ${this.config.manifestPath}`);
+    }
   }
 
   async generatePreloadHints(criticalImages) {
@@ -311,15 +335,15 @@ class ImagePreloader {
 ${hints.join('\n')}`;
 
     await writeFile(this.config.preloadHintsPath, html, 'utf8');
-    console.log(`🔗 Generated preload hints: ${this.config.preloadHintsPath}`);
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log(
+        `🔗 Generated preload hints: ${this.config.preloadHintsPath}`
+      );
+    }
   }
 
   async generateReactPreloader(criticalImages) {
-    const componentPath = path.join(
-      path.dirname(this.config.manifestPath),
-      'ImagePreloader.js'
-    );
-
     const criticalImagesArray = criticalImages
       .map(
         img => `  {
@@ -389,6 +413,7 @@ export const useImagePreloader = (urls = []) => {
       const failed = results.filter(r => r.status === 'rejected').length;
 
       if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
         console.log(
           \`Image preloading: \${successful} successful, \${failed} failed\`
         );
@@ -403,8 +428,13 @@ export const CRITICAL_IMAGE_URLS = CRITICAL_IMAGES.map(img => img.url);
 export default ImagePreloader;
 `;
 
-    await writeFile(componentPath, component, 'utf8');
-    console.log(`⚛️  Generated React preloader: ${componentPath}`);
+    await writeFile(this.config.componentPath, component, 'utf8');
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log(
+        `⚛️  Generated React preloader: ${this.config.componentPath}`
+      );
+    }
   }
 
   formatBytes(bytes, decimals = 2) {
@@ -420,37 +450,64 @@ export default ImagePreloader;
   }
 
   displayResults() {
-    console.log('\n📊 Image Preload Analysis Results:');
-    console.log(`   Total Images Found: ${this.stats.totalImages}`);
-    console.log(`   Critical Images: ${this.stats.criticalImages}`);
-    console.log(`   Preloadable Images: ${this.stats.preloadableImages}`);
-    console.log(
-      `   Selected for Preload: ${Math.min(this.stats.criticalImages, this.config.maxCriticalImages)}`
-    );
-    console.log(
-      `   Total Images Size: ${this.formatBytes(this.stats.totalSize)}`
-    );
-    console.log(
-      `   Critical Images Size: ${this.formatBytes(this.stats.criticalSize)}`
-    );
-
-    if (this.stats.errors.length > 0) {
-      console.log('\n⚠️  Errors:');
-      this.stats.errors.forEach(error => console.log(`   ${error}`));
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log('\n📊 Image Preload Analysis Results:');
+      // eslint-disable-next-line no-console
+      console.log(`   Total Images Found: ${this.stats.totalImages}`);
+      // eslint-disable-next-line no-console
+      console.log(`   Critical Images: ${this.stats.criticalImages}`);
+      // eslint-disable-next-line no-console
+      console.log(`   Preloadable Images: ${this.stats.preloadableImages}`);
+      // eslint-disable-next-line no-console
+      console.log(
+        `   Selected for Preload: ${Math.min(this.stats.criticalImages, this.config.maxCriticalImages)}`
+      );
+      // eslint-disable-next-line no-console
+      console.log(
+        `   Total Images Size: ${this.formatBytes(this.stats.totalSize)}`
+      );
+      // eslint-disable-next-line no-console
+      console.log(
+        `   Critical Images Size: ${this.formatBytes(this.stats.criticalSize)}`
+      );
     }
 
-    console.log('\n💡 Usage Tips:');
-    console.log('   1. Include preload-hints.html in your index.html <head>');
-    console.log('   2. Import and use ImagePreloader component in your app');
-    console.log('   3. Use useImagePreloader hook for dynamic preloading');
-    console.log('\n✅ Image preload analysis complete!');
+    if (this.stats.errors.length > 0) {
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log('\n⚠️  Errors:');
+        this.stats.errors.forEach(error => {
+          // eslint-disable-next-line no-console
+          console.log(`   ${error}`);
+        });
+      }
+    }
+
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log('\n💡 Usage Tips:');
+      // eslint-disable-next-line no-console
+      console.log('   1. Include preload-hints.html in your index.html <head>');
+      // eslint-disable-next-line no-console
+      console.log('   2. Import and use ImagePreloader component in your app');
+      // eslint-disable-next-line no-console
+      console.log('   3. Use useImagePreloader hook for dynamic preloading');
+      // eslint-disable-next-line no-console
+      console.log('\n✅ Image preload analysis complete!');
+    }
   }
 }
 
 // Run if called directly
 if (require.main === module) {
   const preloader = new ImagePreloader(CONFIG);
-  preloader.run().catch(console.error);
+  preloader.run().catch(error => {
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
+  });
 }
 
 module.exports = ImagePreloader;

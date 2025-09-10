@@ -18,7 +18,7 @@ const writeFile = promisify(fs.writeFile);
 const CONFIG = {
   inputDir: path.join(__dirname, '../public/images'),
   outputDir: path.join(__dirname, '../build/optimized-images'),
-  manifestPath: path.join(__dirname, '../src/data/image-manifest.json'),
+  manifestPath: path.join(__dirname, '../public/image-manifest.json'),
   supportedFormats: ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp'],
   maxFileSize: 5 * 1024 * 1024, // 5MB
   criticalImages: [

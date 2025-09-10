@@ -4,7 +4,7 @@
  * Combined Image Processing Script
  * Runs both image optimization and preloading analysis
  */
-const path = require('path');
+import path from 'path';
 // Import the individual processors
 const ImageOptimizer = require('./optimize-images');
 const ImagePreloader = require('./preload-images');
@@ -29,7 +29,10 @@ class ImageProcessor {
   }
 
   async run() {
-    console.log('🎨 Starting combined image processing...\n');
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log('🎨 Starting combined image processing...\n');
+    }
 
     try {
       if (this.config.parallel) {
@@ -41,22 +44,37 @@ class ImageProcessor {
       this.results.endTime = Date.now();
       this.displaySummary();
     } catch (error) {
-      console.error('❌ Image processing failed:', error);
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.error('❌ Image processing failed:', error);
+      }
       process.exit(1);
     }
   }
 
   async runSequential() {
     if (this.config.runPreloader) {
-      console.log('📋 Step 1: Running image preload analysis...');
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log('📋 Step 1: Running image preload analysis...');
+      }
       await this.runPreloader();
-      console.log('');
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log('');
+      }
     }
 
     if (this.config.runOptimizer) {
-      console.log('🔧 Step 2: Running image optimization...');
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log('🔧 Step 2: Running image optimization...');
+      }
       await this.runOptimizer();
-      console.log('');
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log('');
+      }
     }
   }
 
@@ -78,7 +96,7 @@ class ImageProcessor {
     try {
       const preloaderConfig = {
         inputDir: path.join(__dirname, '../public/images'),
-        manifestPath: path.join(__dirname, '../src/data/preload-manifest.json'),
+        manifestPath: path.join(__dirname, '../build/preload-manifest.json'),
         preloadHintsPath: path.join(__dirname, '../public/preload-hints.html'),
         supportedFormats: [
           '.jpg',
@@ -107,7 +125,10 @@ class ImageProcessor {
       await preloader.run();
       this.results.preloader = preloader.stats;
     } catch (error) {
-      console.error('❌ Preloader failed:', error.message);
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.error('❌ Preloader failed:', error.message);
+      }
       throw error;
     }
   }
@@ -117,7 +138,7 @@ class ImageProcessor {
       const optimizerConfig = {
         inputDir: path.join(__dirname, '../public/images'),
         outputDir: path.join(__dirname, '../build/optimized-images'),
-        manifestPath: path.join(__dirname, '../src/data/image-manifest.json'),
+        manifestPath: path.join(__dirname, '../public/image-manifest.json'),
         supportedFormats: ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp'],
         maxFileSize: 5 * 1024 * 1024,
         criticalImages: [
@@ -137,7 +158,10 @@ class ImageProcessor {
       await optimizer.run();
       this.results.optimizer = optimizer.stats;
     } catch (error) {
-      console.error('❌ Optimizer failed:', error.message);
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.error('❌ Optimizer failed:', error.message);
+      }
       throw error;
     }
   }
@@ -145,61 +169,136 @@ class ImageProcessor {
   displaySummary() {
     const duration = this.results.endTime - this.results.startTime;
 
-    console.log('📊 Combined Processing Summary:');
-    console.log('='.repeat(50));
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log('📊 Combined Processing Summary:');
+    }
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log('='.repeat(50));
+    }
 
     if (this.results.preloader) {
-      console.log('\n🚀 Preload Analysis:');
-      console.log(`   Total Images: ${this.results.preloader.totalImages}`);
-      console.log(
-        `   Critical Images: ${this.results.preloader.criticalImages}`
-      );
-      console.log(
-        `   Preloadable Images: ${this.results.preloader.preloadableImages}`
-      );
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log('\n🚀 Preload Analysis:');
+      }
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log(`   Total Images: ${this.results.preloader.totalImages}`);
+      }
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log(
+          `   Critical Images: ${this.results.preloader.criticalImages}`
+        );
+      }
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log(
+          `   Preloadable Images: ${this.results.preloader.preloadableImages}`
+        );
+      }
     }
 
     if (this.results.optimizer) {
-      console.log('\n🔧 Optimization Results:');
-      console.log(`   Total Images: ${this.results.optimizer.totalImages}`);
-      console.log(
-        `   Critical Images: ${this.results.optimizer.criticalImages}`
-      );
-      console.log(`   Lazy Load Images: ${this.results.optimizer.lazyImages}`);
-      console.log(
-        `   Size Reduction: ${this.formatBytes(this.results.optimizer.totalSize - this.results.optimizer.optimizedSize)}`
-      );
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log('\n🔧 Optimization Results:');
+      }
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log(`   Total Images: ${this.results.optimizer.totalImages}`);
+      }
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log(
+          `   Critical Images: ${this.results.optimizer.criticalImages}`
+        );
+      }
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log(
+          `   Lazy Load Images: ${this.results.optimizer.lazyImages}`
+        );
+      }
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log(
+          `   Size Reduction: ${this.formatBytes(this.results.optimizer.totalSize - this.results.optimizer.optimizedSize)}`
+        );
+      }
     }
-
-    console.log(`\n⏱️  Total Processing Time: ${duration}ms`);
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log(`\n⏱️  Total Processing Time: ${duration}ms`);
+    }
 
     // Generate next steps
     this.displayNextSteps();
 
-    console.log('\n✅ All image processing complete!');
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log('\n✅ All image processing complete!');
+    }
   }
 
   displayNextSteps() {
-    console.log('\n💡 Next Steps:');
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log('\n💡 Next Steps:');
+    }
 
     if (this.config.runPreloader) {
-      console.log('   📄 Preload Manifest: src/data/preload-manifest.json');
-      console.log('   🔗 HTML Hints: public/preload-hints.html');
-      console.log('   ⚛️  React Component: src/data/ImagePreloader.js');
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log('   📄 Preload Manifest: build/preload-manifest.json');
+      }
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log('   🔗 HTML Hints: public/preload-hints.html');
+      }
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log(
+          '   ⚛️  React Component: src/components/generated/ImagePreloader.js'
+        );
+      }
     }
 
     if (this.config.runOptimizer) {
-      console.log('   📋 Image Manifest: src/data/image-manifest.json');
-      console.log('   🎯 Preload Hints: src/data/preload-hints.html');
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log('   📋 Image Manifest: public/image-manifest.json');
+      }
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log('   🎯 Preload Hints: public/preload-hints.html');
+      }
     }
 
-    console.log('\n🔧 Integration Tips:');
-    console.log('   1. Add preload hints to your index.html <head>');
-    console.log('   2. Import ImagePreloader component in your app');
-    console.log('   3. Use generated manifests for dynamic optimization');
-    console.log(
-      '   4. Consider implementing actual image optimization with Sharp/ImageMin'
-    );
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log('\n🔧 Integration Tips:');
+    }
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log('   1. Add preload hints to your index.html <head>');
+    }
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log('   2. Import ImagePreloader component in your app');
+    }
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log('   3. Use generated manifests for dynamic optimization');
+    }
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.log(
+        '   4. Consider implementing actual image optimization with Sharp/ImageMin'
+      );
+    }
   }
 
   formatBytes(bytes, decimals = 2) {
@@ -243,7 +342,10 @@ function parseArgs() {
         break;
       default:
         if (arg.startsWith('--')) {
-          console.warn(`Unknown option: ${arg}`);
+          if (process.env.NODE_ENV === 'development') {
+            // eslint-disable-next-line no-console
+            console.warn(`Unknown option: ${arg}`);
+          }
         }
     }
   }
@@ -252,7 +354,9 @@ function parseArgs() {
 }
 
 function showHelp() {
-  console.log(`
+  if (process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line no-console
+    console.log(`
 Image Processing Script
 
 Usage: node scripts/process-images.js [options]
@@ -272,11 +376,12 @@ Examples:
   node scripts/process-images.js --optimize-only    # Run only optimization
 
 Generated Files:
-  - src/data/preload-manifest.json     # Preload configuration
-  - src/data/image-manifest.json       # Optimization results
+  - build/preload-manifest.json     # Preload configuration
+  - public/image-manifest.json       # Optimization results
   - public/preload-hints.html          # HTML preload hints
-  - src/data/ImagePreloader.js         # React preloader component
+  - src/components/generated/ImagePreloader.js         # React preloader component
 `);
+  }
 }
 
 // Run if called directly
@@ -284,7 +389,10 @@ if (require.main === module) {
   const config = parseArgs();
   const processor = new ImageProcessor(config);
   processor.run().catch(error => {
-    console.error('Failed to process images:', error);
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.error('Failed to process images:', error);
+    }
     process.exit(1);
   });
 }

@@ -29,7 +29,6 @@
     "url": "https://github.com/x17green/green-portfolio/issues"
   },
   "license": "MIT",
-  "type": "module",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.14.0",
