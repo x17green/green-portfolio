@@ -2,7 +2,7 @@
 
 🚀 **Professional AI Engineer & Software Developer specializing in Machine Learning, Prompt Engineering, and Full-Stack Development**
 
-[![Portfolio](https://img.shields.io/badge/Portfolio-Live-blue)](https://x17green.vercel.app)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Live-blue)](https://x17green.tech)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://linkedin.com/in/x17-green)
 [![GitHub](https://img.shields.io/badge/GitHub-Follow-black)](https://github.com/x17green)
 [![Email](https://img.shields.io/badge/Email-Contact-red)](mailto:pokosine@protonmail.com)
@@ -143,7 +143,7 @@ npm run build
 Create a `.env` file in the root directory:
 
 ```env
-REACT_APP_PORTFOLIO_URL=https://x17green.vercel.app
+REACT_APP_PORTFOLIO_URL=https://x17green.tech
 REACT_APP_EMAIL=pokosine@protonmail.com
 REACT_APP_LINKEDIN=https://linkedin.com/in/x17-green
 REACT_APP_GITHUB=https://github.com/x17green
@@ -181,14 +181,14 @@ src/
 - 💼 **LinkedIn**: [Precious Okoyen](https://linkedin.com/in/x17-green)
 - 🐱 **GitHub**: [🎯 Mr. Green](https://github.com/x17green)
 - 📧 **Email**: [pokosine@protonmail.com](mailto:pokosine@protonmail.com)
-- 🌐 **Portfolio**: [Precious E. Okoyen](https://x17green.vercel.app)
+- 🌐 **Portfolio**: [Precious E. Okoyen](https://x17green.tech)
 - 📝 **Medium**: [Precious Okoyen Ebisine](https://medium.com/@x17-green)
 - 🐦 **Twitter**: [Mr. Green](https://twitter.com/0x17green)
 
 ## 📄 Resume & Documents
 
-- 📋 [Download Resume (PDF)](https://x17green.vercel.app/files/precious-okoyen-resume.pdf)
-- 🎓 [View Certifications](https://x17green.vercel.app/certifications)
+- 📋 [Download Resume (PDF)](https://x17green.tech/files/precious-okoyen-resume.pdf)
+- 🎓 [View Certifications](https://x17green.tech/certifications)
 - 📚 [Research Publications](https://medium.com/@x17-green)
 
 ## 🤝 Collaboration & Opportunities

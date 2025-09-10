@@ -56,11 +56,11 @@ const PrivacyPolicy = () => {
             "my") collects, uses, and protects your information when you visit
             my portfolio website at{' '}
             <Link
-              href="https://x17green.vercel.app"
+              href="https://x17green.tech"
               target="_blank"
               rel="noopener noreferrer"
             >
-              x17green.vercel.app
+              x17green.tech
             </Link>{' '}
             (the "Service").
           </Typography>
@@ -349,7 +349,7 @@ const PrivacyPolicy = () => {
             </ListItem>
             <ListItem sx={{ py: 0.5 }}>
               <ListItemText
-                primary="Website: x17green.vercel.app"
+                primary="Website: x17green.tech"
                 primaryTypographyProps={{ variant: 'body2' }}
               />
             </ListItem>

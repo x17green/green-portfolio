@@ -25,7 +25,7 @@ export const personalData = {
     github: 'https://github.com/x17green',
     twitter: 'https://twitter.com/0x17green',
     medium: 'https://medium.com/@x17-green',
-    portfolio: 'https://x17green.vercel.app/',
+    portfolio: 'https://x17green.tech/',
     calendly: 'https://calendly.com/x17green/30min',
     googleScholar: 'https://scholar.google.com/citations?user=precious-okoyen',
   },
