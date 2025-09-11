@@ -587,7 +587,7 @@ const ContactSection = () => {
                         flexWrap: 'wrap',
                       }}
                     >
-                      {socialLinks.map((social, index) => (
+                      {socialLinks.map((social, _index) => (
                         <motion.div
                           key={social.label}
                           whileHover={{ scale: 1.1 }}
