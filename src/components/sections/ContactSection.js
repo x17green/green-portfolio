@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { personalData } from '../../data/personal';
+import personalData from '../../data/personal';
 import {
   trackContactForm,
   trackSocialClick,
