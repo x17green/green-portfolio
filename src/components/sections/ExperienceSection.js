@@ -1117,15 +1117,18 @@ const ExperienceSection = () => {
         }}
       >
         <Avatar
+          src={certification.logo}
           sx={{
             width: 56,
             height: 56,
             mx: 'auto',
             mb: 2,
-            background: 'linear-gradient(45deg, #ff9800, #f57c00)',
+            background: certification.logo
+              ? 'transparent'
+              : 'linear-gradient(45deg, #ff9800, #f57c00)',
           }}
         >
-          {certification.icon}
+          {!certification.logo && certification.icon}
         </Avatar>
         <Typography
           variant="h6"
