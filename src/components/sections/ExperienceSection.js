@@ -500,14 +500,17 @@ const ExperienceSection = () => {
               }}
             >
               <Avatar
+                src={experience.companyLogo}
                 sx={{
                   width: 60,
                   height: 60,
-                  background: 'linear-gradient(45deg, #00e676, #1976d2)',
+                  background: experience.companyLogo
+                    ? 'transparent'
+                    : 'linear-gradient(45deg, #00e676, #1976d2)',
                   mt: 0.5,
                 }}
               >
-                {experience.icon}
+                {!experience.companyLogo && experience.icon}
               </Avatar>
               <Box sx={{ flex: 1 }}>
                 <Typography
@@ -903,13 +906,16 @@ const ExperienceSection = () => {
             sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, mb: 3 }}
           >
             <Avatar
+              src={education.logo}
               sx={{
                 width: 60,
                 height: 60,
-                background: 'linear-gradient(45deg, #1976d2, #00e676)',
+                background: education.logo
+                  ? 'transparent'
+                  : 'linear-gradient(45deg, #1976d2, #00e676)',
               }}
             >
-              {education.icon}
+              {!education.logo && education.icon}
             </Avatar>
             <Box sx={{ flex: 1 }}>
               <Typography
@@ -954,15 +960,21 @@ const ExperienceSection = () => {
                     {education.duration}
                   </Typography>
                 </Box>
-                <Chip
-                  label={`GPA: ${education.gpa}`}
-                  size="small"
-                  sx={{
-                    backgroundColor: 'rgba(25, 118, 210, 0.2)',
-                    color: 'secondary.main',
-                    fontWeight: 500,
-                  }}
-                />
+                {(education.gpa || education.grade) && (
+                  <Chip
+                    label={
+                      education.gpa
+                        ? `GPA: ${education.gpa}`
+                        : `Grade: ${education.grade}`
+                    }
+                    size="small"
+                    sx={{
+                      backgroundColor: 'rgba(25, 118, 210, 0.2)',
+                      color: 'secondary.main',
+                      fontWeight: 500,
+                    }}
+                  />
+                )}
               </Box>
             </Box>
           </Box>
