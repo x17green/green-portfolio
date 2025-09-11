@@ -605,7 +605,7 @@ export const certificationsData = [
     credentialId:
       'ab3435facf2b0f58569d243eadd95d328c942067fffce6a0f49047f612f4a0e6',
     icon: <AutoAwesome />,
-    logo: '/images/certifications/linkedin.jpg',
+    logo: '/images/certifications/linkedin.png',
     description:
       'LinkedIn Learning Certificate - "Ethics in the Age of Generative AI" by Vilas Dhar. Recognized by National Association of State Boards of Accountancy (NASBA) and Project Management Institute (PMI)®.',
     skills: [
@@ -624,7 +624,7 @@ export const certificationsData = [
     credentialId:
       '82bf55e8067dc739eb3ef9f0ddl6a4357d25fcd12d491b4fdd7dfb394ee590d7',
     icon: <EmojiObjects />,
-    logo: '/images/certifications/linkedin.jpg',
+    logo: '/images/certifications/linkedin.png',
     description:
       'LinkedIn Learning Certificate for Learning Microsoft 365 Copilot.',
     skills: ['Microsoft 365', 'Microsoft Copilot'],
@@ -638,7 +638,7 @@ export const certificationsData = [
     credentialId:
       '8347336431680daeccb8e35272fe8f434c520e9af49fd3b49eab907775f92250',
     icon: <TrendingUp />,
-    logo: '/images/certifications/linkedin.jpg',
+    logo: '/images/certifications/linkedin.png',
     description: 'LinkedIn Learning Certificate for Level Up: Advanced Python.',
     skills: ['Advanced Python', 'Python (Programming Language)'],
   },
