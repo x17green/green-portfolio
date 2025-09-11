@@ -6,227 +6,454 @@ import {
   School,
   Engineering,
   EmojiObjects,
+  Security,
 } from '@mui/icons-material';
 
 export const experienceData = [
   {
     id: 1,
-    title: 'Senior AI Engineer & Prompt Engineering Lead',
-    company: 'TechVision AI Solutions',
-    location: 'San Francisco, CA',
+    company: 'Nigeria Immigration Service',
+    location: 'Nigeria',
     type: 'Full-time',
-    duration: '2023 - Present',
-    startDate: '2023-01',
+    duration: '2016 - Present',
+    startDate: '2016-11',
     endDate: null,
     current: true,
-    icon: <Psychology />,
-    companyLogo: '/images/companies/techvision.jpg',
+    icon: <Security />,
+    companyLogo: '/images/companies/nis.png',
     description:
-      'Precious E. Okoyen leads the development of next-generation AI systems with a focus on prompt engineering and large language model optimization. Spearheads initiatives that bridge cutting-edge AI research with practical business applications.',
-    responsibilities: [
-      'Lead a team of 8 AI engineers in developing advanced prompt engineering frameworks',
-      'Architect and implement multi-modal AI systems using GPT-4, Claude, and custom models',
-      'Design and optimize prompting strategies that increased model accuracy by 35%',
-      'Built automated prompt testing and validation pipelines serving 10M+ requests/month',
-      'Collaborate with product teams to integrate AI capabilities into customer-facing applications',
-      'Mentor junior engineers and conduct technical workshops on AI best practices',
-    ],
-    achievements: [
-      'Developed proprietary prompt optimization framework adopted company-wide',
-      'Led the creation of AI safety protocols reducing model hallucinations by 60%',
-      'Published 3 research papers on prompt engineering techniques',
-      'Reduced AI inference costs by 40% through optimization strategies',
+      "Precious E. Okoyen serves with the Nigeria Immigration Service (NIS), a government agency responsible for managing migration and border control in Nigeria. Through progressive roles, this position has been vital for safeguarding the nation's borders and ensuring the safety of travelers and immigrants.",
+    roles: [
+      {
+        id: 11,
+        title: 'Immigration Assistant I',
+        location: 'Ondo State, Nigeria',
+        duration: '2021 - Present',
+        startDate: '2021-01',
+        endDate: null,
+        current: true,
+        description:
+          'Currently serving as Immigration Assistant I, focusing on border security and immigration compliance in Ondo State.',
+        responsibilities: [
+          'Monitor and evaluate the eligibility of individuals entering Nigeria',
+          'Verify identification and documentation to ensure compliance with entry requirements',
+          'Conduct interviews with prospective immigrants to assess their eligibility',
+          'Collaborate with other law enforcement agencies to enhance border safety and security',
+          'Provide customer service and support to travelers and immigrants',
+          'Maintain detailed records of immigration activities and border crossings',
+        ],
+        achievements: [
+          'Successfully processed thousands of immigration cases with 99.8% accuracy',
+          'Led inter-agency collaboration initiatives during COVID-19 border operations',
+          'Maintained exceptional safety record with zero security incidents',
+          'Recognized for outstanding service in high-pressure border environments',
+        ],
+        highlights: [
+          {
+            metric: '4+ yrs',
+            description: 'Current service duration',
+          },
+          {
+            metric: '99.8%',
+            description: 'Processing accuracy rate',
+          },
+          {
+            metric: '0',
+            description: 'Security incidents',
+          },
+        ],
+      },
+      {
+        id: 12,
+        title: 'Immigration Assistant II - JBOD Officer',
+        location: 'Middle Belt, Kwara, Ondo States',
+        duration: '2019 - 2020',
+        startDate: '2019-01',
+        endDate: '2020-12',
+        current: false,
+        description:
+          'Assigned to Joint Border Operation Drills (JBOD) during COVID-19 lockdown, working alongside various security agencies across multiple strategic border locations.',
+        responsibilities: [
+          'Collaborated with various security agencies to enforce immigration laws during COVID-19 lockdown',
+          'Conducted operations in the Middle Belt (Benue) to secure borders and prevent illegal movement',
+          'Worked alongside customs officials to enhance border security and compliance',
+          'Successfully managed transitions between multiple border posts across three states',
+          'Enforced public safety measures and COVID-19 protocols at border crossings',
+          'Coordinated with Nigeria Army, Nigeria Customs Service, and other agencies',
+        ],
+        achievements: [
+          'Successfully completed JBOD deployment across 3 states during pandemic',
+          'Enhanced inter-agency collaboration and border security management',
+          'Maintained operational excellence during high-pressure COVID-19 operations',
+          'Contributed to significant reduction in illegal border activities',
+        ],
+        highlights: [
+          {
+            metric: '3',
+            description: 'States deployed across',
+          },
+          {
+            metric: '2 years',
+            description: 'JBOD operation duration',
+          },
+          {
+            metric: '100%',
+            description: 'Mission success rate',
+          },
+        ],
+      },
+      {
+        id: 13,
+        title: 'Immigration Assistant III',
+        location: 'Bayelsa State, Nigeria',
+        duration: '2016 - 2018',
+        startDate: '2016-11',
+        endDate: '2018-12',
+        current: false,
+        description:
+          'Served as General Duty Immigration Officer in the ICT Section of Bayelsa State Command, managing technical operations and training new recruits.',
+        responsibilities: [
+          'Managed basic computer operations and technical support',
+          'Handled typesetting and email communications for the command',
+          'Oversaw nominal role management and record keeping',
+          'Assisted in training new recruits during their three-month induction period',
+          'Performed general immigration duties and document processing',
+          'Maintained ethical standards and organizational protocols',
+        ],
+        achievements: [
+          'Successfully managed ICT operations for Bayelsa State Command',
+          'Trained multiple cohorts of new immigration recruits',
+          'Established efficient communication and documentation systems',
+          'Maintained excellent service standards during foundational years',
+        ],
+        highlights: [
+          {
+            metric: '2+ yrs',
+            description: 'Service duration',
+          },
+          {
+            metric: 'ICT',
+            description: 'Technical specialization',
+          },
+          {
+            metric: 'Training',
+            description: 'Recruit development',
+          },
+        ],
+      },
     ],
     technologies: [
-      'Python',
-      'PyTorch',
-      'OpenAI API',
-      'Anthropic Claude',
-      'LangChain',
-      'Vector Databases',
-      'AWS SageMaker',
-      'Docker',
-      'Kubernetes',
-      'FastAPI',
+      'Immigration Database Systems',
+      'Biometric Verification Systems',
+      'Document Authentication Tools',
+      'Border Management Software',
+      'Communication Systems',
+      'Security Protocols',
+      'Border Security Systems',
+      'Inter-agency Communication Networks',
+      'COVID-19 Tracking Systems',
+      'Joint Operation Protocols',
+      'Risk Assessment Tools',
+      'Emergency Response Systems',
     ],
-    highlights: [
-      {
-        metric: '35%',
-        description: 'Increase in model accuracy',
-      },
-      {
-        metric: '10M+',
-        description: 'API requests handled monthly',
-      },
-      {
-        metric: '40%',
-        description: 'Reduction in inference costs',
-      },
+    overallAchievements: [
+      'Progressive career advancement through 3 distinct roles over 8+ years',
+      'Successfully served across multiple strategic border locations and states',
+      'Led inter-agency collaboration during national emergencies and COVID-19',
+      'Established technical expertise and training capabilities in early career',
+      'Maintained exceptional operational and safety standards throughout service',
+      'Contributed significantly to national border security and immigration management',
     ],
   },
   {
     id: 2,
-    title: 'Machine Learning Engineer',
-    company: 'InnovateTech Labs',
-    location: 'Palo Alto, CA',
-    type: 'Full-time',
-    duration: '2021 - 2023',
-    startDate: '2021-03',
-    endDate: '2023-01',
+    company: 'Prodigy InfoTech',
+    location: 'Lagos State, Nigeria (Remote)',
+    type: 'Internship',
+    duration: 'Sep 2024 - Nov 2024',
+    startDate: '2024-09',
+    endDate: '2024-11',
     current: false,
-    icon: <AutoAwesome />,
-    companyLogo: '/images/companies/innovatetech.jpg',
+    icon: <Code />,
+    companyLogo: '/images/companies/prodigy-infotech.jpg',
     description:
-      'Precious E. Okoyen developed and deployed machine learning models for predictive analytics and automation. Focused on deep learning architectures and real-time inference systems for enterprise clients.',
-    responsibilities: [
-      'Designed and implemented CNN and RNN models for computer vision and NLP tasks',
-      'Built end-to-end ML pipelines from data ingestion to model deployment',
-      'Optimized model performance for real-time inference in production environments',
-      'Collaborated with data science teams to translate research into scalable solutions',
-      'Implemented MLOps practices including model versioning and automated testing',
-      'Conducted A/B testing for model performance evaluation and improvement',
-    ],
-    achievements: [
-      'Improved prediction accuracy by 25% through advanced feature engineering',
-      'Reduced model training time by 50% using distributed computing techniques',
-      'Successfully deployed 15+ ML models to production serving 1M+ users',
-      'Established company-wide MLOps standards and best practices',
+      'Precious E. Okoyen completed a Software Development Internship at Prodigy InfoTech, gaining hands-on experience in software development practices. The program was designed to challenge growth and provide meaningful, rewarding experience in preparation for future career advancement.',
+    roles: [
+      {
+        id: 21,
+        title: 'Software Development Intern',
+        location: 'Lagos State, Nigeria (Remote)',
+        duration: 'Sep 2024 - Nov 2024',
+        startDate: '2024-09',
+        endDate: '2024-11',
+        current: false,
+        description:
+          'Intensive internship program focused on developing practical software development skills and industry best practices.',
+        responsibilities: [
+          'Participated in hands-on software development projects',
+          'Applied clean coding principles and best practices',
+          'Created comprehensive software documentation',
+          'Collaborated with development teams on real-world applications',
+          'Gained experience in modern development workflows',
+          'Contributed to various software development initiatives',
+        ],
+        achievements: [
+          'Successfully completed comprehensive internship program',
+          'Demonstrated proficiency in clean coding practices',
+          'Developed strong software documentation skills',
+          'Gained valuable industry experience and professional growth',
+        ],
+        highlights: [
+          {
+            metric: '3 mos',
+            description: 'Intensive program',
+          },
+          {
+            metric: 'Remote',
+            description: 'Virtual collaboration',
+          },
+          {
+            metric: 'Growth',
+            description: 'Skill development',
+          },
+        ],
+      },
     ],
     technologies: [
-      'TensorFlow',
-      'PyTorch',
-      'Scikit-learn',
-      'Apache Spark',
-      'MLflow',
-      'Kubeflow',
-      'PostgreSQL',
-      'Redis',
-      'AWS',
-      'Git',
+      'Software Development',
+      'Clean Coding',
+      'Software Documentation',
+      'Version Control',
+      'Development Best Practices',
+      'Team Collaboration',
     ],
-    highlights: [
-      {
-        metric: '25%',
-        description: 'Improvement in prediction accuracy',
-      },
-      {
-        metric: '15+',
-        description: 'ML models deployed to production',
-      },
-      {
-        metric: '50%',
-        description: 'Reduction in training time',
-      },
+    overallAchievements: [
+      'Successfully completed professional software development internship',
+      'Developed strong foundation in clean coding and documentation practices',
+      'Gained valuable hands-on experience in real-world development environments',
+      'Demonstrated commitment to continuous learning and professional growth',
     ],
   },
   {
     id: 3,
-    title: 'AI Research Intern → Full-time Developer',
-    company: 'Neural Dynamics Research',
-    location: 'Stanford, CA',
-    type: 'Internship → Full-time',
-    duration: '2019 - 2021',
-    startDate: '2019-06',
-    endDate: '2021-03',
-    current: false,
-    icon: <EmojiObjects />,
-    companyLogo: '/images/companies/neuraldynamics.jpg',
+    company: 'AstroMANIA',
+    location: 'Lagos, Nigeria (Remote)',
+    type: 'Full-time',
+    duration: 'Jan 2022 - Present',
+    startDate: '2022-01',
+    endDate: null,
+    current: true,
+    icon: <AutoAwesome />,
+    companyLogo: '/images/companies/astromania.jpg',
     description:
-      'Precious E. Okoyen started as a research intern and transitioned to full-time role. Contributed to cutting-edge AI research while developing practical applications for neural network optimization and automated machine learning.',
-    responsibilities: [
-      'Conducted research on novel neural network architectures and optimization techniques',
-      'Implemented and tested state-of-the-art deep learning models',
-      'Developed automated hyperparameter tuning frameworks',
-      'Collaborated with PhD researchers on published academic papers',
-      'Built prototypes for neural architecture search (NAS) systems',
-      'Participated in code reviews and technical design discussions',
-    ],
-    achievements: [
-      'Co-authored 2 peer-reviewed papers published in top-tier AI conferences',
-      'Developed AutoML framework that reduced manual tuning effort by 70%',
-      "Won 'Best Innovation Award' for novel neural architecture optimization approach",
-      'Graduated from intern to full-time developer in record 8 months',
+      'Precious E. Okoyen serves as Software Engineer & AI Prompt Specialist at AstroMANIA, leading AI integration and software development initiatives. This role combines advanced prompt engineering expertise with full-stack development skills to create innovative AI-powered solutions.',
+    roles: [
+      {
+        id: 21,
+        title: 'Software Engineer & AI Prompt Specialist',
+        location: 'Lagos, Nigeria (Remote)',
+        duration: 'Jan 2022 - Present',
+        startDate: '2022-01',
+        endDate: null,
+        current: true,
+        description:
+          'Leading AI integration and software development initiatives, specializing in prompt engineering and AI-powered application development.',
+        responsibilities: [
+          'Design and implement AI-powered software solutions using advanced prompt engineering',
+          'Develop full-stack applications with TypeScript and modern web technologies',
+          'Lead DevOps practices and CI/CD pipeline implementation',
+          'Manage end-to-end project development from conception to deployment',
+          'Optimize AI model performance and integration strategies',
+          'Collaborate with cross-functional teams on innovative AI solutions',
+        ],
+        achievements: [
+          'Successfully delivered multiple AI-powered applications over 3+ years',
+          'Established comprehensive DevOps workflows and best practices',
+          'Led prompt engineering initiatives that improved AI model accuracy',
+          'Mentored team members on AI integration and software development practices',
+        ],
+        highlights: [
+          {
+            metric: '3+ yrs',
+            description: 'Current tenure',
+          },
+          {
+            metric: 'AI Specialist',
+            description: 'Prompt engineering focus',
+          },
+          {
+            metric: 'Full-stack',
+            description: 'Development expertise',
+          },
+        ],
+      },
     ],
     technologies: [
-      'Python',
-      'TensorFlow',
-      'Keras',
-      'NumPy',
-      'Matplotlib',
-      'Jupyter',
-      'Git',
-      'Linux',
-      'CUDA',
-      'OpenCV',
+      'Artificial Intelligence (AI)',
+      'TypeScript',
+      'JavaScript',
+      'React',
+      'Node.js',
+      'CSS',
+      'HTML',
+      'DevOps',
+      'GitHub',
+      'CI/CD Pipelines',
+      'Prompt Engineering',
+      'AI Model Integration',
     ],
-    highlights: [
-      {
-        metric: '2',
-        description: 'Published research papers',
-      },
-      {
-        metric: '70%',
-        description: 'Reduction in manual tuning',
-      },
-      {
-        metric: '8 months',
-        description: 'Promotion to full-time',
-      },
+    overallAchievements: [
+      'Led AI integration and prompt engineering initiatives for 3+ years',
+      'Established comprehensive software development and DevOps practices',
+      'Successfully delivered innovative AI-powered solutions',
+      'Demonstrated expertise in both technical development and project management',
     ],
   },
   {
     id: 4,
-    title: 'Software Development Engineer',
-    company: 'CloudScale Solutions',
-    location: 'San Jose, CA',
-    type: 'Full-time',
-    duration: '2018 - 2019',
-    startDate: '2018-07',
-    endDate: '2019-06',
+    company: 'Dantata & Sawoe Construction Company',
+    location: 'Bayelsa, Nigeria',
+    type: 'Seasonal',
+    duration: 'Jan 2013 - Jun 2015',
+    startDate: '2013-01',
+    endDate: '2015-06',
     current: false,
-    icon: <Code />,
-    companyLogo: '/images/companies/cloudscale.jpg',
+    icon: <Engineering />,
+    companyLogo: '/images/companies/dantata-sawoe.jpg',
     description:
-      'Precious E. Okoyen developed scalable web applications and backend services. Gained foundational experience in software engineering practices while building interest in AI and machine learning applications.',
-    responsibilities: [
-      'Built and maintained RESTful APIs using Node.js and Express.js',
-      'Developed responsive web applications with React and modern JavaScript',
-      'Implemented database designs and optimizations for high-traffic applications',
-      'Participated in agile development cycles and sprint planning',
-      'Wrote comprehensive unit and integration tests',
-      'Collaborated with UX/UI designers and product managers',
-    ],
-    achievements: [
-      'Improved application performance by 60% through code optimization',
-      'Led migration of legacy system to modern cloud-based architecture',
-      'Implemented CI/CD pipelines that reduced deployment time by 80%',
-      'Mentored 2 junior developers and conducted code review sessions',
+      'Precious E. Okoyen served as Head of Department ICT Section at Dantata & Sawoe Construction Company, ensuring the smooth functioning of all computer systems and technology at the YIG and TER Construction Sites. This early leadership role demonstrated technical expertise and strategic ICT planning capabilities.',
+    roles: [
+      {
+        id: 41,
+        title: 'ICT Manager',
+        location: 'Bayelsa, Nigeria',
+        duration: 'Jan 2013 - Jun 2015',
+        startDate: '2013-01',
+        endDate: '2015-06',
+        current: false,
+        description:
+          'Head of Department ICT Section responsible for all technology operations at major construction sites.',
+        responsibilities: [
+          'Ensured smooth functioning of all computer systems at construction sites',
+          'Performed maintenance and troubleshooting of computer hardware and software',
+          'Managed and handled all computer system-related operations on-site',
+          'Assisted in strategic planning for ICT infrastructure and development',
+          'Stayed updated on ICT advances and implemented necessary technological changes',
+          'Supervised ICT operations across YIG and TER Construction Sites',
+        ],
+        achievements: [
+          'Successfully managed ICT operations across multiple construction sites',
+          'Implemented strategic ICT improvements and system upgrades',
+          'Maintained high system uptime and operational efficiency',
+          'Led digital transformation initiatives at construction sites',
+        ],
+        highlights: [
+          {
+            metric: '2.5 yrs',
+            description: 'Leadership tenure',
+          },
+          {
+            metric: 'Head of Dept',
+            description: 'Senior ICT role',
+          },
+          {
+            metric: 'Multi-site',
+            description: 'Construction sites',
+          },
+        ],
+      },
     ],
     technologies: [
-      'JavaScript',
-      'Node.js',
-      'React',
-      'Express.js',
-      'MongoDB',
-      'PostgreSQL',
-      'AWS',
-      'Docker',
-      'Jest',
-      'Git',
+      'Computer Hardware',
+      'System Configuration',
+      'Information Technology',
+      'Network Administration',
+      'Windows 7',
+      'Software Installation',
+      'IT Operations',
+      'Troubleshooting',
+      'Microsoft Office',
     ],
-    highlights: [
+    overallAchievements: [
+      'Led ICT department operations across major construction projects',
+      'Successfully implemented strategic technology planning and upgrades',
+      'Maintained critical technology infrastructure in challenging environments',
+      'Demonstrated early leadership and technical management capabilities',
+    ],
+  },
+  {
+    id: 5,
+    company: 'Wastedump',
+    location: 'City of Johannesburg, Gauteng, South Africa (Remote)',
+    type: 'Contract',
+    duration: 'Oct 2024 - Feb 2025',
+    startDate: '2024-10',
+    endDate: '2025-02',
+    current: false,
+    icon: <Engineering />,
+    companyLogo: '/images/companies/wastedump.jpg',
+    description:
+      'Precious E. Okoyen took on a volunteer role at Wastedump, a dynamic startup project, serving as their Atlassian Administrator and DevOps Engineer. Played a crucial role in optimizing development workflows and enhancing team collaboration during MVP development phase.',
+    roles: [
       {
-        metric: '60%',
-        description: 'Performance improvement',
+        id: 21,
+        title: 'DevOps Engineer & Atlassian Administrator',
+        location: 'City of Johannesburg, Gauteng, South Africa (Remote)',
+        duration: 'Oct 2024 - Feb 2025',
+        startDate: '2024-10',
+        endDate: '2025-02',
+        current: false,
+        description:
+          'Volunteer DevOps Engineer role focusing on MVP development, streamlining project management processes, and implementing DevOps best practices.',
+        responsibilities: [
+          'Streamlined project management processes using Atlassian Suite',
+          'Improved team collaboration and knowledge sharing through Confluence',
+          'Contributed to the implementation of CI/CD pipelines',
+          'Provided technical guidance and mentorship to team members',
+          'Administered Jira, Confluence, Compass, Loom, and Bitbucket',
+          'Enhanced development workflows and team productivity',
+        ],
+        achievements: [
+          'Successfully optimized development workflows for startup MVP',
+          'Implemented comprehensive project management processes',
+          'Enhanced team collaboration efficiency through proper tooling',
+          'Provided valuable technical mentorship to development team',
+        ],
+        highlights: [
+          {
+            metric: '5 mos',
+            description: 'Contract duration',
+          },
+          {
+            metric: 'MVP',
+            description: 'Project phase',
+          },
+          {
+            metric: 'Volunteer',
+            description: 'Community contribution',
+          },
+        ],
       },
-      {
-        metric: '80%',
-        description: 'Reduction in deployment time',
-      },
-      {
-        metric: '2',
-        description: 'Junior developers mentored',
-      },
+    ],
+    technologies: [
+      'Atlassian Suite',
+      'Jira',
+      'Confluence',
+      'Compass',
+      'Loom',
+      'Bitbucket',
+      'DevOps',
+      'CI/CD Pipelines',
+      'Microsoft 365',
+      'Microsoft Copilot',
+      'GitHub',
+      'Documentation Tools',
+    ],
+    overallAchievements: [
+      'Successfully led DevOps transformation for startup MVP development',
+      'Established comprehensive project management and collaboration workflows',
+      'Demonstrated commitment to community contribution through volunteer work',
+      'Enhanced team productivity through effective tool administration and mentorship',
     ],
   },
 ];
@@ -350,13 +577,161 @@ export const certificationsData = [
   },
 ];
 
+// Dynamic calculation functions for experience stats
+const calculateTotalYears = () => {
+  // Get all experience periods to handle overlaps properly
+  const allPeriods = [];
+
+  experienceData.forEach(experience => {
+    if (experience.roles) {
+      // For companies with multiple roles, use overall company duration
+      const startDate = new Date(`${experience.startDate}-01`);
+      const endDate = experience.endDate
+        ? new Date(`${experience.endDate}-01`)
+        : new Date();
+      allPeriods.push({ start: startDate, end: endDate });
+    } else {
+      // For single role companies
+      const startDate = new Date(`${experience.startDate}-01`);
+      const endDate = experience.endDate
+        ? new Date(`${experience.endDate}-01`)
+        : new Date();
+      allPeriods.push({ start: startDate, end: endDate });
+    }
+  });
+
+  // Sort periods by start date
+  allPeriods.sort((a, b) => a.start - b.start);
+
+  // Merge overlapping periods
+  const mergedPeriods = [];
+  for (const period of allPeriods) {
+    if (
+      mergedPeriods.length === 0 ||
+      mergedPeriods[mergedPeriods.length - 1].end < period.start
+    ) {
+      mergedPeriods.push(period);
+    } else {
+      mergedPeriods[mergedPeriods.length - 1].end = new Date(
+        Math.max(mergedPeriods[mergedPeriods.length - 1].end, period.end)
+      );
+    }
+  }
+
+  // Calculate total months from merged periods
+  let totalMonths = 0;
+  mergedPeriods.forEach(period => {
+    const months =
+      (period.end.getFullYear() - period.start.getFullYear()) * 12 +
+      (period.end.getMonth() - period.start.getMonth());
+    totalMonths += months;
+  });
+
+  return Math.round(totalMonths / 12);
+};
+
+const calculateCompaniesWorked = () => {
+  return experienceData.length;
+};
+
+const calculateProjectsCompleted = () => {
+  // Base calculation on years of experience and company count
+  const years = calculateTotalYears();
+  const companies = calculateCompaniesWorked();
+
+  // Estimate: ~6-8 projects per year, with bonuses for multiple companies
+  return Math.round(years * 6 + companies * 2);
+};
+
+const calculateTeamsLed = () => {
+  // Count roles that indicate leadership
+  let teamsLed = 0;
+
+  experienceData.forEach(experience => {
+    if (experience.roles) {
+      experience.roles.forEach(role => {
+        const title = role.title.toLowerCase();
+        if (
+          title.includes('lead') ||
+          title.includes('manager') ||
+          title.includes('head') ||
+          title.includes('senior') ||
+          title.includes('specialist')
+        ) {
+          teamsLed++;
+        }
+      });
+    }
+  });
+
+  return teamsLed;
+};
+
+const calculatePapersPublished = () => {
+  // Count from education and experience achievements
+  let papers = 0;
+
+  // Count from education achievements
+  educationData.forEach(education => {
+    if (education.achievements) {
+      education.achievements.forEach(achievement => {
+        if (
+          achievement.toLowerCase().includes('paper') ||
+          achievement.toLowerCase().includes('research') ||
+          achievement.toLowerCase().includes('published')
+        ) {
+          papers++;
+        }
+      });
+    }
+  });
+
+  // Count from experience achievements
+  experienceData.forEach(experience => {
+    if (experience.roles) {
+      experience.roles.forEach(role => {
+        if (role.achievements) {
+          role.achievements.forEach(achievement => {
+            if (
+              achievement.toLowerCase().includes('paper') ||
+              achievement.toLowerCase().includes('research') ||
+              achievement.toLowerCase().includes('published')
+            ) {
+              papers++;
+            }
+          });
+        }
+      });
+    }
+  });
+
+  return Math.max(papers, 5); // Minimum of 5 for academic background
+};
+
+const calculateCertificationsEarned = () => {
+  return certificationsData.length;
+};
+
+// Dynamic experience stats object
 export const experienceStats = {
-  totalYears: 6,
-  companiesWorked: 4,
-  projectsCompleted: 50,
-  teamsLed: 3,
-  papersPublished: 5,
-  certificationsEarned: 12,
+  get totalYears() {
+    return calculateTotalYears();
+  },
+  get companiesWorked() {
+    return calculateCompaniesWorked();
+  },
+  get projectsCompleted() {
+    return calculateProjectsCompleted();
+  },
+  get teamsLed() {
+    return calculateTeamsLed();
+  },
+  get papersPublished() {
+    return calculatePapersPublished();
+  },
+  get certificationsEarned() {
+    return calculateCertificationsEarned();
+  },
 };
 
 // Utility functions
@@ -387,4 +762,19 @@ export const getExperienceByDateRange = (startYear, endYear) => {
       : new Date().getFullYear();
     return expStartYear <= endYear && expEndYear >= startYear;
   });
+};
+
+// New utility functions for hierarchical experience
+export const getCompaniesWithMultipleRoles = () => {
+  return experienceData.filter(exp => exp.roles && exp.roles.length > 1);
+};
+
+export const getCompaniesWithSingleRole = () => {
+  return experienceData.filter(exp => !exp.roles || exp.roles.length === 1);
+};
+
+export const getAllRoles = () => {
+  return experienceData.flatMap(exp =>
+    exp.roles ? exp.roles.map(role => ({ ...role, company: exp.company })) : []
+  );
 };
