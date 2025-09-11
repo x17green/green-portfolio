@@ -13,9 +13,14 @@ import Header from './components/layout/Header';
 import SEOHead from './components/SEO/SEOHead';
 import { ErrorBoundary, OfflineIndicator } from './components/ui/LoadingStates';
 import ScrollProgress from './components/ui/ScrollProgress';
+import ThemeToggle from './components/ui/ThemeToggle';
 import { useSkeletonTransition } from './hooks/useSkeletonTransition';
 import { getTheme } from './theme/theme';
-import { ThemeProvider, useThemeMode, ThemeToggle } from './theme/ThemeContext';
+import {
+  ThemeProvider,
+  ThemeErrorBoundary,
+  useThemeMode,
+} from './theme/ThemeContext';
 import { initializeAnalytics, trackPageView } from './utils/analytics';
 import { cleanup } from './utils/performance';
 
@@ -81,26 +86,13 @@ const AppContent = () => {
     };
   }, []);
 
-  // Update document meta tags based on theme
+  // Update document class and scroll behavior based on theme
   useEffect(() => {
-    const updateMetaTags = () => {
-      // Update theme-color meta tag
-      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-      if (themeColorMeta) {
-        themeColorMeta.setAttribute(
-          'content',
-          mode === 'dark' ? '#0a0a0a' : '#ffffff'
-        );
-      }
+    // Update document class for CSS targeting
+    document.documentElement.className = `theme-${mode}`;
 
-      // Update document class for CSS targeting
-      document.documentElement.className = `theme-${mode}`;
-
-      // Add smooth scroll behavior
-      document.documentElement.style.scrollBehavior = 'smooth';
-    };
-
-    updateMetaTags();
+    // Add smooth scroll behavior
+    document.documentElement.style.scrollBehavior = 'smooth';
   }, [mode]);
 
   // Performance monitoring
@@ -297,9 +289,11 @@ const AppContent = () => {
 // Root App component with theme provider
 function App() {
   return (
-    <ThemeProvider>
-      <AppContent />
-    </ThemeProvider>
+    <ThemeErrorBoundary fallbackTheme="light">
+      <ThemeProvider>
+        <AppContent />
+      </ThemeProvider>
+    </ThemeErrorBoundary>
   );
 }
 

@@ -212,6 +212,10 @@ const ProjectsSection = () => {
                   component={Link}
                   href={project.demoUrl}
                   target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View Demo"
+                  title="View Demo"
+                  role="link"
                   onClick={() =>
                     trackProjectInteraction(
                       project.title,
@@ -239,6 +243,10 @@ const ProjectsSection = () => {
                   component={Link}
                   href={project.githubUrl}
                   target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View Source"
+                  title="View Source"
+                  role="link"
                   onClick={() =>
                     trackProjectInteraction(
                       project.title,
@@ -266,6 +274,10 @@ const ProjectsSection = () => {
                   component={Link}
                   href={project.liveUrl}
                   target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Visit Live Site"
+                  title="Visit Live Site"
+                  role="link"
                   onClick={() =>
                     trackProjectInteraction(
                       project.title,
