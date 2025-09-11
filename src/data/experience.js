@@ -587,7 +587,7 @@ export const certificationsData = [
     icon: <Psychology />,
     logo: '/images/certifications/alx.jpg',
     description:
-      'Certificate of Achievement awarded for successfully completed an 8-week program in AI Augmented Professional Development Skill in the Digital Age.',
+      'Certificate of Achievement awarded for successfully completing an 8-week program in AI Augmented Professional Development Skill in the Digital Age.',
     skills: [
       'Problem Solving',
       'Artificial Intelligence (AI)',
