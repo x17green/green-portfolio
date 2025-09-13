@@ -210,6 +210,25 @@ Precious E. Okoyen is open to:
 
 Special thanks to the open-source community and the amazing developers who contribute to the tools and libraries that make modern web development possible.
 
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### What this means:
+- ✅ **Free to use** - Anyone can use this code for personal or commercial projects
+- ✅ **Free to modify** - Adapt and customize as needed
+- ✅ **Free to distribute** - Share and redistribute freely
+- ✅ **Attribution required** - Include the original copyright notice
+
+### Why MIT License?
+The MIT License was chosen to:
+- **Maximize accessibility** for learning and reference
+- **Enable portfolio showcasing** in interviews and discussions
+- **Support open-source community** contributions
+- **Demonstrate professional licensing** standards
+
+Feel free to use this portfolio as inspiration for your own projects! 🚀
+
 ---
 
 <div align="center">
