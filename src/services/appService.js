@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PropTypes } from 'prop-types';
 import { personalData } from '../data/personal';
 import { skillsData } from '../data/skills';
 import { computedDataCache, userPrefsCache, imageCache } from '../utils/cache';
