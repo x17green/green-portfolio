@@ -40,6 +40,7 @@ const ExperienceSection = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [selectedTab, setSelectedTab] = useState(0);
   const [expandedCard, setExpandedCard] = useState(null);
+  const [expandedRoles, setExpandedRoles] = useState({});
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -67,6 +68,22 @@ const ExperienceSection = () => {
     });
   };
 
+  const toggleRoleExpansion = roleId => {
+    const isExpanding = !expandedRoles[roleId];
+    setExpandedRoles(prev => ({
+      ...prev,
+      [roleId]: !prev[roleId],
+    }));
+
+    // Track role expansion analytics
+    trackEvent('role_expansion', {
+      category: 'role_engagement',
+      label: `role_${roleId}`,
+      action: isExpanding ? 'expand' : 'collapse',
+      role_id: roleId,
+    });
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -87,381 +104,748 @@ const ExperienceSection = () => {
     },
   };
 
-  const ExperienceCard = ({ experience, index }) => (
-    <motion.div
-      variants={itemVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.2 }}
-    >
-      <Card
-        sx={{
-          background:
-            theme.palette.mode === 'dark'
-              ? 'rgba(255, 255, 255, 0.05)'
-              : 'rgba(255, 255, 255, 0.9)',
-          backdropFilter: 'blur(20px)',
-          border:
-            theme.palette.mode === 'dark'
-              ? '1px solid rgba(255, 255, 255, 0.1)'
-              : '1px solid rgba(0, 0, 0, 0.1)',
-          borderRadius: 3,
-          overflow: 'hidden',
-          position: 'relative',
-          transition: 'all 0.3s ease-in-out',
-          cursor: 'pointer',
-          '&:hover': {
-            transform: 'translateY(-4px)',
-            border: '1px solid rgba(0, 230, 118, 0.3)',
-            boxShadow:
-              theme.palette.mode === 'dark'
-                ? '0px 16px 40px rgba(0, 230, 118, 0.2)'
-                : '0px 16px 40px rgba(0, 230, 118, 0.15)',
-          },
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '4px',
-            background: experience.current
-              ? 'linear-gradient(90deg, #00e676, #1976d2)'
-              : 'linear-gradient(90deg, #1976d2, #00e676)',
-          },
-        }}
-        onClick={() => {
-          // Track experience card click
-          trackEvent('experience_card_click', {
-            category: 'experience_engagement',
-            label: experience.company,
-            company: experience.company,
-            position: experience.title,
-            card_index: index,
-          });
-        }}
+  const TimelineView = ({ roles, company }) => (
+    <Box sx={{ mt: 3, pt: 3, borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+      <Typography
+        variant="h6"
+        sx={{ fontWeight: 600, mb: 3, color: 'text.primary' }}
       >
-        <CardContent sx={{ p: 4 }}>
-          {/* Header */}
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: 2,
-              mb: 3,
-            }}
-          >
-            <Avatar
+        Career Timeline at {company}:
+      </Typography>
+      <Box sx={{ position: 'relative' }}>
+        {roles
+          .sort((a, b) => new Date(b.startDate) - new Date(a.startDate))
+          .map((role, index) => (
+            <Box
+              key={role.id}
               sx={{
-                width: 60,
-                height: 60,
-                background: 'linear-gradient(45deg, #00e676, #1976d2)',
-                mt: 0.5,
+                display: 'flex',
+                mb: 4,
+                position: 'relative',
+                '&:not(:last-child)::after': {
+                  content: '""',
+                  position: 'absolute',
+                  left: 24,
+                  top: 48,
+                  bottom: -16,
+                  width: 2,
+                  background: 'linear-gradient(180deg, #00e676, #1976d2)',
+                },
               }}
             >
-              {experience.icon}
-            </Avatar>
-            <Box sx={{ flex: 1 }}>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontWeight: 600,
-                  color: 'text.primary',
-                  mb: 0.5,
-                }}
-              >
-                {experience.title}
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{
-                  color: 'primary.main',
-                  fontWeight: 500,
-                  mb: 1,
-                }}
-              >
-                {experience.company}
-              </Typography>
               <Box
                 sx={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: '50%',
+                  background: role.current
+                    ? 'linear-gradient(45deg, #00e676, #1976d2)'
+                    : 'linear-gradient(45deg, #1976d2, #00e676)',
                   display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: 2,
                   alignItems: 'center',
-                  mb: 1,
+                  justifyContent: 'center',
+                  mr: 3,
+                  zIndex: 1,
+                  position: 'relative',
                 }}
               >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                  <LocationOn sx={{ fontSize: 16, color: 'text.secondary' }} />
-                  <Typography variant="body2" color="text.secondary">
-                    {experience.location}
-                  </Typography>
-                </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                  <CalendarToday
-                    sx={{ fontSize: 16, color: 'text.secondary' }}
-                  />
-                  <Typography variant="body2" color="text.secondary">
-                    {experience.duration}
-                  </Typography>
-                </Box>
-                <Chip
-                  label={experience.type}
-                  size="small"
-                  sx={{
-                    backgroundColor: experience.current
-                      ? 'rgba(0, 230, 118, 0.2)'
-                      : 'rgba(25, 118, 210, 0.2)',
-                    color: experience.current
-                      ? 'primary.main'
-                      : 'secondary.main',
-                    fontWeight: 500,
-                  }}
-                />
+                <Typography
+                  variant="caption"
+                  sx={{ color: 'white', fontWeight: 600 }}
+                >
+                  {index + 1}
+                </Typography>
               </Box>
-            </Box>
-            {experience.current && (
-              <Chip
-                label="Current"
-                size="small"
-                sx={{
-                  backgroundColor: 'rgba(0, 230, 118, 0.2)',
-                  color: 'primary.main',
-                  fontWeight: 600,
-                  animation: 'pulse 2s infinite',
-                  '@keyframes pulse': {
-                    '0%': { opacity: 1 },
-                    '50%': { opacity: 0.7 },
-                    '100%': { opacity: 1 },
-                  },
-                }}
-              />
-            )}
-          </Box>
-
-          {/* Description */}
-          <Typography
-            variant="body1"
-            sx={{
-              color: 'text.secondary',
-              lineHeight: 1.7,
-              mb: 3,
-            }}
-          >
-            {experience.description}
-          </Typography>
-
-          {/* Highlights */}
-          {experience.highlights && (
-            <Box sx={{ mb: 3 }}>
-              <Grid container spacing={2}>
-                {experience.highlights.map((highlight, index) => (
-                  <Grid size={{ xs: 12, sm: 4 }} key={index}>
-                    <Box
-                      sx={{
-                        textAlign: 'center',
-                        p: 2,
-                        borderRadius: 2,
-                        background:
-                          theme.palette.mode === 'dark'
-                            ? 'rgba(255, 255, 255, 0.05)'
-                            : 'rgba(0, 0, 0, 0.05)',
-                      }}
-                    >
+              <Box sx={{ flex: 1 }}>
+                <Box
+                  sx={{
+                    background:
+                      theme.palette.mode === 'dark'
+                        ? 'rgba(255, 255, 255, 0.03)'
+                        : 'rgba(0, 0, 0, 0.03)',
+                    borderRadius: 2,
+                    p: 3,
+                    border:
+                      theme.palette.mode === 'dark'
+                        ? '1px solid rgba(255, 255, 255, 0.05)'
+                        : '1px solid rgba(0, 0, 0, 0.05)',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      mb: 2,
+                    }}
+                  >
+                    <Box>
                       <Typography
-                        variant="h5"
+                        variant="h6"
                         sx={{
-                          fontWeight: 700,
-                          color: 'primary.main',
+                          fontWeight: 600,
+                          color: 'text.primary',
                           mb: 0.5,
                         }}
                       >
-                        {highlight.metric}
+                        {role.title}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: 'text.secondary', mb: 1 }}
+                      >
+                        {role.location}
                       </Typography>
                       <Typography
                         variant="caption"
-                        sx={{
-                          color: 'text.secondary',
-                          fontSize: '0.8rem',
-                        }}
+                        sx={{ color: 'primary.main', fontWeight: 500 }}
                       >
-                        {highlight.description}
+                        {role.duration}
                       </Typography>
                     </Box>
-                  </Grid>
-                ))}
-              </Grid>
-            </Box>
-          )}
+                    {role.current && (
+                      <Chip
+                        label="Current"
+                        size="small"
+                        sx={{
+                          backgroundColor: 'rgba(0, 230, 118, 0.2)',
+                          color: 'primary.main',
+                          fontWeight: 600,
+                        }}
+                      />
+                    )}
+                  </Box>
 
-          {/* Technologies */}
-          <Box sx={{ mb: 3 }}>
-            <Typography
-              variant="body2"
-              sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}
+                  <Typography
+                    variant="body2"
+                    sx={{ color: 'text.secondary', mb: 2, lineHeight: 1.6 }}
+                  >
+                    {role.description}
+                  </Typography>
+
+                  {role.highlights && (
+                    <Box sx={{ mb: 2 }}>
+                      <Grid container spacing={1}>
+                        {role.highlights.map((highlight, hIndex) => (
+                          <Grid size={{ xs: 4 }} key={hIndex}>
+                            <Box
+                              sx={{
+                                textAlign: 'center',
+                                p: 1.5,
+                                borderRadius: 1,
+                                background:
+                                  theme.palette.mode === 'dark'
+                                    ? 'rgba(255, 255, 255, 0.03)'
+                                    : 'rgba(0, 0, 0, 0.03)',
+                              }}
+                            >
+                              <Typography
+                                variant="h6"
+                                sx={{
+                                  fontWeight: 700,
+                                  color: 'primary.main',
+                                  mb: 0.5,
+                                  fontSize: '1rem',
+                                }}
+                              >
+                                {highlight.metric}
+                              </Typography>
+                              <Typography
+                                variant="caption"
+                                sx={{
+                                  color: 'text.secondary',
+                                  fontSize: '0.7rem',
+                                }}
+                              >
+                                {highlight.description}
+                              </Typography>
+                            </Box>
+                          </Grid>
+                        ))}
+                      </Grid>
+                    </Box>
+                  )}
+
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Typography
+                      variant="caption"
+                      sx={{ color: 'text.secondary', cursor: 'pointer' }}
+                      onClick={() => toggleRoleExpansion(role.id)}
+                    >
+                      {expandedRoles[role.id] ? 'Hide details' : 'View details'}
+                    </Typography>
+                    <IconButton
+                      size="small"
+                      onClick={() => toggleRoleExpansion(role.id)}
+                      sx={{
+                        color: 'primary.main',
+                        transition: 'transform 0.3s ease-in-out',
+                        transform: expandedRoles[role.id]
+                          ? 'rotate(180deg)'
+                          : 'rotate(0deg)',
+                      }}
+                    >
+                      <ExpandMore fontSize="small" />
+                    </IconButton>
+                  </Box>
+
+                  <Collapse in={expandedRoles[role.id]}>
+                    <Box
+                      sx={{
+                        mt: 2,
+                        pt: 2,
+                        borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+                      }}
+                    >
+                      {role.responsibilities && (
+                        <Box sx={{ mb: 2 }}>
+                          <Typography
+                            variant="body2"
+                            sx={{
+                              fontWeight: 600,
+                              mb: 1,
+                              color: 'text.primary',
+                            }}
+                          >
+                            Key Responsibilities:
+                          </Typography>
+                          {role.responsibilities
+                            .slice(0, 3)
+                            .map((resp, rIndex) => (
+                              <Box
+                                key={rIndex}
+                                sx={{
+                                  display: 'flex',
+                                  alignItems: 'flex-start',
+                                  gap: 1,
+                                  mb: 0.5,
+                                }}
+                              >
+                                <CheckCircle
+                                  sx={{
+                                    fontSize: 12,
+                                    color: 'primary.main',
+                                    mt: 0.2,
+                                    flexShrink: 0,
+                                  }}
+                                />
+                                <Typography
+                                  variant="caption"
+                                  sx={{
+                                    color: 'text.secondary',
+                                    lineHeight: 1.4,
+                                  }}
+                                >
+                                  {resp}
+                                </Typography>
+                              </Box>
+                            ))}
+                        </Box>
+                      )}
+
+                      {role.achievements && (
+                        <Box>
+                          <Typography
+                            variant="body2"
+                            sx={{
+                              fontWeight: 600,
+                              mb: 1,
+                              color: 'text.primary',
+                            }}
+                          >
+                            Key Achievements:
+                          </Typography>
+                          {role.achievements
+                            .slice(0, 2)
+                            .map((achievement, aIndex) => (
+                              <Box
+                                key={aIndex}
+                                sx={{
+                                  display: 'flex',
+                                  alignItems: 'flex-start',
+                                  gap: 1,
+                                  mb: 0.5,
+                                }}
+                              >
+                                <TrendingUp
+                                  sx={{
+                                    fontSize: 12,
+                                    color: 'secondary.main',
+                                    mt: 0.2,
+                                    flexShrink: 0,
+                                  }}
+                                />
+                                <Typography
+                                  variant="caption"
+                                  sx={{
+                                    color: 'text.secondary',
+                                    lineHeight: 1.4,
+                                  }}
+                                >
+                                  {achievement}
+                                </Typography>
+                              </Box>
+                            ))}
+                        </Box>
+                      )}
+                    </Box>
+                  </Collapse>
+                </Box>
+              </Box>
+            </Box>
+          ))}
+      </Box>
+    </Box>
+  );
+
+  const ExperienceCard = ({ experience, index }) => {
+    const hasMultipleRoles = experience.roles && experience.roles.length > 1;
+    const currentRole = hasMultipleRoles
+      ? experience.roles.find(role => role.current) || experience.roles[0]
+      : experience.roles?.[0];
+
+    // Calculate overall highlights from all roles
+    const overallHighlights = hasMultipleRoles
+      ? [
+          {
+            metric: `${experience.roles.length}`,
+            description: 'Progressive roles',
+          },
+          {
+            metric:
+              experience.duration.split(' - ')[1] === 'Present'
+                ? 'Current'
+                : 'Completed',
+            description: 'Career status',
+          },
+          {
+            metric: experience.duration,
+            description: 'Total duration',
+          },
+        ]
+      : currentRole?.highlights || [];
+
+    return (
+      <motion.div
+        variants={itemVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.2 }}
+      >
+        <Card
+          sx={{
+            background:
+              theme.palette.mode === 'dark'
+                ? 'rgba(255, 255, 255, 0.05)'
+                : 'rgba(255, 255, 255, 0.9)',
+            backdropFilter: 'blur(20px)',
+            border:
+              theme.palette.mode === 'dark'
+                ? '1px solid rgba(255, 255, 255, 0.1)'
+                : '1px solid rgba(0, 0, 0, 0.1)',
+            borderRadius: 3,
+            overflow: 'hidden',
+            position: 'relative',
+            transition: 'all 0.3s ease-in-out',
+            cursor: 'pointer',
+            '&:hover': {
+              transform: 'translateY(-4px)',
+              border: '1px solid rgba(0, 230, 118, 0.3)',
+              boxShadow:
+                theme.palette.mode === 'dark'
+                  ? '0px 16px 40px rgba(0, 230, 118, 0.2)'
+                  : '0px 16px 40px rgba(0, 230, 118, 0.15)',
+            },
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '4px',
+              background: experience.current
+                ? 'linear-gradient(90deg, #00e676, #1976d2)'
+                : 'linear-gradient(90deg, #1976d2, #00e676)',
+            },
+          }}
+          onClick={() => {
+            // Track experience card click
+            trackEvent('experience_card_click', {
+              category: 'experience_engagement',
+              label: experience.company,
+              company: experience.company,
+              position: hasMultipleRoles
+                ? 'Multiple Roles'
+                : currentRole?.title,
+              card_index: index,
+              has_multiple_roles: hasMultipleRoles,
+            });
+          }}
+        >
+          <CardContent sx={{ p: 4 }}>
+            {/* Header */}
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 2,
+                mb: 3,
+              }}
             >
-              Technologies Used:
-            </Typography>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {experience.technologies.slice(0, 6).map(tech => (
-                <Chip
-                  key={tech}
-                  label={tech}
-                  size="small"
+              <Avatar
+                src={experience.companyLogo}
+                sx={{
+                  width: 60,
+                  height: 60,
+                  background: experience.companyLogo
+                    ? 'transparent'
+                    : 'linear-gradient(45deg, #00e676, #1976d2)',
+                  mt: 0.5,
+                }}
+              >
+                {!experience.companyLogo && experience.icon}
+              </Avatar>
+              <Box sx={{ flex: 1 }}>
+                <Typography
+                  variant="h6"
                   sx={{
-                    backgroundColor: 'rgba(0, 230, 118, 0.1)',
-                    color: 'primary.main',
-                    border: '1px solid rgba(0, 230, 118, 0.2)',
-                    fontSize: '0.75rem',
-                    '&:hover': {
-                      backgroundColor: 'rgba(0, 230, 118, 0.2)',
-                    },
+                    fontWeight: 600,
+                    color: 'text.primary',
+                    mb: 0.5,
                   }}
-                />
-              ))}
-              {experience.technologies.length > 6 && (
+                >
+                  {hasMultipleRoles ? currentRole?.title : currentRole?.title}
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    color: 'primary.main',
+                    fontWeight: 500,
+                    mb: 1,
+                  }}
+                >
+                  {experience.company}
+                  {hasMultipleRoles && (
+                    <Chip
+                      label={`${experience.roles.length} roles`}
+                      size="small"
+                      sx={{
+                        ml: 1,
+                        backgroundColor: 'rgba(25, 118, 210, 0.1)',
+                        color: 'secondary.main',
+                        fontSize: '0.7rem',
+                      }}
+                    />
+                  )}
+                </Typography>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 2,
+                    alignItems: 'center',
+                    mb: 1,
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    <LocationOn
+                      sx={{ fontSize: 16, color: 'text.secondary' }}
+                    />
+                    <Typography variant="body2" color="text.secondary">
+                      {experience.location}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    <CalendarToday
+                      sx={{ fontSize: 16, color: 'text.secondary' }}
+                    />
+                    <Typography variant="body2" color="text.secondary">
+                      {experience.duration}
+                    </Typography>
+                  </Box>
+                  <Chip
+                    label={experience.type}
+                    size="small"
+                    sx={{
+                      backgroundColor: experience.current
+                        ? 'rgba(0, 230, 118, 0.2)'
+                        : 'rgba(25, 118, 210, 0.2)',
+                      color: experience.current
+                        ? 'primary.main'
+                        : 'secondary.main',
+                      fontWeight: 500,
+                    }}
+                  />
+                </Box>
+              </Box>
+              {experience.current && (
                 <Chip
-                  label={`+${experience.technologies.length - 6}`}
+                  label="Current"
                   size="small"
                   sx={{
-                    backgroundColor: 'rgba(25, 118, 210, 0.1)',
-                    color: 'secondary.main',
-                    border: '1px solid rgba(25, 118, 210, 0.2)',
-                    fontSize: '0.75rem',
+                    backgroundColor: 'rgba(0, 230, 118, 0.2)',
+                    color: 'primary.main',
+                    fontWeight: 600,
+                    animation: 'pulse 2s infinite',
+                    '@keyframes pulse': {
+                      '0%': { opacity: 1 },
+                      '50%': { opacity: 0.7 },
+                      '100%': { opacity: 1 },
+                    },
                   }}
                 />
               )}
             </Box>
-          </Box>
 
-          {/* Expand/Collapse for details */}
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Typography variant="body2" color="text.secondary">
-              {expandedCard === experience.id ? 'Less details' : 'More details'}
+            {/* Description */}
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'text.secondary',
+                lineHeight: 1.7,
+                mb: 3,
+              }}
+            >
+              {experience.description}
             </Typography>
-            <IconButton
-              onClick={() => {
-                toggleCardExpansion(experience.id);
-                // Additional tracking for expand button click
-                trackEvent('experience_expand_button', {
-                  category: 'ui_interaction',
-                  label: experience.company,
-                  action:
-                    expandedCard === experience.id ? 'collapse' : 'expand',
-                  company: experience.company,
-                });
-              }}
-              aria-label={
-                expandedCard === experience.id
-                  ? 'Collapse experience details'
-                  : 'Expand experience details'
-              }
-              sx={{
-                color: 'primary.main',
-                transition: 'transform 0.3s ease-in-out',
-                transform:
-                  expandedCard === experience.id
-                    ? 'rotate(180deg)'
-                    : 'rotate(0deg)',
-              }}
-            >
-              <ExpandMore />
-            </IconButton>
-          </Box>
 
-          {/* Expandable Content */}
-          <Collapse in={expandedCard === experience.id}>
-            <Box
-              sx={{
-                mt: 3,
-                pt: 3,
-                borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-              }}
-            >
-              {/* Responsibilities */}
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: 600, mb: 2, color: 'text.primary' }}
-              >
-                Key Responsibilities:
-              </Typography>
+            {/* Highlights */}
+            {overallHighlights.length > 0 && (
               <Box sx={{ mb: 3 }}>
-                {experience.responsibilities.map((responsibility, index) => (
-                  <Box
-                    key={index}
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: 1,
-                      mb: 1,
-                    }}
-                  >
-                    <CheckCircle
-                      sx={{
-                        fontSize: 16,
-                        color: 'primary.main',
-                        mt: 0.2,
-                        flexShrink: 0,
-                      }}
-                    />
-                    <Typography
-                      variant="body2"
-                      sx={{ color: 'text.secondary', lineHeight: 1.6 }}
-                    >
-                      {responsibility}
-                    </Typography>
-                  </Box>
-                ))}
+                <Grid container spacing={2}>
+                  {overallHighlights.map((highlight, index) => (
+                    <Grid size={{ xs: 12, sm: 4 }} key={index}>
+                      <Box
+                        sx={{
+                          textAlign: 'center',
+                          p: 2,
+                          borderRadius: 2,
+                          background:
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.05)'
+                              : 'rgba(0, 0, 0, 0.05)',
+                        }}
+                      >
+                        <Typography
+                          variant="h5"
+                          sx={{
+                            fontWeight: 700,
+                            color: 'primary.main',
+                            mb: 0.5,
+                          }}
+                        >
+                          {highlight.metric}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            color: 'text.secondary',
+                            fontSize: '0.8rem',
+                          }}
+                        >
+                          {highlight.description}
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  ))}
+                </Grid>
               </Box>
+            )}
 
-              {/* Achievements */}
+            {/* Technologies */}
+            <Box sx={{ mb: 3 }}>
               <Typography
-                variant="h6"
-                sx={{ fontWeight: 600, mb: 2, color: 'text.primary' }}
+                variant="body2"
+                sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}
               >
-                Key Achievements:
+                Technologies Used:
               </Typography>
-              <Box>
-                {experience.achievements.map((achievement, index) => (
-                  <Box
-                    key={index}
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {experience.technologies.slice(0, 6).map(tech => (
+                  <Chip
+                    key={tech}
+                    label={tech}
+                    size="small"
                     sx={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: 1,
-                      mb: 1,
+                      backgroundColor: 'rgba(0, 230, 118, 0.1)',
+                      color: 'primary.main',
+                      border: '1px solid rgba(0, 230, 118, 0.2)',
+                      fontSize: '0.75rem',
+                      '&:hover': {
+                        backgroundColor: 'rgba(0, 230, 118, 0.2)',
+                      },
                     }}
-                  >
-                    <TrendingUp
-                      sx={{
-                        fontSize: 16,
-                        color: 'secondary.main',
-                        mt: 0.2,
-                        flexShrink: 0,
-                      }}
-                    />
-                    <Typography
-                      variant="body2"
-                      sx={{ color: 'text.secondary', lineHeight: 1.6 }}
-                    >
-                      {achievement}
-                    </Typography>
-                  </Box>
+                  />
                 ))}
+                {experience.technologies.length > 6 && (
+                  <Chip
+                    label={`+${experience.technologies.length - 6}`}
+                    size="small"
+                    sx={{
+                      backgroundColor: 'rgba(25, 118, 210, 0.1)',
+                      color: 'secondary.main',
+                      border: '1px solid rgba(25, 118, 210, 0.2)',
+                      fontSize: '0.75rem',
+                    }}
+                  />
+                )}
               </Box>
             </Box>
-          </Collapse>
-        </CardContent>
-      </Card>
-    </motion.div>
-  );
+
+            {/* Expand/Collapse for details */}
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Typography variant="body2" color="text.secondary">
+                {expandedCard === experience.id
+                  ? 'Less details'
+                  : hasMultipleRoles
+                    ? 'View career timeline'
+                    : 'More details'}
+              </Typography>
+              <IconButton
+                onClick={() => {
+                  toggleCardExpansion(experience.id);
+                  // Additional tracking for expand button click
+                  trackEvent('experience_expand_button', {
+                    category: 'ui_interaction',
+                    label: experience.company,
+                    action:
+                      expandedCard === experience.id ? 'collapse' : 'expand',
+                    company: experience.company,
+                    has_multiple_roles: hasMultipleRoles,
+                  });
+                }}
+                sx={{
+                  color: 'primary.main',
+                  transition: 'transform 0.3s ease-in-out',
+                  transform:
+                    expandedCard === experience.id
+                      ? 'rotate(180deg)'
+                      : 'rotate(0deg)',
+                }}
+              >
+                <ExpandMore />
+              </IconButton>
+            </Box>
+
+            {/* Expandable Content */}
+            <Collapse in={expandedCard === experience.id}>
+              {hasMultipleRoles ? (
+                <TimelineView
+                  roles={experience.roles}
+                  company={experience.company}
+                />
+              ) : (
+                <Box
+                  sx={{
+                    mt: 3,
+                    pt: 3,
+                    borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                  }}
+                >
+                  {/* Single role detailed view */}
+                  {currentRole?.responsibilities && (
+                    <>
+                      <Typography
+                        variant="h6"
+                        sx={{ fontWeight: 600, mb: 2, color: 'text.primary' }}
+                      >
+                        Key Responsibilities:
+                      </Typography>
+                      <Box sx={{ mb: 3 }}>
+                        {currentRole.responsibilities.map(
+                          (responsibility, index) => (
+                            <Box
+                              key={index}
+                              sx={{
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: 1,
+                                mb: 1,
+                              }}
+                            >
+                              <CheckCircle
+                                sx={{
+                                  fontSize: 16,
+                                  color: 'primary.main',
+                                  mt: 0.2,
+                                  flexShrink: 0,
+                                }}
+                              />
+                              <Typography
+                                variant="body2"
+                                sx={{
+                                  color: 'text.secondary',
+                                  lineHeight: 1.6,
+                                }}
+                              >
+                                {responsibility}
+                              </Typography>
+                            </Box>
+                          )
+                        )}
+                      </Box>
+                    </>
+                  )}
+
+                  {currentRole?.achievements && (
+                    <>
+                      <Typography
+                        variant="h6"
+                        sx={{ fontWeight: 600, mb: 2, color: 'text.primary' }}
+                      >
+                        Key Achievements:
+                      </Typography>
+                      <Box>
+                        {currentRole.achievements.map((achievement, index) => (
+                          <Box
+                            key={index}
+                            sx={{
+                              display: 'flex',
+                              alignItems: 'flex-start',
+                              gap: 1,
+                              mb: 1,
+                            }}
+                          >
+                            <TrendingUp
+                              sx={{
+                                fontSize: 16,
+                                color: 'secondary.main',
+                                mt: 0.2,
+                                flexShrink: 0,
+                              }}
+                            />
+                            <Typography
+                              variant="body2"
+                              sx={{ color: 'text.secondary', lineHeight: 1.6 }}
+                            >
+                              {achievement}
+                            </Typography>
+                          </Box>
+                        ))}
+                      </Box>
+                    </>
+                  )}
+                </Box>
+              )}
+            </Collapse>
+          </CardContent>
+        </Card>
+      </motion.div>
+    );
+  };
 
   const EducationCard = ({ education, index }) => (
     <motion.div
@@ -522,13 +906,16 @@ const ExperienceSection = () => {
             sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, mb: 3 }}
           >
             <Avatar
+              src={education.logo}
               sx={{
                 width: 60,
                 height: 60,
-                background: 'linear-gradient(45deg, #1976d2, #00e676)',
+                background: education.logo
+                  ? 'transparent'
+                  : 'linear-gradient(45deg, #1976d2, #00e676)',
               }}
             >
-              {education.icon}
+              {!education.logo && education.icon}
             </Avatar>
             <Box sx={{ flex: 1 }}>
               <Typography
@@ -573,15 +960,21 @@ const ExperienceSection = () => {
                     {education.duration}
                   </Typography>
                 </Box>
-                <Chip
-                  label={`GPA: ${education.gpa}`}
-                  size="small"
-                  sx={{
-                    backgroundColor: 'rgba(25, 118, 210, 0.2)',
-                    color: 'secondary.main',
-                    fontWeight: 500,
-                  }}
-                />
+                {(education.gpa || education.grade) && (
+                  <Chip
+                    label={
+                      education.gpa
+                        ? `GPA: ${education.gpa}`
+                        : `Grade: ${education.grade}`
+                    }
+                    size="small"
+                    sx={{
+                      backgroundColor: 'rgba(25, 118, 210, 0.2)',
+                      color: 'secondary.main',
+                      fontWeight: 500,
+                    }}
+                  />
+                )}
               </Box>
             </Box>
           </Box>
@@ -724,15 +1117,18 @@ const ExperienceSection = () => {
         }}
       >
         <Avatar
+          src={certification.logo}
           sx={{
             width: 56,
             height: 56,
             mx: 'auto',
             mb: 2,
-            background: 'linear-gradient(45deg, #ff9800, #f57c00)',
+            background: certification.logo
+              ? 'transparent'
+              : 'linear-gradient(45deg, #ff9800, #f57c00)',
           }}
         >
-          {certification.icon}
+          {!certification.logo && certification.icon}
         </Avatar>
         <Typography
           variant="h6"

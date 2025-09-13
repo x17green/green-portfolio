@@ -27,7 +27,6 @@ class StorageManager {
     } catch (e) {
       if (process.env.NODE_ENV === 'development') {
         // eslint-disable-next-line no-console
-
         console.warn('localStorage is not supported or available');
       }
       return false;
