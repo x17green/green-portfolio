@@ -42,11 +42,11 @@ export function register(config = {}) {
           // service worker/PWA documentation.
           navigator.serviceWorker.ready.then(() => {
             if (process.env.NODE_ENV === 'development') {
-              // // eslint-disable-next-line no-console
-              // console.log(
-              //              //   'This web app is being served cache-first by a service ' +
-              //              //   'worker. To learn more, visit https://cra.link/PWA'
-              //              // );
+              // eslint-disable-next-line no-console
+              console.log(
+                'This web app is being served cache-first by a service ' +
+                  'worker. To learn more, visit https://cra.link/PWA'
+              );
             }
           });
         } else {
@@ -165,10 +165,10 @@ function checkValidServiceWorker(swUrl, config) {
     })
     .catch(() => {
       if (process.env.NODE_ENV === 'development') {
-        // // eslint-disable-next-line no-console
-        // console.log(
-        //        //   'No internet connection found. App is running in offline mode.'
-        //        );
+        // eslint-disable-next-line no-console
+        console.log(
+          'No internet connection found. App is running in offline mode.'
+        );
       }
     });
 }

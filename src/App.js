@@ -21,7 +21,7 @@ import {
   ThemeErrorBoundary,
   useThemeMode,
 } from './theme/ThemeContext';
-import { initializeAnalytics, trackPageView } from './utils/analytics';
+import { initializeAnalytics, trackPageView } from './utils/gtmAnalytics';
 import { cleanup } from './utils/performance';
 
 // Lazy load components for better performance
@@ -70,9 +70,9 @@ const AppContent = () => {
       contentDelay: 200,
     });
 
-  // Initialize Google Analytics
+  // Initialize GTM Analytics
   useEffect(() => {
-    // Initialize analytics with user consent (you can add consent logic here)
+    // Initialize GTM analytics with user consent (you can add consent logic here)
     initializeAnalytics(true);
 
     // Track initial page view
