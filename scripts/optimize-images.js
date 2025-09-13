@@ -522,4 +522,5 @@ if (require.main === module) {
   });
 }
 
-module.exports = ImageOptimizer;
+export default ImageOptimizer;
+// module.exports = ImageOptimizer;

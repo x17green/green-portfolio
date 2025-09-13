@@ -355,8 +355,6 @@ class DataCache {
       localStorage.setItem(this.getStorageKey(), JSON.stringify(data));
     } catch (error) {
       // eslint-disable-next-line no-console
-
-      // eslint-disable-next-line no-console
       console.warn(`Failed to save cache ${this.name} to storage:`, error);
     }
   }
@@ -373,8 +371,6 @@ class DataCache {
         this.cleanup();
       }
     } catch (error) {
-      // eslint-disable-next-line no-console
-
       // eslint-disable-next-line no-console
       console.warn(`Failed to load cache ${this.name} from storage:`, error);
     }
